@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
-import { MapPin, Building, Users } from "lucide-react";
+import Image from "next/image";
 
 export default function StorySection() {
   const ref = useRef(null);
@@ -13,35 +13,24 @@ export default function StorySection() {
     <section ref={ref} className="py-24 bg-white">
       <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {/* Visual Element - Gradient Card with Icons */}
+          {/* Visual Element - Image with Overlay */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8 }}
             className="relative h-[400px] lg:h-[500px] rounded-2xl overflow-hidden shadow-2xl"
           >
-            <div className="absolute inset-0 bg-gradient-to-br from-[#0D9488] via-[#0f766e] to-[#111827]" />
-            <div className="absolute inset-0 flex flex-col items-center justify-center text-white p-8">
-              <div className="grid grid-cols-3 gap-6 mb-8">
-                <div className="flex flex-col items-center">
-                  <div className="w-16 h-16 rounded-full bg-white/20 flex items-center justify-center mb-3">
-                    <MapPin className="w-8 h-8" />
-                  </div>
-                  <span className="text-sm font-medium">Muğla</span>
-                </div>
-                <div className="flex flex-col items-center">
-                  <div className="w-16 h-16 rounded-full bg-white/20 flex items-center justify-center mb-3">
-                    <Building className="w-8 h-8" />
-                  </div>
-                  <span className="text-sm font-medium">Mimarlık</span>
-                </div>
-                <div className="flex flex-col items-center">
-                  <div className="w-16 h-16 rounded-full bg-white/20 flex items-center justify-center mb-3">
-                    <Users className="w-8 h-8" />
-                  </div>
-                  <span className="text-sm font-medium">Mühendislik</span>
-                </div>
-              </div>
+            <Image
+              src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?q=80&w=2070&auto=format&fit=crop"
+              alt="Modern mimari konut"
+              fill
+              className="object-cover"
+              sizes="(max-width: 1024px) 100vw, 50vw"
+            />
+            {/* Gradient Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-[#111827]/80 via-transparent to-transparent" />
+            {/* Quote at bottom */}
+            <div className="absolute bottom-0 left-0 right-0 p-8 text-white">
               <p
                 className="text-2xl md:text-3xl font-semibold text-center italic"
                 style={{ fontFamily: "'Playfair Display', serif" }}
