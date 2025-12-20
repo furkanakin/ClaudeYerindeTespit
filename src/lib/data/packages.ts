@@ -1,3 +1,11 @@
+export interface PackageAddOn {
+  id: string;
+  name: string;
+  description?: string;
+  price: number;
+  priceLabel: string;
+}
+
 export interface Package {
   id: string;
   title: string;
@@ -7,7 +15,9 @@ export interface Package {
   includes: string[];
   deliveryTime: string;
   price: string;
+  basePrice: number;
   extraServices?: string[];
+  addOns?: PackageAddOn[];
   isPopular?: boolean;
 }
 
@@ -33,9 +43,38 @@ export const packages: Package[] = [
     ],
     deliveryTime: "Max 2 iş günü",
     price: "3.850 TL + KDV",
+    basePrice: 3850,
+    addOns: [
+      {
+        id: "ek-gayrimenkul",
+        name: "Ek Gayrimenkul İncelemesi",
+        description: "Birden fazla gayrimenkul incelemesi (her biri için)",
+        price: 1200,
+        priceLabel: "+1.200 TL",
+      },
+      {
+        id: "online-20dk",
+        name: "Online Görüşme - 20 dk",
+        description: "Rapor hakkında kısa danışmanlık görüşmesi",
+        price: 900,
+        priceLabel: "+900 TL",
+      },
+      {
+        id: "online-40dk",
+        name: "Online Görüşme - 40 dk",
+        description: "Rapor hakkında detaylı danışmanlık görüşmesi",
+        price: 1200,
+        priceLabel: "+1.200 TL",
+      },
+      {
+        id: "online-60dk",
+        name: "Online Görüşme - 60 dk",
+        description: "Kapsamlı danışmanlık ve soru-cevap görüşmesi",
+        price: 1500,
+        priceLabel: "+1.500 TL",
+      },
+    ],
     extraServices: [
-      "Birden fazla gayrimenkul incelemesi: gayrimenkul başına +1.200 TL",
-      "Online görüşme: 20 dk - 900 TL, 40 dk - 1.200 TL, 60 dk - 1.500 TL",
       "Muğla dışı bölgeler için fiyat ayrıca belirlenir",
     ],
   },
@@ -64,9 +103,52 @@ export const packages: Package[] = [
     ],
     deliveryTime: "Saha ziyareti sonrası max 3 iş günü",
     price: "15.000 TL + KDV",
+    basePrice: 15000,
+    addOns: [
+      {
+        id: "drone-temel",
+        name: "Drone ile Görüntüleme - Temel",
+        description: "Havadan genel çekim ve fotoğraflama",
+        price: 2500,
+        priceLabel: "+2.500 TL",
+      },
+      {
+        id: "drone-kapsamli",
+        name: "Drone ile Görüntüleme - Kapsamlı",
+        description: "Detaylı havadan video ve fotoğraf çekimi",
+        price: 4500,
+        priceLabel: "+4.500 TL",
+      },
+      {
+        id: "ek-online-30dk",
+        name: "Ek Online Görüşme - 30 dk",
+        description: "60 dk üzeri ek danışmanlık görüşmesi",
+        price: 1000,
+        priceLabel: "+1.000 TL",
+      },
+      {
+        id: "ek-online-60dk",
+        name: "Ek Online Görüşme - 60 dk",
+        description: "60 dk üzeri detaylı ek danışmanlık görüşmesi",
+        price: 1800,
+        priceLabel: "+1.800 TL",
+      },
+      {
+        id: "ek-gayrimenkul-yerinde",
+        name: "Ek Gayrimenkul İncelemesi",
+        description: "Aynı bölgede ek gayrimenkul için yerinde inceleme",
+        price: 5000,
+        priceLabel: "+5.000 TL",
+      },
+      {
+        id: "hizli-teslimat",
+        name: "Hızlı Teslimat",
+        description: "Rapor teslimini 1 iş gününe indirin",
+        price: 3000,
+        priceLabel: "+3.000 TL",
+      },
+    ],
     extraServices: [
-      "Drone ile görüntüleme: Çalışmanın kapsamına göre fiyatlandırılır",
-      "60 dk üzeri online görüşme ek hizmete tabidir",
       "Muğla dışı bölgeler için fiyat ayrıca belirlenir",
     ],
     isPopular: true,
@@ -93,5 +175,43 @@ export const packages: Package[] = [
     ],
     deliveryTime: "Çalışmanın kapsamına göre belirlenir",
     price: "Kapsama göre belirlenir",
+    basePrice: 0,
+    addOns: [
+      {
+        id: "mimari-proje",
+        name: "Mimari Proje Çizimi",
+        description: "Avan proje veya uygulama projesi hazırlanması",
+        price: 0,
+        priceLabel: "Teklif alın",
+      },
+      {
+        id: "3d-modelleme",
+        name: "3D Modelleme ve Görselleştirme",
+        description: "Projenizin 3 boyutlu görselleştirilmesi",
+        price: 0,
+        priceLabel: "Teklif alın",
+      },
+      {
+        id: "imar-danismanlik",
+        name: "İmar Danışmanlığı",
+        description: "İmar değişikliği ve izin süreçleri danışmanlığı",
+        price: 0,
+        priceLabel: "Teklif alın",
+      },
+      {
+        id: "tadilat-danismanlik",
+        name: "Tadilat Proje Yönetimi",
+        description: "Tadilat sürecinin uçtan uca yönetimi",
+        price: 0,
+        priceLabel: "Teklif alın",
+      },
+      {
+        id: "coklu-gayrimenkul",
+        name: "Çoklu Gayrimenkul Karşılaştırması",
+        description: "Birden fazla seçenek için karşılaştırmalı analiz",
+        price: 0,
+        priceLabel: "Teklif alın",
+      },
+    ],
   },
 ];
