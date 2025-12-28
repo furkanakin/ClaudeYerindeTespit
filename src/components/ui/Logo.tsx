@@ -1,70 +1,33 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 
 interface LogoProps {
   className?: string;
-  showText?: boolean;
   size?: "sm" | "md" | "lg";
-  lightText?: boolean;
+  lightText?: boolean; // Kept for compatibility
+  showText?: boolean;  // Kept for compatibility
 }
 
-export default function Logo({ className, showText = true, size = "md", lightText = false }: LogoProps) {
+export default function Logo({ className, size = "md", lightText, showText }: LogoProps) {
   const sizes = {
-    sm: { icon: "w-8 h-8", text: "text-lg" },
-    md: { icon: "w-10 h-10", text: "text-xl" },
-    lg: { icon: "w-12 h-12", text: "text-2xl" },
+    sm: { width: 140, height: 40 },
+    md: { width: 180, height: 50 },
+    lg: { width: 220, height: 60 },
   };
 
   return (
-    <Link href="/" className={cn("flex items-center gap-3 group", className)}>
-      {/* House Icon */}
-      <div className={cn("relative", sizes[size].icon)}>
-        <svg
-          viewBox="0 0 40 40"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          className="w-full h-full"
-        >
-          {/* House shape */}
-          <path
-            d="M20 4L4 16V36H16V24H24V36H36V16L20 4Z"
-            fill="#8CC63F"
-            className="transition-colors group-hover:fill-[#7ab233]"
-          />
-          {/* Roof accent */}
-          <path
-            d="M20 4L4 16H8L20 7L32 16H36L20 4Z"
-            fill="#2C3E50"
-          />
-          {/* Window */}
-          <rect x="17" y="18" width="6" height="6" rx="1" fill="white" />
-        </svg>
-      </div>
-
-      {showText && (
-        <div className="flex flex-col leading-tight">
-          <span
-            className={cn(
-              "font-bold text-[#8CC63F] italic",
-              sizes[size].text
-            )}
-            style={{ fontFamily: 'var(--font-family-display)' }}
-          >
-            yerinde
-          </span>
-          <span
-            className={cn(
-              "font-semibold -mt-1",
-              lightText ? "text-white" : "text-[#2C3E50]",
-              size === "sm" ? "text-base" : size === "md" ? "text-lg" : "text-xl"
-            )}
-          >
-            analiz
-          </span>
-        </div>
-      )}
+    <Link href="/" className={cn("flex items-center group", className)}>
+      <Image
+        src="/images/logo-label.png"
+        alt="Yerinde Analiz Logo"
+        width={sizes[size].width}
+        height={sizes[size].height}
+        className="object-contain"
+        priority
+      />
     </Link>
   );
 }

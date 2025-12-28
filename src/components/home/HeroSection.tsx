@@ -29,21 +29,11 @@ export default function HeroSection() {
         <video
           autoPlay
           muted
+          loop
           playsInline
-          onPlay={(e) => {
-            // Video başladığında videoyu görünür yapabiliriz (opsiyonel)
-            e.currentTarget.style.opacity = "1";
-          }}
-          onEnded={(e) => {
-            const video = e.currentTarget;
-            video.style.opacity = "0";
-          }}
-          onError={(e) => {
-            // Video yüklenemezse gizle
-            e.currentTarget.style.display = "none";
-          }}
-          className="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 z-0 opacity-0"
+          className="absolute inset-0 w-full h-full object-cover z-0"
         >
+          <source src="/images/hero-video.webm" type="video/webm" />
           <source src="/images/hero-video.mov" type="video/quicktime" />
           <source src="/images/hero-video.mp4" type="video/mp4" />
         </video>
