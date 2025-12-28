@@ -7,11 +7,10 @@ import { cn } from "@/lib/utils";
 interface LogoProps {
   className?: string;
   size?: "sm" | "md" | "lg";
-  lightText?: boolean; // Kept for compatibility
-  showText?: boolean;  // Kept for compatibility
+  lightText?: boolean;
 }
 
-export default function Logo({ className, size = "md", lightText, showText }: LogoProps) {
+export default function Logo({ className, size = "md", lightText }: LogoProps) {
   const sizes = {
     sm: { width: 140, height: 40 },
     md: { width: 180, height: 50 },
@@ -21,11 +20,14 @@ export default function Logo({ className, size = "md", lightText, showText }: Lo
   return (
     <Link href="/" className={cn("flex items-center group", className)}>
       <Image
-        src="/images/logo-label.png"
+        src="/images/logo-transparent.png"
         alt="Yerinde Analiz Logo"
         width={sizes[size].width}
         height={sizes[size].height}
-        className="object-contain"
+        className={cn(
+          "object-contain transition-all duration-300",
+          lightText && "brightness-0 invert active:brightness-0 active:invert"
+        )}
         priority
       />
     </Link>

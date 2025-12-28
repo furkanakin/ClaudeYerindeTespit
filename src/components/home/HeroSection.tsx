@@ -31,7 +31,7 @@ export default function HeroSection() {
           muted
           loop
           playsInline
-          className="absolute inset-0 w-full h-full object-cover z-0"
+          className="absolute inset-0 w-full h-full object-cover z-[1]"
         >
           <source src="/images/hero-video.webm" type="video/webm" />
           <source src="/images/hero-video.mov" type="video/quicktime" />
@@ -40,10 +40,10 @@ export default function HeroSection() {
       </div>
 
       {/* Dark Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[#2C3E50]/90 via-[#7ab233]/80 to-[#8CC63F]/70 z-1" />
+      <div className="absolute inset-0 bg-gradient-to-br from-[#2C3E50]/90 via-[#7ab233]/80 to-[#8CC63F]/70 z-[2]" />
 
       {/* Additional dark overlay for better text readability */}
-      <div className="absolute inset-0 bg-black/30 z-1" />
+      <div className="absolute inset-0 bg-black/30 z-[3]" />
 
       {/* Content */}
       <div className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white pt-20">
