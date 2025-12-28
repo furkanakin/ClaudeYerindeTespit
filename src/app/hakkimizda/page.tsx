@@ -16,7 +16,7 @@ export default function HakkimizdaPage() {
         <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">Hakkımızda</h1>
           <p className="text-xl text-white/80 max-w-2xl mx-auto">
-            Bağımsız ve tarafsız bilgi hizmeti sunan bir danışmanlık platformu
+            Mimarlık ve mühendislik temelli, bağımsız ve tarafsız bilgi hizmeti sunan bir danışmanlık platformu
           </p>
         </div>
       </section>

@@ -27,7 +27,7 @@ export const packages: Package[] = [
     title: "Ön Analiz",
     subtitle: "Temel Paket",
     description:
-      "Gayrimenkul alımında karar sürecinin ilk adımıdır. Bir yerle ilgili uygunluk, potansiyel ve riskleri masa başı araştırmayla temel verilerle değerlendirir.",
+      "Gayrimenkul alım kararınızda riskleri minimuma indiren temel inceleme paketi.",
     forWhom: [
       'Henüz bir yerle ilgilenme aşamasında olan ve "Bu arsa ya da konut değerlendirmeye değer mi?" sorusuna yanıt arayanlar',
       '"Bu yer beklentilerimi karşılıyor mu?" sorusuna hızlı cevap arayanlar',
@@ -83,7 +83,7 @@ export const packages: Package[] = [
     title: "Yerinde Analiz",
     subtitle: "Kapsamlı Paket",
     description:
-      "Ön analiz verilerini sahadaki gözlemlerle birleştirir ve daha somut bir karar zemini sunar.",
+      "Mimari ve teknik detayları içeren ön analiz verilerini sahadaki gözlemlerle birleştiren ve daha kapsamlı hazırlanmış raporlama hizmeti",
     forWhom: [
       "Bir yerle ciddi şekilde ilgilenen ama karar vermekte güçlük yaşayanlar",
       "'Bu arsada ne yapabilirim?' sorusuna net bir cevap arayanlar",
@@ -155,17 +155,17 @@ export const packages: Package[] = [
   },
   {
     id: "ozel-danismanlik",
-    title: "Özel Yerinde Analiz",
+    title: "Danışmanlık",
     subtitle: "Premium Danışmanlık",
     description:
-      "Standart paketlerin dışında kalan tamamen kişiselleştirilmiş, esnek ve kapsamı birlikte belirlenen bir çalışmadır.",
+      "Standart paketlerin dışında kalan tamamen kişiselleştirilmiş, esnek ve kapsamı birlikte belirlenebilen bir çalışmadır.",
     forWhom: [
       '"Paketlerden birine tam uymuyorum ama özel bir ihtiyacım var" diyenler',
       "Daha kapsamlı, uzun soluklu veya karışık bir karar süreci olanlar",
       "İmar değişikliği ihtimali, özel izinler, ileri düzey mimari/teknik görüş gereken durumlar",
       "Mimari/teknik açıdan daha derin değerlendirme isteyenler",
       "Yatırımcılar (birden fazla seçenek analiz edenler, karşılaştırma ve bütüncül değerlendirmeler isteyenler)",
-      "Mimari tasarım ve mühendislik hizmetleri isteyenler",
+      "Mimari tasarım and mühendislik hizmetleri isteyenler",
     ],
     includes: [
       "Kişiye özel danışmanlık: yer seçimi, tadilat işleri, mimari ve teknik görüşme",

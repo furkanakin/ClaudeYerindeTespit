@@ -67,24 +67,22 @@ export default function ServicesGrid() {
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: index * 0.15, duration: 0.6 }}
             >
-              <Card className="h-full p-8">
-                <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 w-14 h-14 rounded-xl bg-[#0D9488]/10 flex items-center justify-center">
-                    <service.icon className="w-7 h-7 text-[#0D9488]" />
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-bold text-[#111827] mb-3">
-                      {service.title}
-                    </h3>
-                    <p className="text-[#6B7280] leading-relaxed mb-3">
-                      {service.description}
+              <Card className="h-full p-8 text-center flex flex-col items-center">
+                <div className="w-16 h-16 rounded-xl bg-[#0D9488]/10 flex items-center justify-center mb-6">
+                  <service.icon className="w-8 h-8 text-[#0D9488]" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-[#111827] mb-3">
+                    {service.title}
+                  </h3>
+                  <p className="text-[#6B7280] leading-relaxed mb-3">
+                    {service.description}
+                  </p>
+                  {service.highlight && (
+                    <p className="text-[#0D9488] font-medium">
+                      {service.highlight}
                     </p>
-                    {service.highlight && (
-                      <p className="text-[#0D9488] font-medium">
-                        {service.highlight}
-                      </p>
-                    )}
-                  </div>
+                  )}
                 </div>
               </Card>
             </motion.div>

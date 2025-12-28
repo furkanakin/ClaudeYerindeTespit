@@ -16,23 +16,38 @@ export default function HeroSection() {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background Image */}
+      {/* Background Media */}
       <div className="absolute inset-0">
+        <video
+          autoPlay
+          muted
+          playsInline
+          onEnded={(e) => {
+            const video = e.currentTarget;
+            video.style.opacity = "0";
+            const img = video.nextElementSibling as HTMLImageElement;
+            if (img) img.style.opacity = "1";
+          }}
+          className="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 z-0"
+        >
+          <source src="/images/hero-video.mov" type="video/quicktime" />
+          <source src="/images/hero-video.mp4" type="video/mp4" />
+        </video>
         <Image
-          src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=2532&auto=format&fit=crop"
-          alt="Muğla manzarası - zeytinlik ve tarla"
+          src="/images/hero-image.jpg"
+          alt="Muğla manzarası"
           fill
-          className="object-cover"
+          className="object-cover transition-opacity duration-1000 opacity-0 z-0"
           priority
-          quality={85}
+          quality={90}
         />
       </div>
 
       {/* Dark Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[#111827]/90 via-[#0f4a46]/80 to-[#0D9488]/70" />
+      <div className="absolute inset-0 bg-gradient-to-br from-[#111827]/90 via-[#0f4a46]/80 to-[#0D9488]/70 z-1" />
 
       {/* Additional dark overlay for better text readability */}
-      <div className="absolute inset-0 bg-black/30" />
+      <div className="absolute inset-0 bg-black/30 z-1" />
 
       {/* Content */}
       <div className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white pt-20">
@@ -47,7 +62,7 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.6 }}
-            className="text-[#5eead4] text-lg md:text-xl font-medium mb-4"
+            className="text-[#5eead4] text-3xl md:text-4xl font-bold mb-4"
           >
             Muğla'da
           </motion.p>
@@ -65,16 +80,15 @@ export default function HeroSection() {
           </motion.h1>
 
           {/* Description */}
-          <motion.p
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6, duration: 0.6 }}
             className="text-lg md:text-xl text-gray-300 mb-10 max-w-2xl mx-auto"
           >
-            Gayrimenkul alım ve kiralama süreçlerinde yerinde tarafsız
-            incelemelerle kapsamlı bilgi sunuyoruz. Bağımsız analizlerle karar
-            sürecinizi destekliyoruz.
-          </motion.p>
+            <p className="mb-4">Gayrimenkul alım süreçlerinde tarafsız incelemelerle kapsamlı bilgi sunuyoruz.</p>
+            <p>Bağımsız analizlerle karar sürecinizi destekliyoruz.</p>
+          </motion.div>
 
           {/* CTA Button */}
           <motion.div

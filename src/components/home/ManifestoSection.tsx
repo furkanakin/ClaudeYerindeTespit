@@ -25,7 +25,7 @@ export default function ManifestoSection() {
             <span className="font-semibold">Yerinde Analiz</span>, yatırım
             sürecinizde uzun vadeli hedeflerinize en uygun yolu belirlemenize
             yardımcı olan, riskleri azaltan ve doğru kararları destekleyen
-            profesyonel bir yönlendirme hizmetidir.{" "}
+            profesyonel bir yönlendirme hizmetidir. <br />
             <span className="font-semibold">
               Arazi, konut veya proje seçimlerinde
             </span>{" "}

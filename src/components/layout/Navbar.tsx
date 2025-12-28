@@ -12,7 +12,7 @@ const navLinks = [
   { href: "/", label: "Ana Sayfa" },
   { href: "/hakkimizda", label: "Hakkımızda" },
   { href: "/paketler", label: "Paketler" },
-  { href: "/sss", label: "SSS" },
+  { href: "/sss", label: "Sıkça Sorulan Sorular" },
   { href: "/iletisim", label: "İletişim" },
 ];
 
@@ -63,7 +63,7 @@ export default function Navbar() {
                   key={link.href}
                   href={link.href}
                   className={cn(
-                    "text-sm font-medium transition-all duration-300 relative group",
+                    "text-sm font-bold transition-all duration-300 relative group",
                     isScrolled || !isHomePage
                       ? "text-[#111827] hover:text-[#0D9488]"
                       : "text-white hover:text-white/80",
@@ -138,7 +138,7 @@ export default function Navbar() {
                         href={link.href}
                         onClick={() => setIsMobileMenuOpen(false)}
                         className={cn(
-                          "block py-3 px-4 rounded-lg text-lg font-medium transition-colors",
+                          "block py-3 px-4 rounded-lg text-lg font-bold transition-colors",
                           pathname === link.href
                             ? "bg-[#0D9488]/10 text-[#0D9488]"
                             : "text-[#111827] hover:bg-gray-100"

@@ -25,8 +25,8 @@ export default function Footer() {
               yol arkadaşınız.
             </p>
             <p
-              className="text-[#0D9488] font-medium italic"
-              style={{ fontFamily: "'Playfair Display', serif" }}
+              className="text-[#0D9488] font-bold italic"
+              style={{ fontFamily: 'var(--font-family-display)' }}
             >
               Doğru bilgi → Bilinçli değerlendirme → İsabetli karar
             </p>

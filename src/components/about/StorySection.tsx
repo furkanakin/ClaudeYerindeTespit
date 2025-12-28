@@ -32,8 +32,8 @@ export default function StorySection() {
             {/* Quote at bottom */}
             <div className="absolute bottom-0 left-0 right-0 p-8 text-white">
               <p
-                className="text-2xl md:text-3xl font-semibold text-center italic"
-                style={{ fontFamily: "'Playfair Display', serif" }}
+                className="text-2xl md:text-3xl font-bold text-center italic"
+                style={{ fontFamily: 'var(--font-family-display)' }}
               >
                 "Doğru bilgi ile doğru karar"
               </p>
@@ -46,33 +46,31 @@ export default function StorySection() {
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#111827] mb-8">
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#111827] mb-8">
               Hikayemiz
             </h2>
 
             <div className="space-y-6 text-[#6B7280] leading-relaxed">
               <p>
-                Uzun yıllar mimarlık ve mühendislik alanlarında edindiğimiz
-                deneyimin ardından İstanbul'dan Muğla'ya taşındık. Kendi yer
-                arayışımız ve çevremize verdiğimiz destekler sırasında, pek çok
-                kişinin güvenilir ve tarafsız bilgiye ulaşmakta zorlandığını fark
-                ettik.
+                Uzun yıllar boyunca mimarlık ve mühendislik alanlarında edindiğimiz profesyonel deneyimin ardından İstanbul’dan Muğla’ya taşındık. Hem kendi yer arayışımızda hem de çevremize destek verdiğimiz dönemlerde fark ettik ki, birçok kişi çoğu zaman güvenilir bilgiye, tarafsız değerlendirmeye ve profesyonel bakış açısına ulaşmakta zorlanıyor.
               </p>
               <p className="text-[#0D9488] font-semibold text-lg">
-                Yerinde Analiz, bu ihtiyaçtan doğdu.
+                <span className="font-bold">Yerinde Analiz</span>, tam da bu ihtiyaçtan doğdu.
               </p>
               <p>
-                Bir bölgeyi, yapıyı ya da arsayı; mimari, kentsel, çevresel,
-                teknik ve hukuki yönleriyle bütüncül biçimde inceliyor, elde
-                edilen verileri anlaşılır ve yol gösterici raporlara
-                dönüştürüyoruz. Amacımız ne yapılması gerektiğini söylemek değil,
-                doğru kararı verebilmek için sağlam bir bilgi zemini sunmak.
+                Bir bölgenin, yapının veya arsanın görünen ve görünmeyen tüm yönlerini titizlikle inceliyoruz. Mimari, kentsel, çevresel, teknik ve hukuki pek çok veriyi bir araya getirerek anlaşılır ve yol gösterici raporlara dönüştüren bir danışmanlık hizmeti sunuyoruz.
               </p>
               <p>
-                Satın alma, yatırım, yerleşme ya da yenileme süreçlerinde ihtiyaç
-                duyulan bilgileri açık ve uygulanabilir şekilde aktarırken, talep
-                eden kullanıcılar için mimari ve mühendislik hizmetleriyle süreci
-                bütünsel olarak destekleyebiliyoruz.
+                Amacımız, gayrimenkul kararlarında kişiye “ne yapması gerektiğini söylemek” değil, kişinin <span className="font-bold">en doğru kararı verebilmesi için sağlam bir bilgi zemini oluşturmaktır.</span> Böylece satın alma, yatırım, yerleşme ya da yenileme kararlarında ihtiyaç duyulan bilgileri kapsamlı, anlaşılır ve uygulanabilir biçimde aktarıyoruz.
+              </p>
+              <p>
+                <span className="font-bold">Yerinde Analiz</span> danışmanlık hizmetleriyle “bilgiye ulaşmak zor” algısını değiştirerek herkes için güvenilir, profesyonel ve erişilebilir bir yol arkadaşlığı sunuyoruz.
+              </p>
+              <p>
+                Tüm bu analitik sürecin yanı sıra, ihtiyaç duyan kullanıcılar için mimari tasarım, uygulama ve mühendislik hizmetleriyle de süreci bütünsel olarak destekleyebiliyoruz.
+              </p>
+              <p className="text-[#111827] font-bold">
+                Yerinde Analiz, bağımsız ve tarafsız bilgi hizmeti sunan bir danışmanlık platformudur.
               </p>
             </div>
 
@@ -80,13 +78,8 @@ export default function StorySection() {
             <div className="mt-10 p-6 bg-[#F9FAFB] rounded-2xl border-l-4 border-[#0D9488]">
               <p
                 className="text-xl md:text-2xl font-semibold text-[#111827]"
-                style={{ fontFamily: "'Playfair Display', serif" }}
               >
                 Doğru bilgi → Bilinçli değerlendirme → İsabetli karar
-              </p>
-              <p className="text-[#6B7280] mt-2">
-                Yerinde Analiz, bağımsız ve tarafsız bilgi hizmeti sunan bir
-                danışmanlık platformudur.
               </p>
             </div>
           </motion.div>

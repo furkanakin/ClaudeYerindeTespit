@@ -13,8 +13,8 @@
   --color-text-light: #6B7280;
   --color-text-muted: #9CA3AF;
 
-  --font-family-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
-  --font-family-display: 'Playfair Display', ui-serif, Georgia, serif;
+  --font-family-sans: var(--font-inter), 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-family-display: var(--font-outfit), 'Outfit', ui-serif, Georgia, serif;
 }
 
 @layer base {
