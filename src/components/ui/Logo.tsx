@@ -12,9 +12,9 @@ interface LogoProps {
 
 export default function Logo({ className, size = "md", lightText }: LogoProps) {
   const sizes = {
-    sm: { width: 140, height: 40 },
-    md: { width: 180, height: 50 },
-    lg: { width: 220, height: 60 },
+    sm: { width: 80, height: 40 },
+    md: { width: 100, height: 50 },
+    lg: { width: 140, height: 70 },
   };
 
   return (
