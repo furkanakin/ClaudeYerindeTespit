@@ -12,7 +12,7 @@ export default function ManifestoSection() {
     <section
       id="manifesto"
       ref={ref}
-      className="py-20 bg-gradient-to-r from-[#0D9488] to-[#0F766E]"
+      className="py-20 bg-gradient-to-r from-[#8CC63F] to-[#7ab233]"
     >
       <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div

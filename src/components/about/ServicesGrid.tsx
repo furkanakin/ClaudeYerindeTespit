@@ -54,8 +54,8 @@ export default function ServicesGrid() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#111827] mb-4">
-            Neler <span className="text-[#0D9488]">Yapıyoruz</span>?
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#2C3E50] mb-4">
+            Neler <span className="text-[#8CC63F]">Yapıyoruz</span>?
           </h2>
         </motion.div>
 
@@ -68,18 +68,18 @@ export default function ServicesGrid() {
               transition={{ delay: index * 0.15, duration: 0.6 }}
             >
               <Card className="h-full p-8 text-center flex flex-col items-center">
-                <div className="w-16 h-16 rounded-xl bg-[#0D9488]/10 flex items-center justify-center mb-6">
-                  <service.icon className="w-8 h-8 text-[#0D9488]" />
+                <div className="w-16 h-16 rounded-xl bg-[#8CC63F]/10 flex items-center justify-center mb-6">
+                  <service.icon className="w-8 h-8 text-[#8CC63F]" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold text-[#111827] mb-3">
+                  <h3 className="text-xl font-bold text-[#2C3E50] mb-3">
                     {service.title}
                   </h3>
                   <p className="text-[#6B7280] leading-relaxed mb-3">
                     {service.description}
                   </p>
                   {service.highlight && (
-                    <p className="text-[#0D9488] font-medium">
+                    <p className="text-[#8CC63F] font-medium">
                       {service.highlight}
                     </p>
                   )}

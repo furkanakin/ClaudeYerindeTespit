@@ -57,7 +57,7 @@ export default function Modal({
             >
               {title && (
                 <div className="flex items-center justify-between p-6 border-b border-gray-100">
-                  <h2 className="text-2xl font-bold text-[#111827]">{title}</h2>
+                  <h2 className="text-2xl font-bold text-[#2C3E50]">{title}</h2>
                   <button
                     onClick={onClose}
                     className="p-2 rounded-full hover:bg-gray-100 transition-colors"

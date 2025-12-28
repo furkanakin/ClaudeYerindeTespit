@@ -44,7 +44,7 @@ export default function HeroSection() {
       </div>
 
       {/* Dark Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[#111827]/90 via-[#0f4a46]/80 to-[#0D9488]/70 z-1" />
+      <div className="absolute inset-0 bg-gradient-to-br from-[#2C3E50]/90 via-[#7ab233]/80 to-[#8CC63F]/70 z-1" />
 
       {/* Additional dark overlay for better text readability */}
       <div className="absolute inset-0 bg-black/30 z-1" />
@@ -62,7 +62,7 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.6 }}
-            className="text-[#5eead4] text-3xl md:text-4xl font-bold mb-4"
+            className="text-[#a3d95b] text-3xl md:text-4xl font-bold mb-4"
           >
             Muğla'da
           </motion.p>
@@ -75,7 +75,7 @@ export default function HeroSection() {
             className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight"
           >
             Gayrimenkul Yatırımlarınız İçin{" "}
-            <span className="text-[#5eead4]">Bağımsız, Teknik, Detaylı</span>{" "}
+            <span className="text-[#a3d95b]">Bağımsız, Teknik, Detaylı</span>{" "}
             İncelemeler
           </motion.h1>
 

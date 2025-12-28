@@ -13,7 +13,7 @@ const quickLinks = [
 
 export default function Footer() {
   return (
-    <footer className="bg-[#111827] text-white">
+    <footer className="bg-[#2C3E50] text-white">
       <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Logo & Description */}
@@ -25,7 +25,7 @@ export default function Footer() {
               yol arkadaşınız.
             </p>
             <p
-              className="text-[#0D9488] font-bold italic"
+              className="text-[#8CC63F] font-bold italic"
               style={{ fontFamily: 'var(--font-family-display)' }}
             >
               Doğru bilgi → Bilinçli değerlendirme → İsabetli karar
@@ -40,7 +40,7 @@ export default function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-gray-400 hover:text-[#0D9488] transition-colors"
+                    className="text-gray-400 hover:text-[#8CC63F] transition-colors"
                   >
                     {link.label}
                   </Link>
@@ -56,14 +56,14 @@ export default function Footer() {
               <li>
                 <a
                   href="mailto:info@yerindeanaliz.com"
-                  className="flex items-center gap-3 text-gray-400 hover:text-[#0D9488] transition-colors"
+                  className="flex items-center gap-3 text-gray-400 hover:text-[#8CC63F] transition-colors"
                 >
-                  <Mail className="w-5 h-5 text-[#0D9488]" />
+                  <Mail className="w-5 h-5 text-[#8CC63F]" />
                   info@yerindeanaliz.com
                 </a>
               </li>
               <li className="flex items-center gap-3 text-gray-400">
-                <MapPin className="w-5 h-5 text-[#0D9488]" />
+                <MapPin className="w-5 h-5 text-[#8CC63F]" />
                 Muğla, Türkiye
               </li>
             </ul>
@@ -77,10 +77,10 @@ export default function Footer() {
               © {new Date().getFullYear()} Yerinde Analiz - Tüm Hakları Saklıdır
             </p>
             <div className="flex items-center gap-6 text-sm text-gray-500">
-              <Link href="/gizlilik" className="hover:text-[#0D9488] transition-colors">
+              <Link href="/gizlilik" className="hover:text-[#8CC63F] transition-colors">
                 Gizlilik Politikası
               </Link>
-              <Link href="/kullanim-kosullari" className="hover:text-[#0D9488] transition-colors">
+              <Link href="/kullanim-kosullari" className="hover:text-[#8CC63F] transition-colors">
                 Kullanım Koşulları
               </Link>
             </div>

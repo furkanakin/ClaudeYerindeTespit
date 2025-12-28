@@ -30,13 +30,13 @@ export default function Logo({ className, showText = true, size = "md", lightTex
           {/* House shape */}
           <path
             d="M20 4L4 16V36H16V24H24V36H36V16L20 4Z"
-            fill="#0D9488"
-            className="transition-colors group-hover:fill-[#0F766E]"
+            fill="#8CC63F"
+            className="transition-colors group-hover:fill-[#7ab233]"
           />
           {/* Roof accent */}
           <path
             d="M20 4L4 16H8L20 7L32 16H36L20 4Z"
-            fill="#0F766E"
+            fill="#2C3E50"
           />
           {/* Window */}
           <rect x="17" y="18" width="6" height="6" rx="1" fill="white" />
@@ -47,17 +47,17 @@ export default function Logo({ className, showText = true, size = "md", lightTex
         <div className="flex flex-col leading-tight">
           <span
             className={cn(
-              "font-bold text-[#0D9488] italic",
+              "font-bold text-[#8CC63F] italic",
               sizes[size].text
             )}
-            style={{ fontFamily: "'Playfair Display', serif" }}
+            style={{ fontFamily: 'var(--font-family-display)' }}
           >
             yerinde
           </span>
           <span
             className={cn(
               "font-semibold -mt-1",
-              lightText ? "text-white" : "text-[#111827]",
+              lightText ? "text-white" : "text-[#2C3E50]",
               size === "sm" ? "text-base" : size === "md" ? "text-lg" : "text-xl"
             )}
           >

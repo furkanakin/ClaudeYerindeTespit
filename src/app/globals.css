@@ -1,15 +1,15 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #0D9488;
-  --color-primary-dark: #0F766E;
-  --color-primary-light: #14B8A6;
-  --color-secondary: #111827;
-  --color-secondary-light: #1F2937;
-  --color-accent: #10B981;
+  --color-primary: #8CC63F;
+  --color-primary-dark: #7ab233;
+  --color-primary-light: #9ed454;
+  --color-secondary: #2C3E50;
+  --color-secondary-light: #34495E;
+  --color-accent: #a3d95b;
   --color-background: #FFFFFF;
   --color-background-alt: #F9FAFB;
-  --color-text: #1F2937;
+  --color-text: #34495E;
   --color-text-light: #6B7280;
   --color-text-muted: #9CA3AF;
 
@@ -61,16 +61,14 @@
   }
 
   .hero-overlay {
-    background: linear-gradient(
-      to bottom,
-      rgba(17, 24, 39, 0.7) 0%,
-      rgba(17, 24, 39, 0.5) 50%,
-      rgba(17, 24, 39, 0.8) 100%
-    );
+    background: linear-gradient(to bottom,
+        rgba(44, 62, 80, 0.7) 0%,
+        rgba(44, 62, 80, 0.5) 50%,
+        rgba(44, 62, 80, 0.8) 100%);
   }
 
   .hero-gradient {
-    background: linear-gradient(135deg, #0D9488 0%, #065f46 50%, #111827 100%);
+    background: linear-gradient(135deg, #8CC63F 0%, #7ab233 50%, #2C3E50 100%);
   }
 
   .text-gradient {
@@ -86,11 +84,25 @@
 }
 
 @layer utilities {
-  .delay-100 { animation-delay: 100ms; }
-  .delay-200 { animation-delay: 200ms; }
-  .delay-300 { animation-delay: 300ms; }
-  .delay-400 { animation-delay: 400ms; }
-  .delay-500 { animation-delay: 500ms; }
+  .delay-100 {
+    animation-delay: 100ms;
+  }
+
+  .delay-200 {
+    animation-delay: 200ms;
+  }
+
+  .delay-300 {
+    animation-delay: 300ms;
+  }
+
+  .delay-400 {
+    animation-delay: 400ms;
+  }
+
+  .delay-500 {
+    animation-delay: 500ms;
+  }
 }
 
 /* Custom Scrollbar */

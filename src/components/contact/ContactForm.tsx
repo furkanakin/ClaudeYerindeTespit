@@ -74,8 +74,8 @@ export default function ContactForm() {
   };
 
   const inputClassName =
-    "w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-[#0D9488] focus:ring-2 focus:ring-[#0D9488]/20 outline-none transition-all";
-  const labelClassName = "block text-sm font-medium text-[#111827] mb-2";
+    "w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-[#8CC63F] focus:ring-2 focus:ring-[#8CC63F]/20 outline-none transition-all";
+  const labelClassName = "block text-sm font-medium text-[#2C3E50] mb-2";
   const errorClassName = "text-red-500 text-sm mt-1";
 
   return (

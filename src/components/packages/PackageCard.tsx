@@ -15,13 +15,13 @@ export default function PackageCard({ package_, onSelect }: PackageCardProps) {
     <div
       className={cn(
         "relative bg-white rounded-2xl shadow-lg border border-gray-100 transition-all duration-300 hover:shadow-xl hover:-translate-y-2 overflow-hidden h-full flex flex-col",
-        package_.isPopular && "ring-2 ring-[#0D9488]"
+        package_.isPopular && "ring-2 ring-[#8CC63F]"
       )}
     >
       {/* Popular Badge */}
       {package_.isPopular && (
         <div className="absolute top-0 right-0">
-          <div className="bg-[#0D9488] text-white px-4 py-1.5 text-xs font-bold rounded-bl-xl flex items-center gap-1 uppercase tracking-wider">
+          <div className="bg-[#8CC63F] text-white px-4 py-1.5 text-xs font-bold rounded-bl-xl flex items-center gap-1 uppercase tracking-wider">
             <Star className="w-3 h-3 fill-current" />
             En Çok Tercih Edilen
           </div>
@@ -32,7 +32,7 @@ export default function PackageCard({ package_, onSelect }: PackageCardProps) {
         {/* Header */}
         <div className="mb-6">
           <h3
-            className="text-3xl font-bold text-[#111827] mb-4"
+            className="text-3xl font-bold text-[#2C3E50] mb-4"
             style={{ fontFamily: 'var(--font-family-display)' }}
           >
             {package_.title}
@@ -46,14 +46,14 @@ export default function PackageCard({ package_, onSelect }: PackageCardProps) {
         <div className="space-y-4 mb-8 flex-grow">
           {package_.includes.slice(0, 5).map((item, index) => (
             <div key={index} className="flex items-start gap-3">
-              <div className="flex-shrink-0 w-5 h-5 rounded-full bg-[#0D9488]/10 flex items-center justify-center mt-0.5">
-                <Check className="w-3 h-3 text-[#0D9488]" />
+              <div className="flex-shrink-0 w-5 h-5 rounded-full bg-[#8CC63F]/10 flex items-center justify-center mt-0.5">
+                <Check className="w-3 h-3 text-[#8CC63F]" />
               </div>
               <span className="text-sm text-[#4B5563]">{item}</span>
             </div>
           ))}
           {package_.includes.length > 5 && (
-            <p className="text-sm text-[#0D9488] font-medium pl-8">
+            <p className="text-sm text-[#8CC63F] font-medium pl-8">
               +{package_.includes.length - 5} özellik daha
             </p>
           )}

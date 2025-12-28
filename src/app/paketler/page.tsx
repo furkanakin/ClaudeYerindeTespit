@@ -4,7 +4,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { packages, Package } from "@/lib/data/packages";
 import PackageCard from "@/components/packages/PackageCard";
-import PackageModal from "@/components/packages/PackageModal";
+import PackageConfigurator from "@/components/packages/PackageConfigurator";
 
 export default function PaketlerPage() {
   const [selectedPackage, setSelectedPackage] = useState<Package | null>(null);
@@ -12,7 +12,7 @@ export default function PaketlerPage() {
   return (
     <div className="pt-20">
       {/* Page Header */}
-      <section className="py-16 bg-gradient-to-r from-[#0D9488] to-[#0F766E]">
+      <section className="py-16 bg-gradient-to-r from-[#8CC63F] to-[#7ab233]">
         <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">Paketlerimiz</h1>
           <p className="text-xl text-white/80 max-w-2xl mx-auto">
@@ -54,7 +54,7 @@ export default function PaketlerPage() {
               </p>
               <p className="text-sm text-[#9CA3AF]">
                 Detaylı bilgi ve özel talepleriniz için{" "}
-                <a href="/iletisim" className="text-[#0D9488] font-medium hover:underline">
+                <a href="/iletisim" className="text-[#8CC63F] font-medium hover:underline">
                   iletişime geçin
                 </a>
                 .
@@ -64,9 +64,9 @@ export default function PaketlerPage() {
         </div>
       </section>
 
-      {/* Package Modal */}
-      <PackageModal
-        package_={selectedPackage}
+      {/* Package Configurator Modal */}
+      <PackageConfigurator
+        packageData={selectedPackage}
         isOpen={!!selectedPackage}
         onClose={() => setSelectedPackage(null)}
       />

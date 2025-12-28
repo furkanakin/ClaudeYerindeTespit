@@ -34,7 +34,7 @@ function AccordionItem({
         <span
           className={cn(
             "text-lg font-medium pr-8 transition-colors",
-            isOpen ? "text-[#0D9488]" : "text-[#111827] group-hover:text-[#0D9488]"
+            isOpen ? "text-[#8CC63F]" : "text-[#2C3E50] group-hover:text-[#8CC63F]"
           )}
         >
           {question}
@@ -44,7 +44,7 @@ function AccordionItem({
           transition={{ duration: 0.3 }}
           className={cn(
             "flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center transition-colors",
-            isOpen ? "bg-[#0D9488] text-white" : "bg-gray-100 text-gray-500"
+            isOpen ? "bg-[#8CC63F] text-white" : "bg-gray-100 text-gray-500"
           )}
         >
           <ChevronDown className="w-5 h-5" />

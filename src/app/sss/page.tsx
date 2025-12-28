@@ -14,7 +14,7 @@ export default function SSSPage() {
   return (
     <div className="pt-20">
       {/* Page Header */}
-      <section className="py-16 bg-gradient-to-r from-[#0D9488] to-[#0F766E]">
+      <section className="py-16 bg-gradient-to-r from-[#8CC63F] to-[#7ab233]">
         <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">
             Sıkça Sorulan Sorular

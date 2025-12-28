@@ -56,9 +56,9 @@ export default function WhyUsSection() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#111827] mb-4">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#2C3E50] mb-4">
             Neden{" "}
-            <span className="text-[#0D9488]">Yerinde Analiz</span>?
+            <span className="text-[#8CC63F]">Yerinde Analiz</span>?
           </h2>
         </motion.div>
 
@@ -82,17 +82,17 @@ export default function WhyUsSection() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
                   <div className="absolute bottom-4 left-4">
-                    <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-white/90 text-[#0D9488]">
+                    <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-white/90 text-[#8CC63F]">
                       <item.icon className="w-6 h-6" />
                     </div>
                   </div>
                 </div>
                 {/* Content */}
                 <div className="p-6 text-center">
-                  <h3 className="text-2xl font-bold text-[#111827] mb-2">
+                  <h3 className="text-2xl font-bold text-[#2C3E50] mb-2">
                     {item.title}
                   </h3>
-                  <p className="text-[#0D9488] font-medium mb-4">{item.subtitle}</p>
+                  <p className="text-[#8CC63F] font-medium mb-4">{item.subtitle}</p>
                   <p className="text-[#6B7280] leading-relaxed">
                     {item.description}
                   </p>

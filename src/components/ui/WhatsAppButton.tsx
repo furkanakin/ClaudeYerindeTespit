@@ -29,7 +29,7 @@ export default function WhatsAppButton() {
             className="absolute right-full mr-3 top-1/2 -translate-y-1/2 whitespace-nowrap"
           >
             <div className="bg-white rounded-lg shadow-lg px-4 py-2 border border-gray-100">
-              <p className="text-sm font-medium text-[#111827]">WhatsApp ile iletişime geçin</p>
+              <p className="text-sm font-medium text-[#2C3E50]">WhatsApp ile iletişime geçin</p>
               <p className="text-xs text-[#6B7280]">+90 536 306 02 03</p>
             </div>
             {/* Arrow */}

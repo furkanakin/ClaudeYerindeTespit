@@ -43,24 +43,24 @@ export default function FileUpload({ files, setFiles }: FileUploadProps) {
         className={cn(
           "border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-all",
           isDragActive
-            ? "border-[#0D9488] bg-[#0D9488]/5"
-            : "border-gray-200 hover:border-[#0D9488] hover:bg-[#0D9488]/5"
+            ? "border-[#8CC63F] bg-[#8CC63F]/5"
+            : "border-gray-200 hover:border-[#8CC63F] hover:bg-[#8CC63F]/5"
         )}
       >
         <input {...getInputProps()} />
         <Upload
           className={cn(
             "w-10 h-10 mx-auto mb-3",
-            isDragActive ? "text-[#0D9488]" : "text-gray-400"
+            isDragActive ? "text-[#8CC63F]" : "text-gray-400"
           )}
         />
         {isDragActive ? (
-          <p className="text-[#0D9488] font-medium">Dosyaları buraya bırakın...</p>
+          <p className="text-[#8CC63F] font-medium">Dosyaları buraya bırakın...</p>
         ) : (
           <div>
             <p className="text-[#6B7280]">
               Dosyaları sürükleyip bırakın veya{" "}
-              <span className="text-[#0D9488] font-medium">tıklayarak seçin</span>
+              <span className="text-[#8CC63F] font-medium">tıklayarak seçin</span>
             </p>
           </div>
         )}
@@ -75,9 +75,9 @@ export default function FileUpload({ files, setFiles }: FileUploadProps) {
               className="flex items-center justify-between p-3 bg-[#F9FAFB] rounded-lg"
             >
               <div className="flex items-center gap-3">
-                <File className="w-5 h-5 text-[#0D9488]" />
+                <File className="w-5 h-5 text-[#8CC63F]" />
                 <div>
-                  <p className="text-sm font-medium text-[#111827] truncate max-w-[200px]">
+                  <p className="text-sm font-medium text-[#2C3E50] truncate max-w-[200px]">
                     {file.name}
                   </p>
                   <p className="text-xs text-[#9CA3AF]">

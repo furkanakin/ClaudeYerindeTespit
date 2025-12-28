@@ -63,7 +63,7 @@ export default function PackageModal({
       <div className="space-y-6">
         {/* Subtitle & Description */}
         <div>
-          <span className="inline-block px-3 py-1 bg-[#0D9488]/10 text-[#0D9488] text-sm font-medium rounded-full mb-3">
+          <span className="inline-block px-3 py-1 bg-[#8CC63F]/10 text-[#8CC63F] text-sm font-medium rounded-full mb-3">
             {package_.subtitle}
           </span>
           <p className="text-[#6B7280]">{package_.description}</p>
@@ -71,14 +71,14 @@ export default function PackageModal({
 
         {/* For Whom */}
         <div>
-          <h4 className="flex items-center gap-2 text-lg font-semibold text-[#111827] mb-3">
-            <Users className="w-5 h-5 text-[#0D9488]" />
+          <h4 className="flex items-center gap-2 text-lg font-semibold text-[#2C3E50] mb-3">
+            <Users className="w-5 h-5 text-[#8CC63F]" />
             Kimler İçin?
           </h4>
           <ul className="space-y-2">
             {package_.forWhom.map((item, index) => (
               <li key={index} className="flex items-start gap-3 text-[#6B7280]">
-                <Check className="w-4 h-4 text-[#0D9488] flex-shrink-0 mt-1" />
+                <Check className="w-4 h-4 text-[#8CC63F] flex-shrink-0 mt-1" />
                 <span className="text-sm">{item}</span>
               </li>
             ))}
@@ -87,14 +87,14 @@ export default function PackageModal({
 
         {/* Includes */}
         <div>
-          <h4 className="flex items-center gap-2 text-lg font-semibold text-[#111827] mb-3">
-            <Check className="w-5 h-5 text-[#0D9488]" />
+          <h4 className="flex items-center gap-2 text-lg font-semibold text-[#2C3E50] mb-3">
+            <Check className="w-5 h-5 text-[#8CC63F]" />
             Neler İçerir?
           </h4>
           <ul className="space-y-2">
             {package_.includes.map((item, index) => (
               <li key={index} className="flex items-start gap-3 text-[#6B7280]">
-                <Check className="w-4 h-4 text-[#10B981] flex-shrink-0 mt-1" />
+                <Check className="w-4 h-4 text-[#a3d95b] flex-shrink-0 mt-1" />
                 <span className="text-sm">{item}</span>
               </li>
             ))}
@@ -104,8 +104,8 @@ export default function PackageModal({
         {/* Add-Ons Section */}
         {hasAddOns && (
           <div>
-            <h4 className="flex items-center gap-2 text-lg font-semibold text-[#111827] mb-3">
-              <Plus className="w-5 h-5 text-[#0D9488]" />
+            <h4 className="flex items-center gap-2 text-lg font-semibold text-[#2C3E50] mb-3">
+              <Plus className="w-5 h-5 text-[#8CC63F]" />
               Ek Hizmetler
             </h4>
             <p className="text-sm text-[#6B7280] mb-4">
@@ -132,9 +132,9 @@ export default function PackageModal({
               <Clock className="w-4 h-4" />
               <span className="text-sm">Teslim Süresi</span>
             </div>
-            <p className="font-semibold text-[#111827]">{package_.deliveryTime}</p>
+            <p className="font-semibold text-[#2C3E50]">{package_.deliveryTime}</p>
           </div>
-          <div className="bg-[#0D9488]/5 rounded-xl p-4 border border-[#0D9488]/20">
+          <div className="bg-[#8CC63F]/5 rounded-xl p-4 border border-[#8CC63F]/20">
             <div className="flex items-center gap-2 text-[#6B7280] mb-1">
               <span className="text-sm">
                 {hasFixedPrice ? "Toplam Fiyat" : "Fiyat"}
@@ -142,7 +142,7 @@ export default function PackageModal({
             </div>
             {hasFixedPrice ? (
               <div>
-                <p className="font-bold text-[#0D9488] text-lg">
+                <p className="font-bold text-[#8CC63F] text-lg">
                   {formatPrice(totalPrice)} TL + KDV
                 </p>
                 {addOnsTotal > 0 && (
@@ -152,17 +152,17 @@ export default function PackageModal({
                 )}
               </div>
             ) : (
-              <p className="font-bold text-[#0D9488] text-lg">{package_.price}</p>
+              <p className="font-bold text-[#8CC63F] text-lg">{package_.price}</p>
             )}
           </div>
         </div>
 
         {/* Selected Add-Ons Summary */}
         {hasFixedPrice && selectedAddOns.length > 0 && (
-          <div className="bg-[#0D9488]/5 rounded-xl p-4 border border-[#0D9488]/20">
+          <div className="bg-[#8CC63F]/5 rounded-xl p-4 border border-[#8CC63F]/20">
             <div className="flex items-center gap-2 mb-3">
-              <ShoppingCart className="w-5 h-5 text-[#0D9488]" />
-              <h5 className="font-semibold text-[#111827]">Seçilen Ek Hizmetler</h5>
+              <ShoppingCart className="w-5 h-5 text-[#8CC63F]" />
+              <h5 className="font-semibold text-[#2C3E50]">Seçilen Ek Hizmetler</h5>
             </div>
             <ul className="space-y-1">
               {package_.addOns
@@ -170,7 +170,7 @@ export default function PackageModal({
                 .map((addOn) => (
                   <li key={addOn.id} className="flex justify-between text-sm">
                     <span className="text-[#6B7280]">{addOn.name}</span>
-                    <span className="font-medium text-[#0D9488]">{addOn.priceLabel}</span>
+                    <span className="font-medium text-[#8CC63F]">{addOn.priceLabel}</span>
                   </li>
                 ))}
             </ul>
@@ -180,8 +180,8 @@ export default function PackageModal({
         {/* Extra Services / Notes */}
         {package_.extraServices && package_.extraServices.length > 0 && (
           <div>
-            <h4 className="flex items-center gap-2 text-lg font-semibold text-[#111827] mb-3">
-              <AlertCircle className="w-5 h-5 text-[#0D9488]" />
+            <h4 className="flex items-center gap-2 text-lg font-semibold text-[#2C3E50] mb-3">
+              <AlertCircle className="w-5 h-5 text-[#8CC63F]" />
               Notlar
             </h4>
             <ul className="space-y-2">
@@ -230,8 +230,8 @@ function AddOnItem({ addOn, isSelected, onToggle, hasFixedPrice }: AddOnItemProp
       className={cn(
         "w-full flex items-start gap-4 p-4 rounded-xl border-2 transition-all text-left",
         isSelected
-          ? "border-[#0D9488] bg-[#0D9488]/5"
-          : "border-gray-200 hover:border-[#0D9488]/50 hover:bg-gray-50"
+          ? "border-[#8CC63F] bg-[#8CC63F]/5"
+          : "border-gray-200 hover:border-[#8CC63F]/50 hover:bg-gray-50"
       )}
     >
       {/* Checkbox */}
@@ -239,7 +239,7 @@ function AddOnItem({ addOn, isSelected, onToggle, hasFixedPrice }: AddOnItemProp
         className={cn(
           "flex-shrink-0 w-6 h-6 rounded-md border-2 flex items-center justify-center transition-all mt-0.5",
           isSelected
-            ? "bg-[#0D9488] border-[#0D9488]"
+            ? "bg-[#8CC63F] border-[#8CC63F]"
             : "border-gray-300"
         )}
       >
@@ -252,7 +252,7 @@ function AddOnItem({ addOn, isSelected, onToggle, hasFixedPrice }: AddOnItemProp
           <div>
             <p className={cn(
               "font-medium",
-              isSelected ? "text-[#0D9488]" : "text-[#111827]"
+              isSelected ? "text-[#8CC63F]" : "text-[#2C3E50]"
             )}>
               {addOn.name}
             </p>
@@ -264,9 +264,9 @@ function AddOnItem({ addOn, isSelected, onToggle, hasFixedPrice }: AddOnItemProp
             className={cn(
               "flex-shrink-0 px-3 py-1 rounded-full text-sm font-semibold",
               isSelected
-                ? "bg-[#0D9488] text-white"
+                ? "bg-[#8CC63F] text-white"
                 : hasFixedPrice && addOn.price > 0
-                  ? "bg-[#0D9488]/10 text-[#0D9488]"
+                  ? "bg-[#8CC63F]/10 text-[#8CC63F]"
                   : "bg-gray-100 text-[#6B7280]"
             )}
           >

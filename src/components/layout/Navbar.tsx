@@ -65,15 +65,15 @@ export default function Navbar() {
                   className={cn(
                     "text-sm font-bold transition-all duration-300 relative group",
                     isScrolled || !isHomePage
-                      ? "text-[#111827] hover:text-[#0D9488]"
+                      ? "text-[#2C3E50] hover:text-[#8CC63F]"
                       : "text-white hover:text-white/80",
-                    pathname === link.href && "text-[#0D9488]"
+                    pathname === link.href && "text-[#8CC63F]"
                   )}
                 >
                   {link.label}
                   <span
                     className={cn(
-                      "absolute -bottom-1 left-0 h-0.5 bg-[#0D9488] transition-all duration-300",
+                      "absolute -bottom-1 left-0 h-0.5 bg-[#8CC63F] transition-all duration-300",
                       pathname === link.href ? "w-full" : "w-0 group-hover:w-full"
                     )}
                   />
@@ -87,7 +87,7 @@ export default function Navbar() {
               className={cn(
                 "lg:hidden p-2 rounded-lg transition-colors",
                 isScrolled || !isHomePage
-                  ? "text-[#111827] hover:bg-gray-100"
+                  ? "text-[#2C3E50] hover:bg-gray-100"
                   : "text-white hover:bg-white/10"
               )}
             >
@@ -140,8 +140,8 @@ export default function Navbar() {
                         className={cn(
                           "block py-3 px-4 rounded-lg text-lg font-bold transition-colors",
                           pathname === link.href
-                            ? "bg-[#0D9488]/10 text-[#0D9488]"
-                            : "text-[#111827] hover:bg-gray-100"
+                            ? "bg-[#8CC63F]/10 text-[#8CC63F]"
+                            : "text-[#2C3E50] hover:bg-gray-100"
                         )}
                       >
                         {link.label}

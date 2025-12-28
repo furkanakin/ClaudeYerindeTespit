@@ -39,11 +39,11 @@ export async function POST(request: NextRequest) {
   <style>
     body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
     .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-    .header { background: #0D9488; color: white; padding: 20px; text-align: center; border-radius: 8px 8px 0 0; }
+    .header { background: #8CC63F; color: white; padding: 20px; text-align: center; border-radius: 8px 8px 0 0; }
     .content { background: #f9fafb; padding: 20px; border-radius: 0 0 8px 8px; }
     .field { margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid #e5e7eb; }
     .field:last-child { border-bottom: none; }
-    .label { font-weight: bold; color: #0D9488; font-size: 14px; }
+    .label { font-weight: bold; color: #8CC63F; font-size: 14px; }
     .value { margin-top: 5px; }
     .footer { text-align: center; margin-top: 20px; font-size: 12px; color: #6b7280; }
   </style>
