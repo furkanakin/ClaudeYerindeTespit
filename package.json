@@ -19,6 +19,7 @@
     "react-dom": "19.2.3",
     "react-dropzone": "^14.3.8",
     "react-hook-form": "^7.69.0",
+    "sharp": "^0.33.5",
     "swiper": "^12.0.3",
     "tailwind-merge": "^3.4.0",
     "zod": "^4.2.1"
