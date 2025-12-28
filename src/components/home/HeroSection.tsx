@@ -18,20 +18,12 @@ export default function HeroSection() {
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background Media */}
       <div className="absolute inset-0">
-        <Image
-          src="/images/hero-image.jpg"
-          alt="Muğla manzarası"
-          fill
-          className="object-cover z-0"
-          priority
-          quality={90}
-        />
         <video
           autoPlay
           muted
           loop
           playsInline
-          className="absolute inset-0 w-full h-full object-cover z-[1]"
+          className="absolute inset-0 w-full h-full object-cover z-0"
         >
           <source src="/images/hero-video.webm" type="video/webm" />
           <source src="/images/hero-video.mov" type="video/quicktime" />
