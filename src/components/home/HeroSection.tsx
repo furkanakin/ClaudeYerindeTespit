@@ -18,29 +18,35 @@ export default function HeroSection() {
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background Media */}
       <div className="absolute inset-0">
-        <video
-          autoPlay
-          muted
-          playsInline
-          onEnded={(e) => {
-            const video = e.currentTarget;
-            video.style.opacity = "0";
-            const img = video.nextElementSibling as HTMLImageElement;
-            if (img) img.style.opacity = "1";
-          }}
-          className="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 z-0"
-        >
-          <source src="/images/hero-video.mov" type="video/quicktime" />
-          <source src="/images/hero-video.mp4" type="video/mp4" />
-        </video>
         <Image
           src="/images/hero-image.jpg"
           alt="Muğla manzarası"
           fill
-          className="object-cover transition-opacity duration-1000 opacity-0 z-0"
+          className="object-cover z-0"
           priority
           quality={90}
         />
+        <video
+          autoPlay
+          muted
+          playsInline
+          onPlay={(e) => {
+            // Video başladığında videoyu görünür yapabiliriz (opsiyonel)
+            e.currentTarget.style.opacity = "1";
+          }}
+          onEnded={(e) => {
+            const video = e.currentTarget;
+            video.style.opacity = "0";
+          }}
+          onError={(e) => {
+            // Video yüklenemezse gizle
+            e.currentTarget.style.display = "none";
+          }}
+          className="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 z-0 opacity-0"
+        >
+          <source src="/images/hero-video.mov" type="video/quicktime" />
+          <source src="/images/hero-video.mp4" type="video/mp4" />
+        </video>
       </div>
 
       {/* Dark Gradient Overlay */}
