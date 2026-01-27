@@ -9,7 +9,7 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const outfit = Outfit({ subsets: ["latin"], variable: "--font-outfit" });
 
 export const metadata: Metadata = {
-  title: "Yerinde Analiz | Muğla Gayrimenkul Danışmanlığı",
+  title: "Yerinde Analiz | Stratejik Danışmanlık",
   description:
     "Muğla'da gayrimenkul yatırımlarınız için bağımsız, teknik ve detaylı incelemeler. Arazi ve konut analizinde profesyonel danışmanlık hizmeti.",
   keywords: [
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Yerinde Analiz" }],
   openGraph: {
-    title: "Yerinde Analiz | Muğla Gayrimenkul Danışmanlığı",
+    title: "Yerinde Analiz | Stratejik Danışmanlık",
     description:
       "Muğla'da gayrimenkul yatırımlarınız için bağımsız, teknik ve detaylı incelemeler.",
     url: "https://yerindeanaliz.com",

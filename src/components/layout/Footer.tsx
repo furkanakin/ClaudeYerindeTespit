@@ -9,6 +9,7 @@ const quickLinks = [
   { href: "/paketler", label: "Paketler" },
   { href: "/sss", label: "Sıkça Sorulan Sorular" },
   { href: "/iletisim", label: "İletişim" },
+  { href: "/sozlesmeler", label: "Sözleşmeler" },
 ];
 
 export default function Footer() {
@@ -62,9 +63,9 @@ export default function Footer() {
                   info@yerindeanaliz.com
                 </a>
               </li>
-              <li className="flex items-center gap-3 text-gray-400">
-                <MapPin className="w-5 h-5 text-[#8CC63F]" />
-                Muğla, Türkiye
+              <li className="flex items-start gap-3 text-gray-400">
+                <MapPin className="w-5 h-5 text-[#8CC63F] flex-shrink-0 mt-0.5" />
+                <span>Akarca Mah. Mustafa Kemal Bulvarı No:158A Fethiye/Muğla</span>
               </li>
             </ul>
           </div>

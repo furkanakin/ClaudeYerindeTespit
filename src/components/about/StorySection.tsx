@@ -77,7 +77,7 @@ export default function StorySection() {
             {/* Slogan */}
             <div className="mt-10 p-6 bg-[#F9FAFB] rounded-2xl border-l-4 border-[#8CC63F]">
               <p
-                className="text-xl md:text-2xl font-semibold text-[#2C3E50]"
+                className="text-xl md:text-2xl font-semibold text-[#2C3E50] md:whitespace-nowrap"
               >
                 Doğru bilgi → Bilinçli değerlendirme → İsabetli karar
               </p>

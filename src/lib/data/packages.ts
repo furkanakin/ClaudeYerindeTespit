@@ -22,10 +22,13 @@ export interface Package {
   deliveryTime: string;
   price: string;
   basePrice: number;
+  basePriceNote?: string;
   extraServices?: string[];
   addOns?: PackageAddOn[];
   isPopular?: boolean;
   modalDescription?: string;
+  modalFooterNote?: string;
+  zoneInfo?: string[];
   kimlerIcin?: string[];
   addOnsTitle?: string;
 }
@@ -161,6 +164,14 @@ export const packages: Package[] = [
     deliveryTime: "Saha ziyareti gerçekleştikten sonra max. 3-4 iş günü",
     price: "15.000 TL + KDV",
     basePrice: 15000,
+    basePriceNote: "(1. Bölgede 250 m²'ye kadar olan konutlar için)",
+    modalFooterNote: "Yerinde Analiz hizmeti, saha mesafesi, yapı ölçeği ve parsel özellikleri dikkate alınarak planlanır. Fethiye merkez baz alınarak belirlenen bölgelere göre saha süresi ve çalışma yoğunluğu değişiklik gösterebilir; bu doğrultuda hizmet bedeli farklılık gösterebilir. Konutlarda belirtilen fiyatlar 250 m²'ye kadar standart ölçekli yapılar için geçerlidir. Arsa ve tarla parsellerinde ise metrekare tek başına belirleyici olmayıp, saha koşullarına göre değerlendirme yapılır. Bu kapsamın dışında kalan konumlar ve yapı ölçekleri, saha süresi ve çalışma yoğunluğu dikkate alınarak ayrıca değerlendirilir.",
+    zoneInfo: [
+      "1. Bölge | 0–50 km: Fethiye, Seydikemer (Standart fiyat geçerlidir)",
+      "2. Bölge | 50–100 km: Dalaman, Dalyan, Köyceğiz, Ortaca, Sarıgerme (Mesafe farkı uygulanır)",
+      "3. Bölge | 100–200 km: Akyaka, Ula, Marmaris Merkez, Muğla Merkez ve çevresi (Mesafe farkı uygulanır)",
+      "4. Bölge | 200 km üzeri: Bodrum, Milas, Marmaris (Söğüt, Bozburun, Hisarönü), Datça (Özel planlama yapılır)",
+    ],
     addOnsTitle: "Raporla Birlikte Alınabilecek Hizmetler",
     addOns: [
       {

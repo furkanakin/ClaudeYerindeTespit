@@ -91,6 +91,27 @@ export default function PackageConfigurator({
                                 Teslim Süresi: {packageData.deliveryTime}
                             </p>
                         )}
+
+                        {/* Modal Footer Note (smaller text) */}
+                        {packageData.modalFooterNote && (
+                            <p className="text-xs text-[#9CA3AF] mt-3 leading-relaxed">
+                                {packageData.modalFooterNote}
+                            </p>
+                        )}
+
+                        {/* Zone Info */}
+                        {packageData.zoneInfo && packageData.zoneInfo.length > 0 && (
+                            <div className="mt-4 p-3 bg-[#F9FAFB] rounded-lg">
+                                <ul className="space-y-1.5 text-xs text-[#6B7280]">
+                                    {packageData.zoneInfo.map((zone, index) => (
+                                        <li key={index} className="flex items-start gap-2">
+                                            <span className="text-[#8CC63F] font-bold">•</span>
+                                            <span>{zone}</span>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        )}
                     </div>
 
                     <div className={styles.content}>
@@ -131,7 +152,7 @@ export default function PackageConfigurator({
                                             </span>
                                         </div>
                                         <span className={styles.optionPrice}>
-                                            {option.price > 0 ? option.priceLabel : option.priceLabel}
+                                            {option.priceLabel}
                                         </span>
                                     </div>
                                 ))
@@ -142,12 +163,17 @@ export default function PackageConfigurator({
 
                         <div className={styles.summary}>
                             <div className={styles.summaryRow}>
-                                <span>Baz Fiyat</span>
-                                <span>{packageData.basePrice > 0 ? formatPrice(packageData.basePrice) : "Kapsama Göre"}</span>
+                                <div className="flex flex-col">
+                                    <span>Baz Fiyat</span>
+                                    {packageData.basePriceNote && (
+                                        <span className="text-xs text-[#9CA3AF]">{packageData.basePriceNote}</span>
+                                    )}
+                                </div>
+                                <span className={styles.priceValue}>{packageData.basePrice > 0 ? formatPrice(packageData.basePrice) : "Kapsama Göre"}</span>
                             </div>
                             <div className={styles.summaryRow}>
                                 <span>Ek Hizmetler ({selectedOptions.length})</span>
-                                <span>
+                                <span className={styles.priceValue}>
                                     {packageData.basePrice > 0
                                         ? `+${formatPrice(totalPrice - packageData.basePrice)}`
                                         : "0 ₺"}
