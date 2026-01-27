@@ -25,7 +25,7 @@ export default function Footer() {
               yol arkadaşınız.
             </p>
             <p
-              className="text-[#8CC63F] font-bold italic"
+              className="text-[#8CC63F] font-bold italic md:whitespace-nowrap"
               style={{ fontFamily: 'var(--font-family-display)' }}
             >
               Doğru bilgi → Bilinçli değerlendirme → İsabetli karar

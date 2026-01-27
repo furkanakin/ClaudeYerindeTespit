@@ -21,7 +21,7 @@ export default function StorySection() {
             className="relative h-[400px] lg:h-[500px] rounded-2xl overflow-hidden shadow-2xl"
           >
             <Image
-              src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?q=80&w=2070&auto=format&fit=crop"
+              src="/images/hakkimizda.jpeg"
               alt="Modern mimari konut"
               fill
               className="object-cover"
@@ -50,7 +50,7 @@ export default function StorySection() {
               Hikayemiz
             </h2>
 
-            <div className="space-y-6 text-[#6B7280] leading-relaxed">
+            <div className="space-y-6 text-[#6B7280] leading-relaxed text-justify">
               <p>
                 Uzun yıllar boyunca mimarlık ve mühendislik alanlarında edindiğimiz profesyonel deneyimin ardından İstanbul’dan Muğla’ya taşındık. Hem kendi yer arayışımızda hem de çevremize destek verdiğimiz dönemlerde fark ettik ki, birçok kişi çoğu zaman güvenilir bilgiye, tarafsız değerlendirmeye ve profesyonel bakış açısına ulaşmakta zorlanıyor.
               </p>

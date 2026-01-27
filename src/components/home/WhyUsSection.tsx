@@ -13,7 +13,7 @@ const whyUsItems = [
     subtitle: "Gayrimenkulün gerçek durumunu ortaya çıkarır.",
     description:
       "Arazi veya konutun fiziksel, teknik ve planlama açısından tüm kritik detaylarını yerinde inceleme ve masaüstü araştırmayla görünür kılar.",
-    image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=1973&auto=format&fit=crop",
+    image: "/images/gercek-durum.png",
   },
   {
     icon: Shield,
@@ -21,7 +21,7 @@ const whyUsItems = [
     subtitle: "Yanlış bir kararı en başında önler.",
     description:
       "Erken tespit edilen risklerle olası maddi ve zamansal kayıpları engeller; arazi ya da konut alım sürecinizde güvenli bir zemin sağlar.",
-    image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=2075&auto=format&fit=crop",
+    image: "/images/koruma.png",
   },
   {
     icon: Target,
@@ -29,7 +29,7 @@ const whyUsItems = [
     subtitle: "Tarafsız ve anlaşılır bir karar çerçevesi sunar.",
     description:
       "Yönlendirme yapmadan, sade ve objektif bilgilerle size en uygun araziyi veya konutu seçmenizi kolaylaştırır.",
-    image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=2053&auto=format&fit=crop",
+    image: "/images/netlik.png",
   },
 ];
 

@@ -163,7 +163,7 @@ export default function ContactForm() {
             <option value="">Seçiniz</option>
             <option value="on-analiz">Ön Analiz</option>
             <option value="yerinde-analiz">Yerinde Analiz</option>
-            <option value="ozel-danismanlik">Özel Yerinde Analiz - Danışmanlık</option>
+            <option value="ozel-danismanlik">Premium Analiz / Danışmanlık</option>
           </select>
           {errors.package && (
             <p className={errorClassName}>{errors.package.message}</p>
@@ -229,7 +229,7 @@ export default function ContactForm() {
       {/* File Upload */}
       <div className="mb-6">
         <label className={labelClassName}>
-          Gayrimenkule ait eklemek istedikleriniz (Plan, proje vb.)
+          Gayrimenkule ait eklemek istedikleriniz (Plan, proje, tapu vb.)
         </label>
         <FileUpload files={files} setFiles={setFiles} />
         <p className="text-xs text-[#9CA3AF] mt-2">

@@ -63,7 +63,7 @@ export default function Navbar() {
                   key={link.href}
                   href={link.href}
                   className={cn(
-                    "text-sm font-bold transition-all duration-300 relative group",
+                    "text-base font-bold transition-all duration-300 relative group",
                     isScrolled || !isHomePage
                       ? "text-[#2C3E50] hover:text-[#8CC63F]"
                       : "text-white hover:text-white/80",

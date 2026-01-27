@@ -48,9 +48,21 @@ export default function PackageConfigurator({
         }).format(price) + " + KDV";
     };
 
+    // Parse modal description with bold markers
+    const renderDescription = (description: string) => {
+        const parts = description.split(/(\*\*[^*]+\*\*)/g);
+        return parts.map((part, index) => {
+            if (part.startsWith('**') && part.endsWith('**')) {
+                return <strong key={index}>{part.slice(2, -2)}</strong>;
+            }
+            return part;
+        });
+    };
+
     if (!isOpen || !packageData) return null;
 
     const hasAddOns = packageData.addOns && packageData.addOns.length > 0;
+    const addOnsTitle = packageData.addOnsTitle || "Ek Hizmetler ve Özellikler";
 
     return (
         <AnimatePresence>
@@ -69,12 +81,36 @@ export default function PackageConfigurator({
                     <div className={styles.header}>
                         <span className={styles.category}>Paket Yapılandırıcı</span>
                         <h2 className={styles.title}>{packageData.title}</h2>
-                        <p className={styles.description}>{packageData.description}</p>
+                        <p className={styles.description}>
+                            {packageData.modalDescription
+                                ? renderDescription(packageData.modalDescription)
+                                : packageData.description}
+                        </p>
+                        {packageData.deliveryTime && (
+                            <p className="text-sm text-[#8CC63F] font-medium mt-2">
+                                Teslim Süresi: {packageData.deliveryTime}
+                            </p>
+                        )}
                     </div>
 
                     <div className={styles.content}>
                         <div className={styles.optionsList}>
-                            <h3 className={styles.sectionTitle}>Ek Hizmetler ve Özellikler</h3>
+                            {/* "Kimler için?" section */}
+                            {packageData.kimlerIcin && packageData.kimlerIcin.length > 0 && (
+                                <div className="mb-6">
+                                    <h3 className="text-lg font-semibold text-[#8CC63F] mb-3">Kimler için?</h3>
+                                    <ul className="space-y-2">
+                                        {packageData.kimlerIcin.map((item, index) => (
+                                            <li key={index} className="flex items-start gap-2 text-sm text-[#6B7280]">
+                                                <span className="text-[#8CC63F] mt-0.5">•</span>
+                                                {item}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            )}
+
+                            <h3 className={styles.sectionTitle}>{addOnsTitle}</h3>
                             {hasAddOns ? (
                                 packageData.addOns?.map((option) => (
                                     <div
@@ -95,7 +131,7 @@ export default function PackageConfigurator({
                                             </span>
                                         </div>
                                         <span className={styles.optionPrice}>
-                                            {option.price > 0 ? `+${formatPrice(option.price)}` : option.priceLabel}
+                                            {option.price > 0 ? option.priceLabel : option.priceLabel}
                                         </span>
                                     </div>
                                 ))
@@ -126,7 +162,7 @@ export default function PackageConfigurator({
 
                             <Link href="/iletisim" onClick={onClose} className="w-full">
                                 <button className={styles.confirmBtn}>
-                                    Teklif İste <ArrowRight size={20} />
+                                    Teklif Alın <ArrowRight size={20} />
                                 </button>
                             </Link>
                         </div>

@@ -22,7 +22,7 @@ const services = [
     description:
       "Arazinin veya yapının fiziksel durumunu, teknik risklerini, erişim ve altyapı koşullarını yerinde değerlendiriyoruz.",
     highlight:
-      "Zemin, eğim, yapı durumu, çevresel etkenler ve olası problemler profesyonel yöntemlerle inceleniyor.",
+      "Yapının mevcut durumu ile çevresel koşullar ve olası riskler, yerinde yapılan profesyonel incelemelerle analiz edilir.",
   },
   {
     icon: Shield,
@@ -97,7 +97,7 @@ export default function ServicesGrid() {
           className="text-center mt-12"
         >
           <Link href="/paketler">
-            <Button size="lg">Paketleri İncele</Button>
+            <Button size="lg">Paketleri İnceleyin</Button>
           </Link>
         </motion.div>
       </div>

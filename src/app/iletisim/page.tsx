@@ -96,13 +96,19 @@ export default function IletisimPage() {
                     <span className="w-6 h-6 rounded-full bg-[#8CC63F]/10 text-[#8CC63F] text-xs font-bold flex items-center justify-center flex-shrink-0">
                       2
                     </span>
-                    Talebiniz değerlendirilir, gerekirse kısa görüşme yapılır
+                    Talebiniz 24 saat içerisinde değerlendirilir, gerekirse kısa görüşme yapılır (ücretsiz)
                   </li>
                   <li className="flex gap-3">
                     <span className="w-6 h-6 rounded-full bg-[#8CC63F]/10 text-[#8CC63F] text-xs font-bold flex items-center justify-center flex-shrink-0">
                       3
                     </span>
                     Teklifiniz ve hizmet sözleşmesi onayınıza sunulur
+                  </li>
+                  <li className="flex gap-3">
+                    <span className="w-6 h-6 rounded-full bg-[#8CC63F]/10 text-[#8CC63F] text-xs font-bold flex items-center justify-center flex-shrink-0">
+                      4
+                    </span>
+                    Onayınız ve ödemenin tamamlanmasıyla birlikte rapor süreci başlamış olur
                   </li>
                 </ol>
               </div>
