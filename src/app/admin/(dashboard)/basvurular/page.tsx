@@ -1,4 +1,5 @@
 import prisma from "@/lib/prisma";
+import { ContactSubmission } from "@prisma/client";
 import Link from "next/link";
 import { Eye, Mail, Phone, Package, Calendar } from "lucide-react";
 
@@ -46,13 +47,13 @@ export default async function BasvurularPage() {
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-gray-100">
-                                {submissions.map((submission) => (
+                                {submissions.map((submission: ContactSubmission) => (
                                     <tr key={submission.id} className="hover:bg-gray-50">
                                         <td className="px-6 py-4">
                                             <span
                                                 className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${submission.isRead
-                                                        ? "bg-gray-100 text-gray-600"
-                                                        : "bg-green-100 text-green-800"
+                                                    ? "bg-gray-100 text-gray-600"
+                                                    : "bg-green-100 text-green-800"
                                                     }`}
                                             >
                                                 {submission.isRead ? "Okundu" : "Yeni"}

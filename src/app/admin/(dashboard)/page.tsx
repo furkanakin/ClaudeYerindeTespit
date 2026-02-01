@@ -1,5 +1,6 @@
 import prisma from "@/lib/prisma";
-import { FileText, Users, Eye, Clock } from "lucide-react";
+import { ContactSubmission } from "@prisma/client";
+import { FileText, Eye } from "lucide-react";
 
 export default async function AdminDashboard() {
     // Get submission stats
@@ -62,7 +63,7 @@ export default async function AdminDashboard() {
                             Henüz başvuru bulunmuyor
                         </div>
                     ) : (
-                        recentSubmissions.map((submission) => (
+                        recentSubmissions.map((submission: ContactSubmission) => (
                             <a
                                 key={submission.id}
                                 href={`/admin/basvurular/${submission.id}`}
