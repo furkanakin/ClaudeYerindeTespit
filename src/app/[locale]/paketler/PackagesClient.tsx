@@ -6,17 +6,19 @@ import { packages, Package } from "@/lib/data/packages";
 import PackageCard from "@/components/packages/PackageCard";
 import PackageConfigurator from "@/components/packages/PackageConfigurator";
 
-export default function PaketlerPage() {
+export default function PackagesClient({ t, locale }: { t: any, locale: string }) {
     const [selectedPackage, setSelectedPackage] = useState<Package | null>(null);
 
+    const getContactHref = () => `/${locale}/iletisim`;
+
     return (
-        <div className="pt-20">
+        <>
             {/* Page Header */}
             <section className="py-16 bg-gradient-to-r from-[#8CC63F] to-[#7ab233]">
                 <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
-                    <h1 className="text-4xl md:text-5xl font-bold mb-4">Paketlerimiz</h1>
-                    <p className="text-xl text-white/80 max-w-2xl mx-auto text-center">
-                        İhtiyacınıza uygun paketi seçin, profesyonel danışmanlık hizmetimizden yararlanın
+                    <h1 className="text-4xl md:text-5xl font-bold mb-4">{t.header_title}</h1>
+                    <p className="text-xl text-white/80 max-w-3xl mx-auto text-center">
+                        {t.header_description}
                     </p>
                 </div>
             </section>
@@ -49,13 +51,14 @@ export default function PaketlerPage() {
                     >
                         <div className="inline-block bg-white rounded-2xl p-8 shadow-lg max-w-2xl">
                             <p className="text-[#6B7280] mb-4">
-                                Muğla il sınırları içinde geçerlidir. Muğla dışındaki bölgeler için
-                                fiyatlar ayrıca belirlenir.
+                                {locale === 'en'
+                                    ? 'Valid within Muğla province. Prices for regions outside Muğla are determined separately.'
+                                    : 'Muğla il sınırları içinde geçerlidir. Muğla dışındaki bölgeler için fiyatlar ayrıca belirlenir.'}
                             </p>
                             <p className="text-sm text-[#9CA3AF]">
-                                Detaylı bilgi ve özel talepleriniz için{" "}
-                                <a href="/iletisim" className="text-[#8CC63F] font-medium hover:underline">
-                                    iletişime geçin
+                                {locale === 'en' ? 'For detailed information and special requests ' : 'Detaylı bilgi ve özel talepleriniz için '}
+                                <a href={getContactHref()} className="text-[#8CC63F] font-medium hover:underline">
+                                    {locale === 'en' ? 'contact us' : 'iletişime geçin'}
                                 </a>
                                 .
                             </p>
@@ -70,6 +73,6 @@ export default function PaketlerPage() {
                 isOpen={!!selectedPackage}
                 onClose={() => setSelectedPackage(null)}
             />
-        </div>
+        </>
     );
 }

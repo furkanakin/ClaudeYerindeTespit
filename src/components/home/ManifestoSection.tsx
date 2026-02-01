@@ -3,8 +3,10 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
+import { useTranslation } from "@/lib/LanguageContext";
 
 export default function ManifestoSection() {
+  const { t } = useTranslation();
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
@@ -22,14 +24,13 @@ export default function ManifestoSection() {
           className="max-w-4xl mx-auto text-center text-white"
         >
           <p className="text-xl md:text-2xl lg:text-3xl leading-relaxed font-light">
-            <span className="font-semibold">Yerinde Analiz</span>, yatırım
-            sürecinizde uzun vadeli hedeflerinize en uygun yolu belirlemenize
-            yardımcı olan, riskleri azaltan ve doğru kararları destekleyen
-            profesyonel bir yönlendirme hizmetidir. <br />
+            <span className="font-semibold">Yerinde Analiz</span>
+            {t("manifesto_text_1")}
+            <br />
             <span className="font-semibold">
-              Arazi, konut veya proje seçimlerinde
+              {t("manifesto_text_2_bold")}
             </span>{" "}
-            mevcut durumun analizini yapar ve size özel bir yol haritası sunar.
+            {t("manifesto_text_3")}
           </p>
         </motion.div>
       </div>

@@ -1,24 +1,40 @@
-import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
+
+const locales = ['tr', 'en'];
+const defaultLocale = 'tr';
 
 export function middleware(request: NextRequest) {
     const { pathname } = request.nextUrl;
 
-    // Protect admin routes
-    if (pathname.startsWith("/admin") && pathname !== "/admin/login") {
-        const sessionToken = request.cookies.get("admin_session")?.value;
-
-        if (!sessionToken) {
-            return NextResponse.redirect(new URL("/admin/login", request.url));
-        }
+    // Skip middleware for api, static files, and admin
+    if (
+        pathname.includes('/api/') ||
+        pathname.includes('/_next/') ||
+        pathname.includes('/admin') ||
+        pathname.includes('/favicon.ico') ||
+        pathname.match(/\.(.*)$/)
+    ) {
+        return NextResponse.next();
     }
 
-    // Handle locale prefix for public pages (optional if handled by [locale] folder)
-    // But let's keep it simple for now as we have [locale] folder.
+    // Check if there is any supported locale in the pathname
+    const pathnameHasLocale = locales.some(
+        (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
+    );
 
-    return NextResponse.next();
+    if (pathnameHasLocale) return NextResponse.next();
+
+    // Redirect if there is no locale
+    const locale = defaultLocale;
+    request.nextUrl.pathname = `/${locale}${pathname}`;
+
+    return NextResponse.redirect(request.nextUrl);
 }
 
 export const config = {
-    matcher: ["/admin/:path*", "/((?!api|_next/static|_next/image|favicon.ico).*)"],
+    matcher: [
+        // Skip all internal paths (_next)
+        '/((?!_next|api|admin|favicon.ico).*)',
+    ],
 };

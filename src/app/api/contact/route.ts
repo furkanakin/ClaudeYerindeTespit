@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import nodemailer from "nodemailer";
-import prisma from "@/lib/prisma";
+import { prisma } from "@/lib/prisma";
 
 const packageNames: Record<string, string> = {
   "on-analiz": "Ön Analiz",

@@ -5,8 +5,11 @@ import { ChevronDown } from "lucide-react";
 import Button from "@/components/ui/Button";
 import Link from "next/link";
 import Image from "next/image";
+import { useTranslation } from "@/lib/LanguageContext";
 
 export default function HeroSection() {
+  const { t, locale } = useTranslation();
+
   const scrollToContent = () => {
     const element = document.getElementById("manifesto");
     if (element) {
@@ -50,7 +53,7 @@ export default function HeroSection() {
             transition={{ delay: 0.2, duration: 0.6 }}
             className="text-[#a3d95b] text-3xl md:text-4xl font-bold mb-4"
           >
-            Muğla'da
+            {t("hero_subtitle")}
           </motion.p>
 
           {/* Main Title */}
@@ -60,9 +63,9 @@ export default function HeroSection() {
             transition={{ delay: 0.4, duration: 0.6 }}
             className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight"
           >
-            Gayrimenkul Yatırımlarınız İçin{" "}
-            <span className="text-[#a3d95b]">Bağımsız, Teknik, Detaylı</span>{" "}
-            İncelemeler
+            {t("hero_title_main")}{" "}
+            <span className="text-[#a3d95b]">{t("hero_title_highlight")}</span>{" "}
+            {t("hero_title_suffix")}
           </motion.h1>
 
           {/* Description */}
@@ -72,8 +75,8 @@ export default function HeroSection() {
             transition={{ delay: 0.6, duration: 0.6 }}
             className="text-lg md:text-xl text-gray-300 mb-10 max-w-2xl mx-auto"
           >
-            <p className="mb-4">Gayrimenkul alım süreçlerinde tarafsız incelemelerle kapsamlı bilgi sunuyoruz.</p>
-            <p>Bağımsız analizlerle karar sürecinizi destekliyoruz.</p>
+            <p className="mb-4">{t("hero_description_1")}</p>
+            <p>{t("hero_description_2")}</p>
           </motion.div>
 
           {/* CTA Button */}
@@ -82,9 +85,9 @@ export default function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.8, duration: 0.6 }}
           >
-            <Link href="/paketler">
+            <Link href={`/${locale}/paketler`}>
               <Button size="lg" className="text-lg px-10">
-                Paketleri İnceleyin
+                {t("hero_cta")}
               </Button>
             </Link>
           </motion.div>
