@@ -9,8 +9,12 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm ci
 
-# Copy source files
+# Copy source files and Prisma schema
 COPY . .
+
+# Generate Prisma client and create database
+RUN npx prisma generate
+RUN npx prisma db push
 
 # Build the application
 RUN npm run build
@@ -35,6 +39,11 @@ RUN chown nextjs:nodejs .next
 COPY --from=builder /app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+
+# Copy Prisma files for runtime
+COPY --from=builder /app/prisma ./prisma
+COPY --from=builder /app/node_modules/.prisma ./node_modules/.prisma
+COPY --from=builder /app/node_modules/@prisma ./node_modules/@prisma
 
 USER nextjs
 
