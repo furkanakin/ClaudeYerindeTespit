@@ -13,6 +13,7 @@ import {
     Phone,
     LogOut,
     Globe,
+    PanelBottom,
 } from "lucide-react";
 
 const menuItems = [
@@ -35,6 +36,7 @@ const menuItems = [
             { title: "Paketler", href: "/admin/icerik/paketler", icon: Package },
             { title: "SSS", href: "/admin/icerik/sss", icon: HelpCircle },
             { title: "İletişim", href: "/admin/icerik/iletisim", icon: Phone },
+            { title: "Footer", href: "/admin/icerik/footer", icon: PanelBottom },
         ],
     },
 ];
@@ -80,8 +82,8 @@ export default function AdminSidebar() {
                                             key={child.href}
                                             href={child.href}
                                             className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors ${pathname === child.href
-                                                    ? "bg-[#8CC63F] text-white"
-                                                    : "text-white/70 hover:bg-white/10 hover:text-white"
+                                                ? "bg-[#8CC63F] text-white"
+                                                : "text-white/70 hover:bg-white/10 hover:text-white"
                                                 }`}
                                         >
                                             <child.icon className="w-4 h-4" />
@@ -94,8 +96,8 @@ export default function AdminSidebar() {
                             <Link
                                 href={item.href}
                                 className={`flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors ${pathname === item.href
-                                        ? "bg-[#8CC63F] text-white"
-                                        : "text-white/70 hover:bg-white/10 hover:text-white"
+                                    ? "bg-[#8CC63F] text-white"
+                                    : "text-white/70 hover:bg-white/10 hover:text-white"
                                     }`}
                             >
                                 <item.icon className="w-5 h-5" />
