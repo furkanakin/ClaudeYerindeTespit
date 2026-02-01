@@ -86,15 +86,15 @@ export default function PackageCard({ package_, onSelect }: PackageCardProps) {
           </div>
         )}
 
-        {/* "Kimler için?" Section */}
+        {/* "Kimler için?" Section (Goal 7 & 8) */}
         {package_.kimlerIcin && (
           <div className="mb-6">
             <h4 className="text-lg font-semibold text-[#2C3E50] mb-3">Kimler için?</h4>
-            <ul className="space-y-3">
+            <ul className="space-y-2">
               {package_.kimlerIcin.slice(0, 4).map((item, index) => (
-                <li key={index} className="flex items-start gap-3 text-sm text-[#6B7280]">
-                  <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-[#8CC63F] flex-shrink-0" />
-                  <span className="leading-relaxed" dangerouslySetInnerHTML={{ __html: item }} />
+                <li key={index} className="flex items-start gap-2 text-sm text-[#6B7280]">
+                  <span className="text-[#8CC63F] mt-1 flex-shrink-0">•</span>
+                  <span dangerouslySetInnerHTML={{ __html: item }} />
                 </li>
               ))}
             </ul>

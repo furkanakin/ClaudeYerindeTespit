@@ -1,44 +1,72 @@
-import { NextRequest, NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
-import { getSession } from "@/lib/auth";
+import { NextRequest, NextResponse } from 'next/server'
+import { prisma } from '@/lib/prisma'
 
 export async function GET(request: NextRequest) {
-    const session = await getSession();
-    if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-
-    const { searchParams } = new URL(request.url);
-    const pageSlug = searchParams.get("page");
-
-    if (!pageSlug) return NextResponse.json({ error: "Page slug is required" }, { status: 400 });
-
     try {
+        const { searchParams } = new URL(request.url)
+        const pageSlug = searchParams.get('pageSlug')
+
+        if (!pageSlug) {
+            return NextResponse.json(
+                { error: 'pageSlug is required' },
+                { status: 400 }
+            )
+        }
+
         const content = await prisma.pageContent.findMany({
             where: { pageSlug },
-        });
-        return NextResponse.json(content);
+        })
+
+        return NextResponse.json(content)
     } catch (error) {
-        return NextResponse.json({ error: "Failed to fetch content" }, { status: 500 });
+        console.error('Content API GET error:', error)
+        return NextResponse.json(
+            { error: 'Failed to fetch content' },
+            { status: 500 }
+        )
     }
 }
 
 export async function POST(request: NextRequest) {
-    const session = await getSession();
-    if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-
     try {
-        const { pageSlug, updates } = await request.json(); // updates: { id?, key, tr, en }[]
+        const body = await request.json()
+        const { pageSlug, content } = body
 
-        for (const item of updates) {
-            await prisma.pageContent.upsert({
-                where: { pageSlug_key: { pageSlug, key: item.key } },
-                update: { tr: item.tr, en: item.en },
-                create: { pageSlug, key: item.key, tr: item.tr, en: item.en },
-            });
+        if (!pageSlug || !content) {
+            return NextResponse.json(
+                { error: 'pageSlug and content are required' },
+                { status: 400 }
+            )
         }
 
-        return NextResponse.json({ success: true });
+        // Upsert each content item
+        for (const item of content) {
+            await prisma.pageContent.upsert({
+                where: {
+                    pageSlug_key: {
+                        pageSlug,
+                        key: item.key,
+                    },
+                },
+                create: {
+                    pageSlug,
+                    key: item.key,
+                    tr: item.tr,
+                    en: item.en,
+                },
+                update: {
+                    tr: item.tr,
+                    en: item.en,
+                },
+            })
+        }
+
+        return NextResponse.json({ success: true })
     } catch (error) {
-        console.error(error);
-        return NextResponse.json({ error: "Failed to update content" }, { status: 500 });
+        console.error('Content API POST error:', error)
+        return NextResponse.json(
+            { error: 'Failed to save content' },
+            { status: 500 }
+        )
     }
 }

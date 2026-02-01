@@ -5,7 +5,7 @@ import { useInView } from "framer-motion";
 import { useRef } from "react";
 import Image from "next/image";
 
-export default function StorySection({ t }: { t: any }) {
+export default function StorySection() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
@@ -37,25 +37,34 @@ export default function StorySection({ t }: { t: any }) {
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#2C3E50] mb-8">
-              {t.story_title}
+              Hikayemiz
             </h2>
 
             <div className="space-y-6 text-[#6B7280] leading-relaxed text-justify">
-              <p>{t.story_p1}</p>
-
-              <p className="text-[#8CC63F] font-semibold text-lg">
-                <span className="font-bold">{t.story_p2}</span>
+              <p>
+                Uzun yıllar boyunca mimarlık ve mühendislik alanlarında edindiğimiz profesyonel deneyimin ardından İstanbul’dan Muğla’ya taşındık. Hem kendi yer arayışımızda hem de çevremize destek verdiğimiz dönemlerde fark ettik ki, birçok kişi çoğu zaman güvenilir bilgiye, tarafsız değerlendirmeye ve profesyonel bakış açısına ulaşmakta zorlanıyor.
               </p>
-
-              <p>{t.story_p3}</p>
-              <p>{t.story_p4}</p>
-              <p>{t.story_p5}</p>
-              <p>{t.story_p6}</p>
-
+              <p className="text-[#8CC63F] font-semibold text-lg">
+                <span className="font-bold">Yerinde Analiz</span>, tam da bu ihtiyaçtan doğdu.
+              </p>
+              <p>
+                Bir bölgenin, yapının veya arsanın görünen ve görünmeyen tüm yönlerini titizlikle inceliyoruz. Mimari, kentsel, çevresel, teknik ve hukuki pek çok veriyi bir araya getirerek anlaşılır ve yol gösterici raporlara dönüştüren bir danışmanlık hizmeti sunuyoruz.
+              </p>
+              <p>
+                Amacımız, gayrimenkul kararlarında kişiye “ne yapması gerektiğini söylemek” değil, kişinin <span className="font-bold">en doğru kararı verebilmesi için sağlam bir bilgi zemini oluşturmaktır.</span> Böylece satın alma, yatırım, yerleşme ya da yenileme kararlarında ihtiyaç duyulan bilgileri kapsamlı, anlaşılır ve uygulanabilir biçimde aktarıyoruz.
+              </p>
+              <p>
+                <span className="font-bold">Yerinde Analiz</span> danışmanlık hizmetleriyle “bilgiye ulaşmak zor” algısını değiştirerek herkes için güvenilir, profesyonel ve erişilebilir bir yol arkadaşlığı sunuyoruz.
+              </p>
+              <p>
+                Tüm bu analitik sürecin yanı sıra, ihtiyaç duyan kullanıcılar için mimari tasarım, uygulama ve mühendislik hizmetleriyle de süreci bütünsel olarak destekleyebiliyoruz.
+              </p>
               <p className="text-[#2C3E50] font-bold">
-                {t.story_signature}
+                Yerinde Analiz, bağımsız ve tarafsız bilgi hizmeti sunan bir danışmanlık platformudur.
               </p>
             </div>
+
+
           </motion.div>
         </div>
       </div>

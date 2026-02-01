@@ -1,121 +1,186 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
-import { Save, Loader2, Globe, AlertCircle, CheckCircle } from "lucide-react";
-import Button from "@/components/ui/Button";
+import { Save, Loader2, CheckCircle } from "lucide-react";
 
-interface ContentItem {
+interface ContentField {
     key: string;
-    tr: string;
-    en: string;
-    label?: string;
+    label: string;
+    type: "input" | "textarea";
 }
 
-export default function ContentEditor({ pageSlug, title }: { pageSlug: string; title: string }) {
-    const [content, setContent] = useState<ContentItem[]>([]);
+interface ContentEditorProps {
+    pageSlug: string;
+    pageTitle: string;
+    fields: ContentField[];
+}
+
+export default function ContentEditor({
+    pageSlug,
+    pageTitle,
+    fields,
+}: ContentEditorProps) {
+    const [content, setContent] = useState<Record<string, { tr: string; en: string }>>({});
     const [isLoading, setIsLoading] = useState(true);
     const [isSaving, setIsSaving] = useState(false);
-    const [status, setStatus] = useState<"success" | "error" | null>(null);
+    const [saveSuccess, setSaveSuccess] = useState(false);
 
     useEffect(() => {
-        const fetchContent = async () => {
-            try {
-                const res = await fetch(`/api/admin/content?page=${pageSlug}`);
-                const data = await res.json();
-                if (Array.isArray(data)) setContent(data);
-            } catch (err) {
-                console.error(err);
-            } finally {
-                setIsLoading(false);
-            }
-        };
-        fetchContent();
+        loadContent();
     }, [pageSlug]);
 
-    const handleUpdate = (key: string, field: "tr" | "en", value: string) => {
-        setContent(prev => prev.map(item =>
-            item.key === key ? { ...item, [field]: value } : item
-        ));
+    const loadContent = async () => {
+        try {
+            const response = await fetch(`/api/admin/content?pageSlug=${pageSlug}`);
+            const data = await response.json();
+
+            const contentMap: Record<string, { tr: string; en: string }> = {};
+            fields.forEach((field) => {
+                const existing = data.find((d: any) => d.key === field.key);
+                contentMap[field.key] = existing
+                    ? { tr: existing.tr, en: existing.en }
+                    : { tr: "", en: "" };
+            });
+            setContent(contentMap);
+        } catch (error) {
+            console.error("Failed to load content:", error);
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     const handleSave = async () => {
         setIsSaving(true);
-        setStatus(null);
+        setSaveSuccess(false);
+
         try {
-            const res = await fetch("/api/admin/content", {
+            await fetch("/api/admin/content", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ pageSlug, updates: content }),
+                body: JSON.stringify({
+                    pageSlug,
+                    content: Object.entries(content).map(([key, value]) => ({
+                        key,
+                        tr: value.tr,
+                        en: value.en,
+                    })),
+                }),
             });
-            if (res.ok) setStatus("success");
-            else setStatus("error");
-        } catch {
-            setStatus("error");
+            setSaveSuccess(true);
+            setTimeout(() => setSaveSuccess(false), 3000);
+        } catch (error) {
+            console.error("Failed to save content:", error);
         } finally {
             setIsSaving(false);
         }
     };
 
-    if (isLoading) return <div className="text-center py-20">Yükleniyor...</div>;
+    const updateField = (key: string, lang: "tr" | "en", value: string) => {
+        setContent((prev) => ({
+            ...prev,
+            [key]: { ...prev[key], [lang]: value },
+        }));
+    };
+
+    if (isLoading) {
+        return (
+            <div className="flex items-center justify-center py-20">
+                <Loader2 className="w-8 h-8 animate-spin text-[#8CC63F]" />
+            </div>
+        );
+    }
 
     return (
-        <div className="max-w-6xl mx-auto">
-            <div className="sticky top-0 bg-[#F3F4F6]/80 backdrop-blur-md pt-4 pb-6 z-20 flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-gray-200 mb-8">
-                <div>
-                    <h1 className="text-3xl font-bold text-[#2C3E50]">{title}</h1>
-                    <p className="text-gray-500 mt-1">İçerikleri TR ve EN olarak yan yana düzenleyin.</p>
-                </div>
-
-                <div className="flex items-center gap-4">
-                    {status === "success" && (
-                        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex items-center gap-2 text-green-600 font-bold text-sm bg-green-50 px-4 py-2 rounded-xl">
-                            <CheckCircle className="w-4 h-4" /> Değişiklikler Kaydedildi
-                        </motion.div>
-                    )}
-                    <Button onClick={handleSave} disabled={isSaving} className="px-8 shadow-lg shadow-[#8CC63F]/20">
-                        {isSaving ? <Loader2 className="w-5 h-5 animate-spin" /> : <Save className="w-5 h-5 mr-2" />}
-                        Değişiklikleri Kaydet
-                    </Button>
+        <div className="p-8">
+            {/* Sticky Save Button */}
+            <div className="sticky top-0 z-10 bg-[#F3F4F6] py-4 -mx-8 px-8 mb-6 border-b border-gray-200">
+                <div className="flex items-center justify-between">
+                    <div>
+                        <h1 className="text-2xl font-bold text-[#2C3E50]">{pageTitle}</h1>
+                        <p className="text-[#6B7280] text-sm mt-1">
+                            İçerikleri düzenleyin ve kaydedin
+                        </p>
+                    </div>
+                    <button
+                        onClick={handleSave}
+                        disabled={isSaving}
+                        className="inline-flex items-center gap-2 px-6 py-3 bg-[#8CC63F] hover:bg-[#7ab233] text-white font-semibold rounded-lg transition-colors disabled:opacity-50"
+                    >
+                        {isSaving ? (
+                            <>
+                                <Loader2 className="w-5 h-5 animate-spin" />
+                                Kaydediliyor...
+                            </>
+                        ) : saveSuccess ? (
+                            <>
+                                <CheckCircle className="w-5 h-5" />
+                                Kaydedildi!
+                            </>
+                        ) : (
+                            <>
+                                <Save className="w-5 h-5" />
+                                Kaydet
+                            </>
+                        )}
+                    </button>
                 </div>
             </div>
 
-            <div className="space-y-12 pb-24">
-                {content.map((item) => (
-                    <div key={item.key} className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-                        <h3 className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-4 flex items-center gap-2">
-                            <Globe className="w-4 h-4 text-[#8CC63F]" /> {item.label || item.key}
-                        </h3>
-                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                            {/* Turkish Content */}
+            {/* Content Fields */}
+            <div className="space-y-8">
+                {fields.map((field) => (
+                    <div
+                        key={field.key}
+                        className="bg-white rounded-xl shadow-sm border border-gray-100 p-6"
+                    >
+                        <h3 className="font-semibold text-[#2C3E50] mb-4">{field.label}</h3>
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                            {/* Turkish */}
                             <div>
-                                <label className="block text-xs font-bold text-gray-500 mb-2 uppercase">Türkçe (TR)</label>
-                                <textarea
-                                    value={item.tr}
-                                    onChange={(e) => handleUpdate(item.key, "tr", e.target.value)}
-                                    className="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:border-[#8CC63F] outline-none transition-all min-h-[120px] leading-relaxed"
-                                />
+                                <label className="block text-sm font-medium text-[#6B7280] mb-2">
+                                    🇹🇷 Türkçe
+                                </label>
+                                {field.type === "textarea" ? (
+                                    <textarea
+                                        value={content[field.key]?.tr || ""}
+                                        onChange={(e) => updateField(field.key, "tr", e.target.value)}
+                                        rows={4}
+                                        className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-[#8CC63F] focus:ring-2 focus:ring-[#8CC63F]/20 outline-none transition-all resize-none"
+                                    />
+                                ) : (
+                                    <input
+                                        type="text"
+                                        value={content[field.key]?.tr || ""}
+                                        onChange={(e) => updateField(field.key, "tr", e.target.value)}
+                                        className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-[#8CC63F] focus:ring-2 focus:ring-[#8CC63F]/20 outline-none transition-all"
+                                    />
+                                )}
                             </div>
 
-                            {/* English Content */}
+                            {/* English */}
                             <div>
-                                <label className="block text-xs font-bold text-blue-500 mb-2 uppercase">İngilizce (EN)</label>
-                                <textarea
-                                    value={item.en}
-                                    onChange={(e) => handleUpdate(item.key, "en", e.target.value)}
-                                    className="w-full p-4 bg-blue-50/30 border border-blue-100 rounded-xl focus:bg-white focus:border-blue-400 outline-none transition-all min-h-[120px] leading-relaxed"
-                                />
+                                <label className="block text-sm font-medium text-[#6B7280] mb-2">
+                                    🇬🇧 English
+                                </label>
+                                {field.type === "textarea" ? (
+                                    <textarea
+                                        value={content[field.key]?.en || ""}
+                                        onChange={(e) => updateField(field.key, "en", e.target.value)}
+                                        rows={4}
+                                        className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-[#8CC63F] focus:ring-2 focus:ring-[#8CC63F]/20 outline-none transition-all resize-none"
+                                    />
+                                ) : (
+                                    <input
+                                        type="text"
+                                        value={content[field.key]?.en || ""}
+                                        onChange={(e) => updateField(field.key, "en", e.target.value)}
+                                        className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-[#8CC63F] focus:ring-2 focus:ring-[#8CC63F]/20 outline-none transition-all"
+                                    />
+                                )}
                             </div>
                         </div>
                     </div>
                 ))}
-
-                {content.length === 0 && (
-                    <div className="text-center py-20 bg-white rounded-3xl border-2 border-dashed border-gray-200">
-                        <AlertCircle className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-                        <p className="text-gray-500 font-medium">Bu sayfa için henüz metin anahtarı tanımlanmamış.</p>
-                    </div>
-                )}
             </div>
         </div>
     );

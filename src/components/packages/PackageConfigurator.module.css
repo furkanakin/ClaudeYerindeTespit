@@ -8,23 +8,20 @@
     backdrop-filter: blur(8px);
     z-index: 2000;
     display: flex;
-    align-items: center;
-    /* Center vertically if fits */
+    align-items: flex-start;
     justify-content: center;
-    padding: 40px 20px;
+    padding: 20px;
     overflow-y: auto;
-    /* If entire modal is bigger than screen, scroll the overlay */
 }
 
 .modal {
     background: white;
     width: 100%;
     max-width: 900px;
-    max-height: 90vh;
-    /* Sığmama sorunu için sınır konuldu */
+    max-height: calc(100vh - 40px);
+    margin: auto 0;
     border-radius: 24px;
-    overflow-y: auto;
-    /* İçerik taşarsa kaydırılabilir olsun */
+    overflow: hidden;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -116,6 +113,7 @@
     flex-direction: column;
     flex: 1;
     min-height: 0;
+    overflow-y: auto;
 }
 
 @media (min-width: 768px) {
