@@ -4,10 +4,13 @@ const globalForPrisma = globalThis as unknown as {
     prisma: PrismaClient | undefined;
 };
 
-// Prisma 7 requires datasourceUrl in client options
 const prismaClientSingleton = () => {
     return new PrismaClient({
-        datasourceUrl: process.env.DATABASE_URL || 'file:./prisma/dev.db',
+        datasources: {
+            db: {
+                url: process.env.DATABASE_URL || 'file:./prisma/dev.db',
+            },
+        },
     });
 };
 
