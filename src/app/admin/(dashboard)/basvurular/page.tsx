@@ -1,9 +1,10 @@
 import { prisma } from "@/lib/prisma";
+import { ContactSubmission } from "@prisma/client";
 import Link from "next/link";
 import { formatDistanceToNow } from "@/lib/utils";
 import { Mail, Eye, EyeOff, ArrowRight } from "lucide-react";
 
-async function getSubmissions() {
+async function getSubmissions(): Promise<ContactSubmission[]> {
     try {
         return await prisma.contactSubmission.findMany({
             orderBy: { createdAt: "desc" },
