@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import Button from "@/components/ui/Button";
 import Link from "next/link";
+import { useTranslation } from "@/lib/LanguageContext";
 import Image from "next/image";
 
 export default function HeroSection() {
@@ -14,25 +15,17 @@ export default function HeroSection() {
     }
   };
 
+  const { t } = useTranslation();
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background Media */}
+      {/* ... Background Media and Overlays ... */}
       <div className="absolute inset-0">
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="absolute inset-0 w-full h-full object-cover z-0"
-        >
+        <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover z-0">
           <source src="/images/hero-video.mp4" type="video/mp4" />
         </video>
       </div>
-
-      {/* Dark Gradient Overlay */}
       <div className="absolute inset-0 bg-gradient-to-br from-[#2C3E50]/75 via-[#7ab233]/65 to-[#8CC63F]/55 z-[2]" />
-
-      {/* Additional dark overlay for better text readability */}
       <div className="absolute inset-0 bg-black/15 z-[3]" />
 
       {/* Content */}
@@ -50,7 +43,7 @@ export default function HeroSection() {
             transition={{ delay: 0.2, duration: 0.6 }}
             className="text-[#a3d95b] text-3xl md:text-4xl font-bold mb-4"
           >
-            Muğla'da
+            {t("hero_subtitle", "Stratejik Danışmanlık")}
           </motion.p>
 
           {/* Main Title */}
@@ -58,11 +51,9 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.6 }}
-            className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight"
+            className="text-4xl md:text-5xl lg:text-text-6xl font-bold mb-6 leading-tight"
           >
-            Gayrimenkul Yatırımlarınız İçin{" "}
-            <span className="text-[#a3d95b]">Bağımsız, Teknik, Detaylı</span>{" "}
-            İncelemeler
+            {t("hero_title", "Yerinde Analiz")}
           </motion.h1>
 
           {/* Description */}
@@ -72,8 +63,9 @@ export default function HeroSection() {
             transition={{ delay: 0.6, duration: 0.6 }}
             className="text-lg md:text-xl text-gray-300 mb-10 max-w-2xl mx-auto"
           >
-            <p className="mb-4">Gayrimenkul alım süreçlerinde tarafsız incelemelerle kapsamlı bilgi sunuyoruz.</p>
-            <p>Bağımsız analizlerle karar sürecinizi destekliyoruz.</p>
+            <p className="whitespace-pre-wrap">
+              {t("hero_description", "Mimarlık ve mühendislik temelli, bağımsız ve tarafsız bilgi hizmeti sunan bir danışmanlık platformu")}
+            </p>
           </motion.div>
 
           {/* CTA Button */}
@@ -84,7 +76,7 @@ export default function HeroSection() {
           >
             <Link href="/paketler">
               <Button size="lg" className="text-lg px-10">
-                Paketleri İnceleyin
+                {t("cta_button", "Hizmetlerimizi İnceleyin")}
               </Button>
             </Link>
           </motion.div>

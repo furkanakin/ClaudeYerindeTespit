@@ -13,10 +13,12 @@ RUN npm ci
 COPY . .
 
 # Generate Prisma client and create database
+ENV DATABASE_URL="file:./prisma/dev.db"
 RUN npx prisma generate
-RUN npx prisma db push
+RUN npx prisma db push --accept-data-loss
 
 # Build the application
+ENV NEXT_TELEMETRY_DISABLED=1
 RUN npm run build
 
 # Production stage

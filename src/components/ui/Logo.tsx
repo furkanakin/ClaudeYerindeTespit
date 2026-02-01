@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 
@@ -18,7 +17,7 @@ export default function Logo({ className, size = "md", lightText }: LogoProps) {
   };
 
   return (
-    <Link href="/" className={cn("flex items-center group", className)}>
+    <div className={cn("flex items-center group", className)}>
       <Image
         src="/images/logo-transparent.png"
         alt="Yerinde Analiz Logo"
@@ -30,6 +29,6 @@ export default function Logo({ className, size = "md", lightText }: LogoProps) {
         )}
         priority
       />
-    </Link>
+    </div>
   );
 }
