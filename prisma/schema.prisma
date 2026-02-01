@@ -1,0 +1,52 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../node_modules/.prisma/client"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model User {
+  id        String    @id @default(cuid())
+  username  String    @unique
+  password  String
+  createdAt DateTime  @default(now())
+  sessions  Session[]
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  userId    String
+  token     String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model ContactSubmission {
+  id           String   @id @default(cuid())
+  firstName    String
+  lastName     String
+  phone        String
+  email        String
+  package      String
+  propertyType String
+  purpose      String?
+  parcelInfo   String?
+  listingUrl   String?
+  notes        String?
+  kvkkAccepted Boolean  @default(true)
+  isRead       Boolean  @default(false)
+  createdAt    DateTime @default(now())
+}
+
+model PageContent {
+  id       String @id @default(cuid())
+  pageSlug String
+  key      String
+  tr       String
+  en       String
+
+  @@unique([pageSlug, key])
+}

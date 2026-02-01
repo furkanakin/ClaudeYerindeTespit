@@ -7,7 +7,7 @@ import { z } from "zod";
 import { motion } from "framer-motion";
 import { Send, Loader2, CheckCircle, AlertCircle } from "lucide-react";
 import Button from "@/components/ui/Button";
-import FileUpload from "./FileUpload";
+import Link from "next/link";
 import { cn } from "@/lib/utils";
 
 const contactSchema = z.object({
@@ -21,6 +21,9 @@ const contactSchema = z.object({
   parcelInfo: z.string().optional(),
   listingUrl: z.string().url("Geçerli bir URL giriniz").optional().or(z.literal("")),
   notes: z.string().optional(),
+  kvkkAccepted: z.boolean().refine((val) => val === true, {
+    message: "KVKK ve Gizlilik Sözleşmesini kabul etmeniz gerekmektedir",
+  }),
 });
 
 type ContactFormData = z.infer<typeof contactSchema>;
@@ -30,7 +33,6 @@ export default function ContactForm() {
   const [submitStatus, setSubmitStatus] = useState<"success" | "error" | null>(
     null
   );
-  const [files, setFiles] = useState<File[]>([]);
 
   const {
     register,
@@ -39,6 +41,9 @@ export default function ContactForm() {
     formState: { errors },
   } = useForm<ContactFormData>({
     resolver: zodResolver(contactSchema),
+    defaultValues: {
+      kvkkAccepted: false,
+    },
   });
 
   const onSubmit = async (data: ContactFormData) => {
@@ -46,23 +51,15 @@ export default function ContactForm() {
     setSubmitStatus(null);
 
     try {
-      const formData = new FormData();
-      Object.entries(data).forEach(([key, value]) => {
-        if (value) formData.append(key, value);
-      });
-      files.forEach((file) => {
-        formData.append("files", file);
-      });
-
       const response = await fetch("/api/contact", {
         method: "POST",
-        body: formData,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
       });
 
       if (response.ok) {
         setSubmitStatus("success");
         reset();
-        setFiles([]);
       } else {
         setSubmitStatus("error");
       }
@@ -226,19 +223,8 @@ export default function ContactForm() {
         </div>
       </div>
 
-      {/* File Upload */}
-      <div className="mb-6">
-        <label className={labelClassName}>
-          Gayrimenkule ait eklemek istedikleriniz (Plan, proje, tapu vb.)
-        </label>
-        <FileUpload files={files} setFiles={setFiles} />
-        <p className="text-xs text-[#9CA3AF] mt-2">
-          JPEG, PNG, PDF, DWG formatları kabul edilir. Maksimum 10MB.
-        </p>
-      </div>
-
       {/* Notes */}
-      <div className="mb-8">
+      <div className="mb-6">
         <label className={labelClassName}>
           Talebinizle ilgili iletmek istedikleriniz
         </label>
@@ -248,6 +234,31 @@ export default function ContactForm() {
           className={inputClassName}
           placeholder="Ek notlarınız..."
         />
+      </div>
+
+      {/* KVKK Consent */}
+      <div className="mb-8 p-4 bg-gray-50 rounded-lg">
+        <div className="flex items-start gap-3">
+          <input
+            type="checkbox"
+            {...register("kvkkAccepted")}
+            id="kvkkAccepted"
+            className="w-5 h-5 mt-0.5 rounded border-gray-300 text-[#8CC63F] focus:ring-[#8CC63F] cursor-pointer"
+          />
+          <label htmlFor="kvkkAccepted" className="text-sm text-[#6B7280] cursor-pointer">
+            <Link href="/kvkk" target="_blank" className="text-[#8CC63F] hover:underline font-medium">
+              KVKK Aydınlatma Metni
+            </Link>
+            {" "}ve{" "}
+            <Link href="/gizlilik" target="_blank" className="text-[#8CC63F] hover:underline font-medium">
+              Gizlilik Politikası
+            </Link>
+            'nı okudum ve kabul ediyorum. <span className="text-red-500">*</span>
+          </label>
+        </div>
+        {errors.kvkkAccepted && (
+          <p className={cn(errorClassName, "mt-2")}>{errors.kvkkAccepted.message}</p>
+        )}
       </div>
 
       {/* Submit Status */}

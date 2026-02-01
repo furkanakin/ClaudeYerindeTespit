@@ -1,10 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import nodemailer from "nodemailer";
+import prisma from "@/lib/prisma";
 
 const packageNames: Record<string, string> = {
   "on-analiz": "Ön Analiz",
   "yerinde-analiz": "Yerinde Analiz",
-  "ozel-danismanlik": "Özel Yerinde Analiz - Danışmanlık",
+  "ozel-danismanlik": "Premium Analiz / Danışmanlık",
 };
 
 const propertyTypes: Record<string, string> = {
@@ -15,21 +16,38 @@ const propertyTypes: Record<string, string> = {
 
 export async function POST(request: NextRequest) {
   try {
-    const formData = await request.formData();
+    const data = await request.json();
 
-    const firstName = formData.get("firstName") as string;
-    const lastName = formData.get("lastName") as string;
-    const phone = formData.get("phone") as string;
-    const email = formData.get("email") as string;
-    const packageType = formData.get("package") as string;
-    const propertyType = formData.get("propertyType") as string;
-    const purpose = formData.get("purpose") as string;
-    const parcelInfo = formData.get("parcelInfo") as string;
-    const listingUrl = formData.get("listingUrl") as string;
-    const notes = formData.get("notes") as string;
+    const {
+      firstName,
+      lastName,
+      phone,
+      email,
+      package: packageType,
+      propertyType,
+      purpose,
+      parcelInfo,
+      listingUrl,
+      notes,
+      kvkkAccepted,
+    } = data;
 
-    // Get files
-    const files = formData.getAll("files") as File[];
+    // Save to database
+    await prisma.contactSubmission.create({
+      data: {
+        firstName,
+        lastName,
+        phone,
+        email,
+        package: packageType,
+        propertyType,
+        purpose: purpose || null,
+        parcelInfo: parcelInfo || null,
+        listingUrl: listingUrl || null,
+        notes: notes || null,
+        kvkkAccepted: kvkkAccepted || true,
+      },
+    });
 
     // Create email content
     const emailContent = `
@@ -75,46 +93,38 @@ export async function POST(request: NextRequest) {
         <div class="label">Gayrimenkul Türü</div>
         <div class="value">${propertyTypes[propertyType] || propertyType}</div>
       </div>
-      ${
-        purpose
-          ? `<div class="field">
+      ${purpose
+        ? `<div class="field">
         <div class="label">Satın Alma Amacı</div>
         <div class="value">${purpose}</div>
       </div>`
-          : ""
+        : ""
       }
-      ${
-        parcelInfo
-          ? `<div class="field">
+      ${parcelInfo
+        ? `<div class="field">
         <div class="label">Ada/Parsel Bilgileri</div>
         <div class="value">${parcelInfo}</div>
       </div>`
-          : ""
+        : ""
       }
-      ${
-        listingUrl
-          ? `<div class="field">
+      ${listingUrl
+        ? `<div class="field">
         <div class="label">İlan Linki</div>
         <div class="value"><a href="${listingUrl}">${listingUrl}</a></div>
       </div>`
-          : ""
+        : ""
       }
-      ${
-        notes
-          ? `<div class="field">
+      ${notes
+        ? `<div class="field">
         <div class="label">Ek Notlar</div>
         <div class="value">${notes}</div>
       </div>`
-          : ""
+        : ""
       }
-      ${
-        files.length > 0
-          ? `<div class="field">
-        <div class="label">Ekli Dosyalar</div>
-        <div class="value">${files.length} adet dosya eklenmiştir.</div>
-      </div>`
-          : ""
-      }
+      <div class="field">
+        <div class="label">KVKK Onayı</div>
+        <div class="value">${kvkkAccepted ? "Onaylandı ✓" : "Onaylanmadı"}</div>
+      </div>
     </div>
     <div class="footer">
       <p>Bu e-posta yerindeanaliz.com üzerinden gönderilmiştir.</p>
@@ -135,17 +145,6 @@ export async function POST(request: NextRequest) {
       },
     });
 
-    // Prepare attachments
-    const attachments = await Promise.all(
-      files.map(async (file) => {
-        const buffer = Buffer.from(await file.arrayBuffer());
-        return {
-          filename: file.name,
-          content: buffer,
-        };
-      })
-    );
-
     // Send email
     await transporter.sendMail({
       from: process.env.SMTP_FROM || "noreply@yerindeanaliz.com",
@@ -153,7 +152,6 @@ export async function POST(request: NextRequest) {
       replyTo: email,
       subject: `Yeni Talep: ${firstName} ${lastName} - ${packageNames[packageType] || packageType}`,
       html: emailContent,
-      attachments,
     });
 
     return NextResponse.json({ success: true });
