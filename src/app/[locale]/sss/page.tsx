@@ -19,7 +19,7 @@ export default function SSSPage() {
           <h1 className="text-4xl md:text-5xl font-bold mb-4">
             Sıkça Sorulan Sorular
           </h1>
-          <p className="text-xl text-white/80 max-w-2xl mx-auto">
+          <p className="text-xl text-white/80 max-w-2xl mx-auto text-center">
             Yerinde Analiz hakkında merak edilen her şey
           </p>
         </div>
