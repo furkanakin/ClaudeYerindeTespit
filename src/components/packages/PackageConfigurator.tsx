@@ -11,12 +11,16 @@ interface PackageConfiguratorProps {
     isOpen: boolean;
     onClose: () => void;
     packageData: Package | null;
+    locale?: string;
+    translations?: Record<string, string>;
 }
 
 export default function PackageConfigurator({
     isOpen,
     onClose,
     packageData,
+    locale = "tr",
+    translations = {},
 }: PackageConfiguratorProps) {
     const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
     const [totalPrice, setTotalPrice] = useState(0);
@@ -39,8 +43,20 @@ export default function PackageConfigurator({
         }
     };
 
+    // Locale-based UI text
+    const isEn = locale === "en";
+    const packageConfiguratorText = isEn ? "Package Configurator" : "Paket Yapılandırıcı";
+    const deliveryTimeLabel = isEn ? "Delivery Time" : "Teslim Süresi";
+    const forWhomText = isEn ? "Who is it for?" : "Kimler için?";
+    const basePriceText = isEn ? "Base Price" : "Baz Fiyat";
+    const extraServicesText = isEn ? "Extra Services" : "Ek Hizmetler";
+    const totalEstimatedText = isEn ? "Total Estimated Amount" : "Toplam Tahmini Tutar";
+    const getQuoteText = isEn ? "Get Quote" : "Teklif Alın";
+    const noAddonsText = isEn ? "No additional services available for this package." : "Bu paket için ek hizmet bulunmamaktadır.";
+    const basedOnScopeText = isEn ? "Based on Scope" : "Kapsama Göre";
+
     const formatPrice = (price: number) => {
-        if (price === 0) return "Teklif Alın";
+        if (price === 0) return getQuoteText;
         return new Intl.NumberFormat("tr-TR", {
             style: "currency",
             currency: "TRY",
@@ -62,7 +78,7 @@ export default function PackageConfigurator({
     if (!isOpen || !packageData) return null;
 
     const hasAddOns = packageData.addOns && packageData.addOns.length > 0;
-    const addOnsTitle = packageData.addOnsTitle || "Ek Hizmetler ve Özellikler";
+    const addOnsTitle = packageData.addOnsTitle || (isEn ? "Extra Services and Features" : "Ek Hizmetler ve Özellikler");
 
     return (
         <AnimatePresence>
@@ -79,7 +95,7 @@ export default function PackageConfigurator({
                     </button>
 
                     <div className={styles.header}>
-                        <span className={styles.category}>Paket Yapılandırıcı</span>
+                        <span className={styles.category}>{packageConfiguratorText}</span>
                         <h2 className={styles.title}>{packageData.title}</h2>
                         <p className={styles.description}>
                             {packageData.modalDescription
@@ -88,7 +104,7 @@ export default function PackageConfigurator({
                         </p>
                         {packageData.deliveryTime && (
                             <p className="text-sm text-[#8CC63F] font-medium mt-2">
-                                Teslim Süresi: {packageData.deliveryTime}
+                                {deliveryTimeLabel}: {packageData.deliveryTime}
                             </p>
                         )}
 
@@ -119,7 +135,7 @@ export default function PackageConfigurator({
                             {/* "Kimler için?" section */}
                             {packageData.kimlerIcin && packageData.kimlerIcin.length > 0 && (
                                 <div className="mb-6">
-                                    <h3 className="text-lg font-semibold text-[#8CC63F] mb-3">Kimler için?</h3>
+                                    <h3 className="text-lg font-semibold text-[#8CC63F] mb-3">{forWhomText}</h3>
                                     <ul className="space-y-2">
                                         {packageData.kimlerIcin.map((item, index) => (
                                             <li key={index} className="flex items-start gap-2 text-sm text-[#6B7280]">
@@ -157,22 +173,22 @@ export default function PackageConfigurator({
                                     </div>
                                 ))
                             ) : (
-                                <p className="text-gray-500 italic">Bu paket için ek hizmet bulunmamaktadır.</p>
+                                <p className="text-gray-500 italic">{noAddonsText}</p>
                             )}
                         </div>
 
                         <div className={styles.summary}>
                             <div className={styles.summaryRow}>
                                 <div className="flex flex-col">
-                                    <span>Baz Fiyat</span>
+                                    <span>{basePriceText}</span>
                                     {packageData.basePriceNote && (
                                         <span className="text-xs text-[#9CA3AF]">{packageData.basePriceNote}</span>
                                     )}
                                 </div>
-                                <span className={styles.priceValue}>{packageData.basePrice > 0 ? formatPrice(packageData.basePrice) : "Kapsama Göre"}</span>
+                                <span className={styles.priceValue}>{packageData.basePrice > 0 ? formatPrice(packageData.basePrice) : basedOnScopeText}</span>
                             </div>
                             <div className={styles.summaryRow}>
-                                <span>Ek Hizmetler ({selectedOptions.length})</span>
+                                <span>{extraServicesText} ({selectedOptions.length})</span>
                                 <span className={styles.priceValue}>
                                     {packageData.basePrice > 0
                                         ? `+${formatPrice(totalPrice - packageData.basePrice)}`
@@ -180,15 +196,15 @@ export default function PackageConfigurator({
                                 </span>
                             </div>
                             <div className={`${styles.summaryRow} ${styles.total}`}>
-                                <span>Toplam Tahmini Tutar</span>
+                                <span>{totalEstimatedText}</span>
                                 <span className={styles.totalPrice}>
                                     {packageData.basePrice > 0 ? formatPrice(totalPrice) : packageData.price}
                                 </span>
                             </div>
 
-                            <Link href="/iletisim" onClick={onClose} className="w-full">
+                            <Link href={`/${locale}/iletisim`} onClick={onClose} className="w-full">
                                 <button className={styles.confirmBtn}>
-                                    Teklif Alın <ArrowRight size={20} />
+                                    {getQuoteText} <ArrowRight size={20} />
                                 </button>
                             </Link>
                         </div>
