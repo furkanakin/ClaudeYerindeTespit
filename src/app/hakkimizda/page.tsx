@@ -15,7 +15,7 @@ export default function HakkimizdaPage() {
       <section className="py-16 bg-gradient-to-r from-[#8CC63F] to-[#7ab233]">
         <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">Hakkımızda</h1>
-          <p className="text-xl text-white/80 max-w-2xl mx-auto md:whitespace-nowrap">
+          <p className="text-xl text-white/80 max-w-2xl mx-auto md:whitespace-nowrap text-center">
             Mimarlık ve mühendislik temelli, bağımsız ve tarafsız bilgi hizmeti sunan bir danışmanlık platformu
           </p>
         </div>

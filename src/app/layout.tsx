@@ -3,7 +3,7 @@ import { Inter, Outfit } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
-import WhatsAppButton from "@/components/ui/WhatsAppButton";
+import SocialButtons from "@/components/ui/SocialButtons";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const outfit = Outfit({ subsets: ["latin"], variable: "--font-outfit" });
@@ -43,7 +43,7 @@ export default function RootLayout({
         <Navbar />
         <main>{children}</main>
         <Footer />
-        <WhatsAppButton />
+        <SocialButtons />
       </body>
     </html>
   );

@@ -73,7 +73,7 @@ export default function PackageCard({ package_, onSelect }: PackageCardProps) {
         {package_.whatIncludes && (
           <div className="mb-6">
             <h4 className="text-lg font-semibold text-[#2C3E50] mb-3">Neler İçerir?</h4>
-            <div className="space-y-3">
+            <div className="space-y-3 font-outfit">
               {package_.whatIncludes.map((item, index) => (
                 <div key={index}>
                   <p className="font-bold text-[#2C3E50] text-sm">{item.title}</p>
@@ -83,6 +83,21 @@ export default function PackageCard({ package_, onSelect }: PackageCardProps) {
                 </div>
               ))}
             </div>
+          </div>
+        )}
+
+        {/* "Kimler için?" Section (Goal 7 & 8) */}
+        {package_.kimlerIcin && (
+          <div className="mb-6">
+            <h4 className="text-lg font-semibold text-[#2C3E50] mb-3">Kimler için?</h4>
+            <ul className="space-y-2">
+              {package_.kimlerIcin.slice(0, 4).map((item, index) => (
+                <li key={index} className="flex items-start gap-2 text-sm text-[#6B7280]">
+                  <span className="text-[#8CC63F] mt-1 flex-shrink-0">•</span>
+                  <span dangerouslySetInnerHTML={{ __html: item }} />
+                </li>
+              ))}
+            </ul>
           </div>
         )}
 

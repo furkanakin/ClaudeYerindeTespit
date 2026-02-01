@@ -18,7 +18,7 @@ const contactInfo = [
   {
     icon: MapPin,
     title: "Konum",
-    content: "Muğla, Türkiye",
+    content: "Akarca Mah. Mustafa Kemal Bulvarı No:158A Fethiye/Muğla",
     href: null,
   },
   {
@@ -37,8 +37,7 @@ export default function IletisimPage() {
         <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">İletişim</h1>
           <p className="text-xl text-white/80 max-w-2xl mx-auto">
-            Gayrimenkul danışmanlığı talepleriniz için formu doldurun,
-            size en kısa sürede dönüş yapalım
+            Stratejik danışmanlık ve yerinde analiz hizmetlerimiz için talebinizi oluşturun, en kısa sürede sizinle iletişime geçelim.
           </p>
         </div>
       </section>

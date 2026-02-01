@@ -124,7 +124,7 @@ export default function PackageConfigurator({
                                         {packageData.kimlerIcin.map((item, index) => (
                                             <li key={index} className="flex items-start gap-2 text-sm text-[#6B7280]">
                                                 <span className="text-[#8CC63F] mt-0.5">•</span>
-                                                {item}
+                                                <span dangerouslySetInnerHTML={{ __html: item }} />
                                             </li>
                                         ))}
                                     </ul>

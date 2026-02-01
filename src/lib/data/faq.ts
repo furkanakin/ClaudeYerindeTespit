@@ -15,7 +15,7 @@ export const faqs: FAQ[] = [
     id: 2,
     question: "Hangi hizmet paketlerini sunuyorsunuz?",
     answer:
-      "Üç ana hizmetimiz vardır: Ön Analiz, Yerinde Analiz ve Özel Yerinde Analiz / Danışmanlık (ihtiyaca göre şekillenir). Her paketin kapsamı ve teslim süresi Paketler sayfasında detaylı olarak belirtilmiştir.",
+      "Üç ana hizmetimiz vardır: Ön Analiz, Yerinde Analiz ve Premium Analiz / Danışmanlık (ihtiyaca göre şekillenir). Her paketin kapsamı ve teslim süresi Paketler sayfasında detaylı olarak belirtilmiştir.",
   },
   {
     id: 3,
@@ -39,7 +39,7 @@ export const faqs: FAQ[] = [
     id: 6,
     question: "Raporu ne kadar sürede teslim ediyorsunuz?",
     answer:
-      "Ön Analiz: 1-2 iş günü. Yerinde Analiz: 3-4 iş günü. Özel Yerinde Analiz/Danışmanlık: Talebin kapsamına göre belirlenir.",
+      "Ön Analiz: 1-2 iş günü. Yerinde Analiz: 3-4 iş günü. Premium Analiz / Danışmanlık: Talebin kapsamına göre belirlenir.",
   },
   {
     id: 7,
@@ -110,6 +110,6 @@ export const faqs: FAQ[] = [
     id: 18,
     question: "Rapor örneği görebilir miyim?",
     answer:
-      "Örnek rapor içeriği veya şablonu talep üzerine gösterilebilir (kişisel veriler çıkarılmış şekilde).",
+      "Örnek rapor kişisel veriler çıkarılmış şekilde talep üzerine gösterilebilir.",
   },
 ];

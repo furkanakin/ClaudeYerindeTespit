@@ -21,23 +21,13 @@ export default function StorySection() {
             className="relative h-[400px] lg:h-[500px] rounded-2xl overflow-hidden shadow-2xl"
           >
             <Image
-              src="/images/hakkimizda.jpeg"
+              src="/images/hakkimizda-renkli.jpeg"
               alt="Modern mimari konut"
               fill
               className="object-cover"
               sizes="(max-width: 1024px) 100vw, 50vw"
             />
-            {/* Gradient Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-[#2C3E50]/80 via-transparent to-transparent" />
-            {/* Quote at bottom */}
-            <div className="absolute bottom-0 left-0 right-0 p-8 text-white">
-              <p
-                className="text-2xl md:text-3xl font-bold text-center italic"
-                style={{ fontFamily: 'var(--font-family-display)' }}
-              >
-                "Doğru bilgi ile doğru karar"
-              </p>
-            </div>
+
           </motion.div>
 
           {/* Content */}
@@ -74,14 +64,7 @@ export default function StorySection() {
               </p>
             </div>
 
-            {/* Slogan */}
-            <div className="mt-10 p-6 bg-[#F9FAFB] rounded-2xl border-l-4 border-[#8CC63F]">
-              <p
-                className="text-xl md:text-2xl font-semibold text-[#2C3E50] md:whitespace-nowrap"
-              >
-                Doğru bilgi → Bilinçli değerlendirme → İsabetli karar
-              </p>
-            </div>
+
           </motion.div>
         </div>
       </div>
