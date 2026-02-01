@@ -14,6 +14,7 @@ import {
     Clock,
     CheckCircle,
 } from "lucide-react";
+import DeleteSubmissionButton from "@/components/admin/DeleteSubmissionButton";
 
 async function getSubmission(id: string) {
     try {
@@ -202,6 +203,8 @@ export default async function BasvuruDetayPage({
                             </span>
                         </div>
                     </div>
+
+                    <DeleteSubmissionButton id={submission.id} />
                 </div>
             </div>
         </div>

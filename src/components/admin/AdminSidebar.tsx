@@ -14,6 +14,9 @@ import {
     LogOut,
     Globe,
     PanelBottom,
+    FileSearch,
+    MapPin,
+    Crown,
 } from "lucide-react";
 
 const menuItems = [
@@ -28,12 +31,21 @@ const menuItems = [
         icon: Mail,
     },
     {
+        title: "Paketler",
+        icon: Package,
+        children: [
+            { title: "Paketler Sayfası", href: "/admin/icerik/paketler", icon: FileText },
+            { title: "Ön Analiz", href: "/admin/icerik/paketler/on-analiz", icon: FileSearch },
+            { title: "Yerinde Analiz", href: "/admin/icerik/paketler/yerinde-analiz", icon: MapPin },
+            { title: "Premium Danışmanlık", href: "/admin/icerik/paketler/premium", icon: Crown },
+        ],
+    },
+    {
         title: "İçerik Yönetimi",
         icon: FileText,
         children: [
             { title: "Anasayfa", href: "/admin/icerik/anasayfa", icon: Home },
             { title: "Hakkımızda", href: "/admin/icerik/hakkimizda", icon: Info },
-            { title: "Paketler", href: "/admin/icerik/paketler", icon: Package },
             { title: "SSS", href: "/admin/icerik/sss", icon: HelpCircle },
             { title: "İletişim", href: "/admin/icerik/iletisim", icon: Phone },
             { title: "Footer", href: "/admin/icerik/footer", icon: PanelBottom },
