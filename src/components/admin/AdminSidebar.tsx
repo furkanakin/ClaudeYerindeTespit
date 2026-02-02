@@ -49,6 +49,7 @@ const menuItems = [
             { title: "SSS", href: "/admin/icerik/sss", icon: HelpCircle },
             { title: "İletişim", href: "/admin/icerik/iletisim", icon: Phone },
             { title: "Footer", href: "/admin/icerik/footer", icon: PanelBottom },
+            { title: "Navbar", href: "/admin/icerik/navbar", icon: Globe },
         ],
     },
 ];
