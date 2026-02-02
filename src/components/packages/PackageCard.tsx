@@ -99,14 +99,20 @@ export default function PackageCard({ package_, onSelect, locale = "tr", transla
           <div className="mb-6">
             <h4 className="text-lg font-semibold text-[#2C3E50] mb-3">{whatIncludesTitle}</h4>
             <div className="space-y-3 font-outfit">
-              {package_.whatIncludes.map((item, index) => (
-                <div key={index}>
-                  <p className="font-bold text-[#2C3E50] text-sm">{item.title}</p>
-                  {item.details && item.details.map((detail, idx) => (
-                    <p key={idx} className="text-sm text-[#6B7280] ml-2">– {detail}</p>
-                  ))}
-                </div>
-              ))}
+              {package_.whatIncludes.map((item, index) => {
+                const titleKey = `${pkgKey}_includes_${index + 1}_title`;
+                return (
+                  <div key={index}>
+                    <p className="font-bold text-[#2C3E50] text-sm">{t(titleKey, item.title)}</p>
+                    {item.details && item.details.map((detail, idx) => {
+                      const detailKey = `${pkgKey}_includes_${index + 1}_detail${idx + 1}`;
+                      return (
+                        <p key={idx} className="text-sm text-[#6B7280] ml-2">– {t(detailKey, detail)}</p>
+                      );
+                    })}
+                  </div>
+                );
+              })}
             </div>
           </div>
         )}
@@ -116,12 +122,15 @@ export default function PackageCard({ package_, onSelect, locale = "tr", transla
           <div className="mb-6">
             <h4 className="text-lg font-semibold text-[#2C3E50] mb-3">{forWhomTitle}</h4>
             <ul className="space-y-2">
-              {package_.kimlerIcin.slice(0, 4).map((item, index) => (
-                <li key={index} className="flex items-start gap-2 text-sm text-[#6B7280]">
-                  <span className="text-[#8CC63F] mt-1 flex-shrink-0">•</span>
-                  <span dangerouslySetInnerHTML={{ __html: item }} />
-                </li>
-              ))}
+              {package_.kimlerIcin.slice(0, 4).map((item, index) => {
+                const itemKey = `${pkgKey}_kimler_${index + 1}`;
+                return (
+                  <li key={index} className="flex items-start gap-2 text-sm text-[#6B7280]">
+                    <span className="text-[#8CC63F] mt-1 flex-shrink-0">•</span>
+                    <span dangerouslySetInnerHTML={{ __html: t(itemKey, item) }} />
+                  </li>
+                );
+              })}
             </ul>
           </div>
         )}

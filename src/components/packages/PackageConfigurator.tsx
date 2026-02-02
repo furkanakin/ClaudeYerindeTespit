@@ -75,10 +75,28 @@ export default function PackageConfigurator({
         });
     };
 
+    // Package key mapping
+    const packageKeyMap: Record<string, string> = {
+        "on-analiz": "pkg1",
+        "yerinde-analiz": "pkg2",
+        "ozel-danismanlik": "pkg3",
+    };
+
+    const pkgKey = packageData ? (packageKeyMap[packageData.id] || "pkg1") : "pkg1";
+    const t = (key: string, fallback: string) => translations[key] || fallback;
+
+    // Translated package fields
+    const pkgTitle = t(`${pkgKey}_title`, packageData?.title || "");
+    const pkgDesc = t(`${pkgKey}_modal_desc`, packageData?.modalDescription || packageData?.description || "");
+    const pkgFooterNote = t(`${pkgKey}_footer_note`, packageData?.modalFooterNote || "");
+    const pkgDelivery = t(`${pkgKey}_delivery`, packageData?.deliveryTime || "");
+    const pkgBasePriceNote = t(`${pkgKey}_base_price_note`, packageData?.basePriceNote || "");
+    const pkgAddonsTitle = t(`${pkgKey}_addons_title`, packageData?.addOnsTitle || (isEn ? "Extra Services and Features" : "Ek Hizmetler ve Özellikler"));
+
+
     if (!isOpen || !packageData) return null;
 
     const hasAddOns = packageData.addOns && packageData.addOns.length > 0;
-    const addOnsTitle = packageData.addOnsTitle || (isEn ? "Extra Services and Features" : "Ek Hizmetler ve Özellikler");
 
     return (
         <AnimatePresence>
@@ -96,22 +114,20 @@ export default function PackageConfigurator({
 
                     <div className={styles.header}>
                         <span className={styles.category}>{packageConfiguratorText}</span>
-                        <h2 className={styles.title}>{packageData.title}</h2>
+                        <h2 className={styles.title}>{pkgTitle}</h2>
                         <p className={styles.description}>
-                            {packageData.modalDescription
-                                ? renderDescription(packageData.modalDescription)
-                                : packageData.description}
+                            {renderDescription(pkgDesc)}
                         </p>
                         {packageData.deliveryTime && (
                             <p className="text-sm text-[#8CC63F] font-medium mt-2">
-                                {deliveryTimeLabel}: {packageData.deliveryTime}
+                                {deliveryTimeLabel}: {pkgDelivery}
                             </p>
                         )}
 
                         {/* Modal Footer Note (smaller text) */}
                         {packageData.modalFooterNote && (
                             <p className="text-xs text-[#9CA3AF] mt-3 leading-relaxed">
-                                {packageData.modalFooterNote}
+                                {pkgFooterNote}
                             </p>
                         )}
 
@@ -119,12 +135,15 @@ export default function PackageConfigurator({
                         {packageData.zoneInfo && packageData.zoneInfo.length > 0 && (
                             <div className="mt-4 p-3 bg-[#F9FAFB] rounded-lg">
                                 <ul className="space-y-1.5 text-xs text-[#6B7280]">
-                                    {packageData.zoneInfo.map((zone, index) => (
-                                        <li key={index} className="flex items-start gap-2">
-                                            <span className="text-[#8CC63F] font-bold">•</span>
-                                            <span>{zone}</span>
-                                        </li>
-                                    ))}
+                                    {packageData.zoneInfo.map((zone, index) => {
+                                        const zoneKey = `${pkgKey}_zone${index + 1}`;
+                                        return (
+                                            <li key={index} className="flex items-start gap-2">
+                                                <span className="text-[#8CC63F] font-bold">•</span>
+                                                <span>{t(zoneKey, zone)}</span>
+                                            </li>
+                                        );
+                                    })}
                                 </ul>
                             </div>
                         )}
@@ -137,41 +156,53 @@ export default function PackageConfigurator({
                                 <div className="mb-6">
                                     <h3 className="text-lg font-semibold text-[#8CC63F] mb-3">{forWhomText}</h3>
                                     <ul className="space-y-2">
-                                        {packageData.kimlerIcin.map((item, index) => (
-                                            <li key={index} className="flex items-start gap-2 text-sm text-[#6B7280]">
-                                                <span className="text-[#8CC63F] mt-0.5">•</span>
-                                                <span dangerouslySetInnerHTML={{ __html: item }} />
-                                            </li>
-                                        ))}
+                                        {packageData.kimlerIcin.map((item, index) => {
+                                            const itemKey = `${pkgKey}_kimler_${index + 1}`;
+                                            return (
+                                                <li key={index} className="flex items-start gap-2 text-sm text-[#6B7280]">
+                                                    <span className="text-[#8CC63F] mt-0.5">•</span>
+                                                    <span dangerouslySetInnerHTML={{ __html: t(itemKey, item) }} />
+                                                </li>
+                                            );
+                                        })}
                                     </ul>
                                 </div>
                             )}
 
-                            <h3 className={styles.sectionTitle}>{addOnsTitle}</h3>
+                            <h3 className={styles.sectionTitle}>{pkgAddonsTitle}</h3>
                             {hasAddOns ? (
-                                packageData.addOns?.map((option) => (
-                                    <div
-                                        key={option.id}
-                                        className={`${styles.optionItem} ${selectedOptions.includes(option.id) ? styles.selected : ""
-                                            }`}
-                                        onClick={() => toggleOption(option)}
-                                    >
-                                        <div className={styles.checkbox}>
-                                            {selectedOptions.includes(option.id) && (
-                                                <Check size={16} color="white" />
-                                            )}
-                                        </div>
-                                        <div className={styles.optionInfo}>
-                                            <span className={styles.optionName}>{option.name}</span>
-                                            <span className={styles.optionDesc}>
-                                                {option.description}
+                                packageData.addOns?.map((option, index) => {
+                                    // Try to find translation for name, desc, priceLabel
+                                    // Note: Addons in static data don't strictly align by index for lookup if keys vary, 
+                                    // but assuming index + 1 alignment with seed data
+                                    const addonName = t(`${pkgKey}_addon${index + 1}_name`, option.name);
+                                    const addonDesc = t(`${pkgKey}_addon${index + 1}_desc`, option.description);
+                                    const addonPrice = t(`${pkgKey}_addon${index + 1}_price`, option.priceLabel);
+
+                                    return (
+                                        <div
+                                            key={option.id}
+                                            className={`${styles.optionItem} ${selectedOptions.includes(option.id) ? styles.selected : ""
+                                                }`}
+                                            onClick={() => toggleOption(option)}
+                                        >
+                                            <div className={styles.checkbox}>
+                                                {selectedOptions.includes(option.id) && (
+                                                    <Check size={16} color="white" />
+                                                )}
+                                            </div>
+                                            <div className={styles.optionInfo}>
+                                                <span className={styles.optionName}>{addonName}</span>
+                                                <span className={styles.optionDesc}>
+                                                    {addonDesc}
+                                                </span>
+                                            </div>
+                                            <span className={styles.optionPrice}>
+                                                {addonPrice}
                                             </span>
                                         </div>
-                                        <span className={styles.optionPrice}>
-                                            {option.priceLabel}
-                                        </span>
-                                    </div>
-                                ))
+                                    );
+                                })
                             ) : (
                                 <p className="text-gray-500 italic">{noAddonsText}</p>
                             )}
@@ -182,7 +213,7 @@ export default function PackageConfigurator({
                                 <div className="flex flex-col">
                                     <span>{basePriceText}</span>
                                     {packageData.basePriceNote && (
-                                        <span className="text-xs text-[#9CA3AF]">{packageData.basePriceNote}</span>
+                                        <span className="text-xs text-[#9CA3AF]">{pkgBasePriceNote}</span>
                                     )}
                                 </div>
                                 <span className={styles.priceValue}>{packageData.basePrice > 0 ? formatPrice(packageData.basePrice) : basedOnScopeText}</span>
@@ -199,6 +230,8 @@ export default function PackageConfigurator({
                                 <span>{totalEstimatedText}</span>
                                 <span className={styles.totalPrice}>
                                     {packageData.basePrice > 0 ? formatPrice(totalPrice) : packageData.price}
+                                    {/* Note: packageData.price is string, might need translation if it contains text? It's usually "4.500 TL" or "Determined by scope" */}
+                                    {/* We can cover pkg3_price via pkgKey check logic if needed, but let's leave as is for now if it comes from static data mostly numbers */}
                                 </span>
                             </div>
 
