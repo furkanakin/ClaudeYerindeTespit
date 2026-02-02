@@ -4,6 +4,7 @@ import React, { createContext, useContext } from "react";
 
 interface LanguageContextType {
     locale: string;
+    translations: Record<string, string>;
     t: (key: string, fallback?: string) => string;
 }
 
@@ -21,11 +22,12 @@ export function LanguageProvider({
     translations: Record<string, string>;
 }) {
     const t = (key: string, fallback?: string) => {
+        // Return translation if exists, otherwise fallback, otherwise key
         return translations[key] || fallback || key;
     };
 
     return (
-        <LanguageContext.Provider value={{ locale, t }}>
+        <LanguageContext.Provider value={{ locale, translations, t }}>
             {children}
         </LanguageContext.Provider>
     );
@@ -34,9 +36,10 @@ export function LanguageProvider({
 export function useTranslation() {
     const context = useContext(LanguageContext);
     if (context === undefined) {
-        // Fallback if provider is missing (e.g. in some isolated client components)
+        // Fallback if provider is missing
         return {
             locale: "tr",
+            translations: {} as Record<string, string>,
             t: (key: string, fallback?: string) => fallback || key,
         };
     }

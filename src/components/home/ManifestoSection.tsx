@@ -24,12 +24,12 @@ const fallbackTranslations: Record<string, Record<string, string>> = {
 export default function ManifestoSection() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
-  const { locale, t: contextT } = useTranslation();
+  const { locale, translations } = useTranslation();
 
   const t = (key: string) => {
-    const fromDb = contextT(key);
-    if (fromDb !== key) return fromDb;
-    return fallbackTranslations[locale]?.[key] || fallbackTranslations.tr[key] || key;
+    if (translations[key]) return translations[key];
+    if (fallbackTranslations[locale]?.[key]) return fallbackTranslations[locale][key];
+    return fallbackTranslations.tr[key] || key;
   };
 
   return (

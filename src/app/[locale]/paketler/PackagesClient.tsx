@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { packages, Package } from "@/lib/data/packages";
 import PackageCard from "@/components/packages/PackageCard";
 import PackageConfigurator from "@/components/packages/PackageConfigurator";
+import { getLocalizedPath } from "@/lib/i18n/routes";
 
 interface PackagesClientProps {
     locale: string;
@@ -78,7 +79,7 @@ export default function PackagesClient({ locale, translations }: PackagesClientP
                             <p className="text-[#6B7280] mb-4">{noteText}</p>
                             <p className="text-sm text-[#9CA3AF]">
                                 {detailText}{" "}
-                                <a href={`/${locale}/iletisim`} className="text-[#8CC63F] font-medium hover:underline">
+                                <a href={getLocalizedPath("/iletisim", locale)} className="text-[#8CC63F] font-medium hover:underline">
                                     {contactText}
                                 </a>
                                 .

@@ -7,7 +7,7 @@ import Link from "next/link";
 import { getLocalizedPath } from "@/lib/i18n/routes";
 import { useTranslation } from "@/lib/LanguageContext";
 
-// Fallback translations
+// Fallback translations for when database is empty
 const fallbackTranslations: Record<string, Record<string, string>> = {
   tr: {
     hero_location: "Muğla'da",
@@ -30,12 +30,16 @@ const fallbackTranslations: Record<string, Record<string, string>> = {
 };
 
 export default function HeroSection() {
-  const { locale, t: contextT } = useTranslation();
+  const { locale, translations } = useTranslation();
 
+  // Get translation: first from DB, then from fallback
   const t = (key: string) => {
-    const fromDb = contextT(key);
-    if (fromDb !== key) return fromDb;
-    return fallbackTranslations[locale]?.[key] || fallbackTranslations.tr[key] || key;
+    // First check database translations
+    if (translations[key]) return translations[key];
+    // Then check locale-specific fallback
+    if (fallbackTranslations[locale]?.[key]) return fallbackTranslations[locale][key];
+    // Finally check Turkish fallback
+    return fallbackTranslations.tr[key] || key;
   };
 
   const scrollToContent = () => {
