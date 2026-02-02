@@ -176,7 +176,7 @@ export default function PackageConfigurator({
                                     // Note: Addons in static data don't strictly align by index for lookup if keys vary, 
                                     // but assuming index + 1 alignment with seed data
                                     const addonName = t(`${pkgKey}_addon${index + 1}_name`, option.name);
-                                    const addonDesc = t(`${pkgKey}_addon${index + 1}_desc`, option.description);
+                                    const addonDesc = t(`${pkgKey}_addon${index + 1}_desc`, option.description || "");
                                     const addonPrice = t(`${pkgKey}_addon${index + 1}_price`, option.priceLabel);
 
                                     return (
