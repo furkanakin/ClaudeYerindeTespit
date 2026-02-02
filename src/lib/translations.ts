@@ -8,9 +8,14 @@ export async function getTranslations(pageSlug: string, locale: string) {
 
         const translations: Record<string, string> = {};
 
-        // For each key, use the requested locale, fallback to TR if empty
+        // For each key, use the requested locale. 
+        // If the requested locale translation is missing in DB, we skip it 
+        // effectively allowing the component-level hardcoded fallback (which might be in the correct language) to take over.
         content.forEach((item) => {
-            translations[item.key] = locale === 'en' ? (item.en || item.tr) : item.tr;
+            const value = locale === 'en' ? item.en : item.tr;
+            if (value) {
+                translations[item.key] = value;
+            }
         });
 
         return translations;
