@@ -3,10 +3,34 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
+import { useTranslation } from "@/lib/LanguageContext";
+
+// Fallback translations
+const fallbackTranslations: Record<string, Record<string, string>> = {
+  tr: {
+    manifesto_brand: "Yerinde Analiz",
+    manifesto_text1: ", yatırım sürecinizde uzun vadeli hedeflerinize en uygun yolu belirlemenize yardımcı olan, riskleri azaltan ve doğru kararları destekleyen profesyonel bir yönlendirme hizmetidir.",
+    manifesto_highlight: "Arazi, konut veya proje seçimlerinde",
+    manifesto_text2: " mevcut durumun analizini yapar ve size özel bir yol haritası sunar.",
+  },
+  en: {
+    manifesto_brand: "Yerinde Analiz",
+    manifesto_text1: " is a professional guidance service that helps you determine the most suitable path for your long-term goals in your investment process, reduces risks, and supports correct decisions.",
+    manifesto_highlight: "In land, housing, or project selections",
+    manifesto_text2: " it analyzes the current situation and offers you a customized roadmap.",
+  },
+};
 
 export default function ManifestoSection() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const { locale, t: contextT } = useTranslation();
+
+  const t = (key: string) => {
+    const fromDb = contextT(key);
+    if (fromDb !== key) return fromDb;
+    return fallbackTranslations[locale]?.[key] || fallbackTranslations.tr[key] || key;
+  };
 
   return (
     <section
@@ -22,14 +46,12 @@ export default function ManifestoSection() {
           className="max-w-4xl mx-auto text-center text-white"
         >
           <p className="text-xl md:text-2xl lg:text-3xl leading-relaxed font-light">
-            <span className="font-semibold">Yerinde Analiz</span>, yatırım
-            sürecinizde uzun vadeli hedeflerinize en uygun yolu belirlemenize
-            yardımcı olan, riskleri azaltan ve doğru kararları destekleyen
-            profesyonel bir yönlendirme hizmetidir. <br />
+            <span className="font-semibold">{t("manifesto_brand")}</span>
+            {t("manifesto_text1")} <br />
             <span className="font-semibold">
-              Arazi, konut veya proje seçimlerinde
-            </span>{" "}
-            mevcut durumun analizini yapar ve size özel bir yol haritası sunar.
+              {t("manifesto_highlight")}
+            </span>
+            {t("manifesto_text2")}
           </p>
         </motion.div>
       </div>

@@ -5,37 +5,72 @@ import { useInView } from "framer-motion";
 import { useRef } from "react";
 import { Search, Shield, Target } from "lucide-react";
 import Image from "next/image";
+import { useTranslation } from "@/lib/LanguageContext";
 
-const whyUsItems = [
-  {
-    icon: Search,
-    title: "Gerçek Durum",
-    subtitle: "Gayrimenkulün gerçek durumunu ortaya çıkarır.",
-    description:
-      "Arazi veya konutun fiziksel, teknik ve planlama açısından tüm kritik detaylarını yerinde inceleme ve masaüstü araştırmayla görünür kılar.",
-    image: "/images/gercek-durum.png",
+// Fallback translations
+const fallbackTranslations: Record<string, Record<string, string>> = {
+  tr: {
+    whyus_title_prefix: "Neden",
+    whyus_title_highlight: "Yerinde Analiz",
+    whyus_item1_title: "Gerçek Durum",
+    whyus_item1_subtitle: "Gayrimenkulün gerçek durumunu ortaya çıkarır.",
+    whyus_item1_desc: "Arazi veya konutun fiziksel, teknik ve planlama açısından tüm kritik detaylarını yerinde inceleme ve masaüstü araştırmayla görünür kılar.",
+    whyus_item2_title: "Koruma",
+    whyus_item2_subtitle: "Yanlış bir kararı en başında önler.",
+    whyus_item2_desc: "Erken tespit edilen risklerle olası maddi ve zamansal kayıpları engeller; arazi ya da konut alım sürecinizde güvenli bir zemin sağlar.",
+    whyus_item3_title: "Netlik",
+    whyus_item3_subtitle: "Tarafsız ve anlaşılır bir karar çerçevesi sunar.",
+    whyus_item3_desc: "Yönlendirme yapmadan, sade ve objektif bilgilerle size en uygun araziyi veya konutu seçmenizi kolaylaştırır.",
   },
-  {
-    icon: Shield,
-    title: "Koruma",
-    subtitle: "Yanlış bir kararı en başında önler.",
-    description:
-      "Erken tespit edilen risklerle olası maddi ve zamansal kayıpları engeller; arazi ya da konut alım sürecinizde güvenli bir zemin sağlar.",
-    image: "/images/koruma.png",
+  en: {
+    whyus_title_prefix: "Why",
+    whyus_title_highlight: "Yerinde Analiz",
+    whyus_item1_title: "Real Situation",
+    whyus_item1_subtitle: "Reveals the real condition of the property.",
+    whyus_item1_desc: "Makes visible all critical details of land or housing in terms of physical, technical and planning aspects through on-site inspection and desktop research.",
+    whyus_item2_title: "Protection",
+    whyus_item2_subtitle: "Prevents a wrong decision from the start.",
+    whyus_item2_desc: "Prevents possible financial and time losses with early detected risks; provides a safe ground in your land or housing purchase process.",
+    whyus_item3_title: "Clarity",
+    whyus_item3_subtitle: "Offers an impartial and understandable decision framework.",
+    whyus_item3_desc: "Without directing, it makes it easier for you to choose the most suitable land or housing with simple and objective information.",
   },
-  {
-    icon: Target,
-    title: "Netlik",
-    subtitle: "Tarafsız ve anlaşılır bir karar çerçevesi sunar.",
-    description:
-      "Yönlendirme yapmadan, sade ve objektif bilgilerle size en uygun araziyi veya konutu seçmenizi kolaylaştırır.",
-    image: "/images/netlik.png",
-  },
-];
+};
 
 export default function WhyUsSection() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const { locale, t: contextT } = useTranslation();
+
+  const t = (key: string) => {
+    const fromDb = contextT(key);
+    if (fromDb !== key) return fromDb;
+    return fallbackTranslations[locale]?.[key] || fallbackTranslations.tr[key] || key;
+  };
+
+  const whyUsItems = [
+    {
+      icon: Search,
+      titleKey: "whyus_item1_title",
+      subtitleKey: "whyus_item1_subtitle",
+      descKey: "whyus_item1_desc",
+      image: "/images/gercek-durum.png",
+    },
+    {
+      icon: Shield,
+      titleKey: "whyus_item2_title",
+      subtitleKey: "whyus_item2_subtitle",
+      descKey: "whyus_item2_desc",
+      image: "/images/koruma.png",
+    },
+    {
+      icon: Target,
+      titleKey: "whyus_item3_title",
+      subtitleKey: "whyus_item3_subtitle",
+      descKey: "whyus_item3_desc",
+      image: "/images/netlik.png",
+    },
+  ];
 
   return (
     <section ref={ref} className="py-24 bg-[#F9FAFB] relative overflow-hidden">
@@ -57,15 +92,15 @@ export default function WhyUsSection() {
           className="text-center mb-16"
         >
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#2C3E50] mb-4">
-            Neden{" "}
-            <span className="text-[#8CC63F]">Yerinde Analiz</span>?
+            {t("whyus_title_prefix")}{" "}
+            <span className="text-[#8CC63F]">{t("whyus_title_highlight")}</span>?
           </h2>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {whyUsItems.map((item, index) => (
             <motion.div
-              key={item.title}
+              key={item.titleKey}
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: index * 0.2, duration: 0.6 }}
@@ -75,7 +110,7 @@ export default function WhyUsSection() {
                 <div className="relative h-48 overflow-hidden">
                   <Image
                     src={item.image}
-                    alt={item.title}
+                    alt={t(item.titleKey)}
                     fill
                     className="object-cover transition-transform duration-500 group-hover:scale-110"
                     sizes="(max-width: 768px) 100vw, 33vw"
@@ -90,11 +125,11 @@ export default function WhyUsSection() {
                 {/* Content */}
                 <div className="p-6 text-center">
                   <h3 className="text-2xl font-bold text-[#2C3E50] mb-2">
-                    {item.title}
+                    {t(item.titleKey)}
                   </h3>
-                  <p className="text-[#8CC63F] font-medium mb-4">{item.subtitle}</p>
+                  <p className="text-[#8CC63F] font-medium mb-4">{t(item.subtitleKey)}</p>
                   <p className="text-[#6B7280] leading-relaxed">
-                    {item.description}
+                    {t(item.descKey)}
                   </p>
                 </div>
               </div>

@@ -7,8 +7,9 @@ import { Menu, X, Globe } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Logo from "@/components/ui/Logo";
 import { cn } from "@/lib/utils";
+import { getNavLinksForLocale, switchLocalePath, getLocalizedPath } from "@/lib/i18n/routes";
 
-const menuTranslations: any = {
+const menuTranslations: Record<string, Record<string, string>> = {
   tr: {
     home: "Ana Sayfa",
     about: "Hakkımızda",
@@ -27,18 +28,11 @@ const menuTranslations: any = {
   }
 };
 
-const navLinks = [
-  { href: "/", key: "home" },
-  { href: "/hakkimizda", key: "about" },
-  { href: "/paketler", key: "packages" },
-  { href: "/sss", key: "faq" },
-  { href: "/iletisim", key: "contact" },
-];
-
 export default function Navbar({ locale = "tr" }: { locale?: string }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const pathname = usePathname();
+  const navLinks = getNavLinksForLocale(locale);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -50,16 +44,21 @@ export default function Navbar({ locale = "tr" }: { locale?: string }) {
 
   const t = (key: string) => menuTranslations[locale]?.[key] || key;
 
-  // Helper to construct localized href
-  const getLocalizedHref = (path: string) => `/${locale}${path === "/" ? "" : path}`;
-
-  // Check if current page is homepage (could be /en or /tr)
+  // Check if current page is homepage
   const isHomePage = pathname === `/${locale}` || pathname === `/${locale}/` || pathname === "/";
 
-  // Link for language switcher
+  // Get language switch URL (converts path to target locale)
   const getLanguageSwitchHref = (targetLocale: string) => {
-    const currentPathWithoutLocale = pathname.replace(`/${locale}`, "") || "/";
-    return `/${targetLocale}${currentPathWithoutLocale === "/" ? "" : currentPathWithoutLocale}`;
+    return switchLocalePath(pathname, locale, targetLocale);
+  };
+
+  // Check if a link is active
+  const isLinkActive = (href: string, internalPath: string) => {
+    if (internalPath === '/') {
+      return isHomePage;
+    }
+    // Check both the SEO path and internal path
+    return pathname === href || pathname === `/${locale}${internalPath}`;
   };
 
   return (
@@ -76,7 +75,7 @@ export default function Navbar({ locale = "tr" }: { locale?: string }) {
           <div className="flex items-center justify-between">
             {/* Logo & Tagline */}
             <div className="flex items-center gap-4">
-              <Link href={getLocalizedHref("/")}>
+              <Link href={getLocalizedPath('/', locale)}>
                 <Logo size="md" lightText={!isScrolled && isHomePage} />
               </Link>
               <span
@@ -92,13 +91,12 @@ export default function Navbar({ locale = "tr" }: { locale?: string }) {
             {/* Desktop Navigation */}
             <div className="hidden lg:flex items-center gap-8">
               {navLinks.map((link) => {
-                const href = getLocalizedHref(link.href);
-                const isActive = pathname === href || (link.href === "/" && pathname === `/${locale}`);
+                const isActive = isLinkActive(link.href, link.internalPath);
 
                 return (
                   <Link
-                    key={link.href}
-                    href={href}
+                    key={link.key}
+                    href={link.href}
                     className={cn(
                       "text-base font-bold transition-all duration-300 relative group",
                       isScrolled || !isHomePage
@@ -178,69 +176,68 @@ export default function Navbar({ locale = "tr" }: { locale?: string }) {
             />
             <div className="absolute right-0 top-0 bottom-0 w-80 bg-white shadow-2xl">
               <div className="p-6">
-                <div className="flex items-center justify-between mb-8">
+                <div className="flex justify-between items-center mb-8">
                   <Logo size="sm" />
                   <button
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="p-2 rounded-lg hover:bg-gray-100"
+                    className="p-2 hover:bg-gray-100 rounded-lg"
                   >
-                    <X className="w-6 h-6" />
+                    <X className="w-5 h-5 text-[#2C3E50]" />
                   </button>
                 </div>
 
-                {/* Mobile Language Switcher */}
-                <div className="flex items-center gap-4 mb-8 p-4 bg-gray-50 rounded-xl">
-                  <Globe className="w-5 h-5 text-gray-400" />
-                  <div className="flex items-center gap-3">
-                    <Link
-                      href={getLanguageSwitchHref("tr")}
-                      className={cn(
-                        "text-sm font-bold",
-                        locale === "tr" ? "text-[#8CC63F]" : "text-gray-500"
-                      )}
-                    >
-                      Türkçe
-                    </Link>
-                    <span className="text-gray-300">|</span>
-                    <Link
-                      href={getLanguageSwitchHref("en")}
-                      className={cn(
-                        "text-sm font-bold",
-                        locale === "en" ? "text-[#8CC63F]" : "text-gray-500"
-                      )}
-                    >
-                      English
-                    </Link>
-                  </div>
-                </div>
-
-                <div className="flex flex-col gap-4">
-                  {navLinks.map((link, index) => {
-                    const href = getLocalizedHref(link.href);
-                    const isActive = pathname === href || (link.href === "/" && pathname === `/${locale}`);
+                <nav className="space-y-2">
+                  {navLinks.map((link) => {
+                    const isActive = isLinkActive(link.href, link.internalPath);
 
                     return (
-                      <motion.div
-                        key={link.href}
-                        initial={{ opacity: 0, x: 20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: index * 0.1 }}
+                      <Link
+                        key={link.key}
+                        href={link.href}
+                        onClick={() => setIsMobileMenuOpen(false)}
+                        className={cn(
+                          "block px-4 py-3 rounded-lg text-base font-medium transition-colors",
+                          isActive
+                            ? "bg-[#8CC63F]/10 text-[#8CC63F]"
+                            : "text-[#2C3E50] hover:bg-gray-100"
+                        )}
                       >
-                        <Link
-                          href={href}
-                          onClick={() => setIsMobileMenuOpen(false)}
-                          className={cn(
-                            "block py-3 px-4 rounded-lg text-lg font-bold transition-colors",
-                            isActive
-                              ? "bg-[#8CC63F]/10 text-[#8CC63F]"
-                              : "text-[#2C3E50] hover:bg-gray-100"
-                          )}
-                        >
-                          {t(link.key)}
-                        </Link>
-                      </motion.div>
+                        {t(link.key)}
+                      </Link>
                     );
                   })}
+                </nav>
+
+                {/* Mobile Language Switcher */}
+                <div className="mt-8 pt-8 border-t border-gray-100">
+                  <div className="flex items-center gap-2 px-4">
+                    <Globe className="w-4 h-4 text-gray-400" />
+                    <span className="text-sm text-gray-500">Dil:</span>
+                    <Link
+                      href={getLanguageSwitchHref("tr")}
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className={cn(
+                        "px-3 py-1 rounded text-sm font-medium",
+                        locale === "tr"
+                          ? "bg-[#8CC63F] text-white"
+                          : "text-gray-500 hover:bg-gray-100"
+                      )}
+                    >
+                      TR
+                    </Link>
+                    <Link
+                      href={getLanguageSwitchHref("en")}
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className={cn(
+                        "px-3 py-1 rounded text-sm font-medium",
+                        locale === "en"
+                          ? "bg-[#8CC63F] text-white"
+                          : "text-gray-500 hover:bg-gray-100"
+                      )}
+                    >
+                      EN
+                    </Link>
+                  </div>
                 </div>
               </div>
             </div>

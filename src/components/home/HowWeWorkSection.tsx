@@ -4,34 +4,65 @@ import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
 import { MessageSquare, MapPin, FileText } from "lucide-react";
+import { useTranslation } from "@/lib/LanguageContext";
 
-const steps = [
-  {
-    step: 1,
-    icon: MessageSquare,
-    title: "Talep ve Kısa Görüşme",
-    description:
-      "İletişim formu üzerinden ilettiğiniz talebe yönelik ihtiyacınız belirlenir. Gerekirse kısa bir görüşme yapılır. Sonrasında teklifiniz ve hizmet sözleşmesi onayınıza sunulur.",
+// Fallback translations
+const fallbackTranslations: Record<string, Record<string, string>> = {
+  tr: {
+    howwework_title_prefix: "Nasıl",
+    howwework_title_highlight: "Çalışıyoruz",
+    howwework_subtitle: "Üç adımdan oluşan süreçte alanında uzman mimar ve mühendislerden oluşan ekibimiz titizlikle çalışıyor ve raporunuzu seçtiğiniz pakette belirtilen süreye göre teslim ediyoruz.",
+    howwework_step1_title: "Talep ve Kısa Görüşme",
+    howwework_step1_desc: "İletişim formu üzerinden ilettiğiniz talebe yönelik ihtiyacınız belirlenir. Gerekirse kısa bir görüşme yapılır. Sonrasında teklifiniz ve hizmet sözleşmesi onayınıza sunulur.",
+    howwework_step2_title: "Analiz ve Yerinde İnceleme",
+    howwework_step2_desc: "Ödeme ve sözleşme onayı sonrasında ön analiz verileri toplanır. Bu verilerle saha ziyaretini gerçekleştirerek ihtiyaca yönelik yerinde mimari ve teknik incelemeler yapılır.",
+    howwework_step3_title: "Rapor ve Online Görüşme",
+    howwework_step3_desc: "Tüm bulgular yazılı ve görsel olarak raporlanıp tarafınıza dijital olarak iletilir. Paketinizin içeriğine göre raporunuz hakkında online görüşme yapılır.",
   },
-  {
-    step: 2,
-    icon: MapPin,
-    title: "Analiz ve Yerinde İnceleme",
-    description:
-      "Ödeme ve sözleşme onayı sonrasında ön analiz verileri toplanır. Bu verilerle saha ziyaretini gerçekleştirerek ihtiyaca yönelik yerinde mimari ve teknik incelemeler yapılır.",
+  en: {
+    howwework_title_prefix: "How Do We",
+    howwework_title_highlight: "Work",
+    howwework_subtitle: "In a three-step process, our team of expert architects and engineers works meticulously and delivers your report according to the time specified in your chosen package.",
+    howwework_step1_title: "Request and Brief Meeting",
+    howwework_step1_desc: "Your needs are determined based on the request you submit through the contact form. A brief meeting is held if necessary. Then your offer and service agreement are submitted for your approval.",
+    howwework_step2_title: "Analysis and On-Site Inspection",
+    howwework_step2_desc: "After payment and contract approval, preliminary analysis data is collected. With this data, site visit is made and on-site architectural and technical inspections are carried out according to needs.",
+    howwework_step3_title: "Report and Online Meeting",
+    howwework_step3_desc: "All findings are reported in written and visual form and delivered to you digitally. An online meeting is held about your report according to the content of your package.",
   },
-  {
-    step: 3,
-    icon: FileText,
-    title: "Rapor ve Online Görüşme",
-    description:
-      "Tüm bulgular yazılı ve görsel olarak raporlanıp tarafınıza dijital olarak iletilir. Paketinizin içeriğine göre raporunuz hakkında online görüşme yapılır.",
-  },
-];
+};
 
 export default function HowWeWorkSection() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const { locale, t: contextT } = useTranslation();
+
+  const t = (key: string) => {
+    const fromDb = contextT(key);
+    if (fromDb !== key) return fromDb;
+    return fallbackTranslations[locale]?.[key] || fallbackTranslations.tr[key] || key;
+  };
+
+  const steps = [
+    {
+      step: 1,
+      icon: MessageSquare,
+      titleKey: "howwework_step1_title",
+      descKey: "howwework_step1_desc",
+    },
+    {
+      step: 2,
+      icon: MapPin,
+      titleKey: "howwework_step2_title",
+      descKey: "howwework_step2_desc",
+    },
+    {
+      step: 3,
+      icon: FileText,
+      titleKey: "howwework_step3_title",
+      descKey: "howwework_step3_desc",
+    },
+  ];
 
   return (
     <section ref={ref} className="py-24 bg-white">
@@ -43,12 +74,10 @@ export default function HowWeWorkSection() {
           className="text-center mb-16"
         >
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#2C3E50] mb-4">
-            Nasıl <span className="text-[#8CC63F]">Çalışıyoruz</span>?
+            {t("howwework_title_prefix")} <span className="text-[#8CC63F]">{t("howwework_title_highlight")}</span>?
           </h2>
           <p className="text-[#6B7280] text-lg max-w-2xl mx-auto">
-            Üç adımdan oluşan süreçte alanında uzman mimar ve mühendislerden
-            oluşan ekibimiz titizlikle çalışıyor ve raporunuzu seçtiğiniz pakette
-            belirtilen süreye göre teslim ediyoruz.
+            {t("howwework_subtitle")}
           </p>
         </motion.div>
 
@@ -80,10 +109,10 @@ export default function HowWeWorkSection() {
                 {/* Content */}
                 <div className="text-center">
                   <h3 className="text-xl font-bold text-[#2C3E50] mb-4">
-                    {item.title}
+                    {t(item.titleKey)}
                   </h3>
                   <p className="text-[#6B7280] leading-relaxed">
-                    {item.description}
+                    {t(item.descKey)}
                   </p>
                 </div>
               </motion.div>

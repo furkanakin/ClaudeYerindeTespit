@@ -4,9 +4,40 @@ import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import Button from "@/components/ui/Button";
 import Link from "next/link";
-import Image from "next/image";
+import { getLocalizedPath } from "@/lib/i18n/routes";
+import { useTranslation } from "@/lib/LanguageContext";
+
+// Fallback translations
+const fallbackTranslations: Record<string, Record<string, string>> = {
+  tr: {
+    hero_location: "Muğla'da",
+    hero_title_prefix: "Gayrimenkul Yatırımlarınız İçin",
+    hero_title_highlight: "Bağımsız, Teknik, Detaylı",
+    hero_title_suffix: "İncelemeler",
+    hero_desc1: "Gayrimenkul alım süreçlerinde tarafsız incelemelerle kapsamlı bilgi sunuyoruz.",
+    hero_desc2: "Bağımsız analizlerle karar sürecinizi destekliyoruz.",
+    hero_cta: "Paketleri İnceleyin",
+  },
+  en: {
+    hero_location: "In Muğla",
+    hero_title_prefix: "For Your Real Estate Investments",
+    hero_title_highlight: "Independent, Technical, Detailed",
+    hero_title_suffix: "Reviews",
+    hero_desc1: "We provide comprehensive information with impartial reviews in real estate purchasing processes.",
+    hero_desc2: "We support your decision-making process with independent analysis.",
+    hero_cta: "View Packages",
+  },
+};
 
 export default function HeroSection() {
+  const { locale, t: contextT } = useTranslation();
+
+  const t = (key: string) => {
+    const fromDb = contextT(key);
+    if (fromDb !== key) return fromDb;
+    return fallbackTranslations[locale]?.[key] || fallbackTranslations.tr[key] || key;
+  };
+
   const scrollToContent = () => {
     const element = document.getElementById("manifesto");
     if (element) {
@@ -50,7 +81,7 @@ export default function HeroSection() {
             transition={{ delay: 0.2, duration: 0.6 }}
             className="text-[#a3d95b] text-3xl md:text-4xl font-bold mb-4"
           >
-            Muğla'da
+            {t("hero_location")}
           </motion.p>
 
           {/* Main Title */}
@@ -60,9 +91,9 @@ export default function HeroSection() {
             transition={{ delay: 0.4, duration: 0.6 }}
             className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight"
           >
-            Gayrimenkul Yatırımlarınız İçin{" "}
-            <span className="text-[#a3d95b]">Bağımsız, Teknik, Detaylı</span>{" "}
-            İncelemeler
+            {t("hero_title_prefix")}{" "}
+            <span className="text-[#a3d95b]">{t("hero_title_highlight")}</span>{" "}
+            {t("hero_title_suffix")}
           </motion.h1>
 
           {/* Description */}
@@ -72,8 +103,8 @@ export default function HeroSection() {
             transition={{ delay: 0.6, duration: 0.6 }}
             className="text-lg md:text-xl text-gray-300 mb-10 max-w-2xl mx-auto"
           >
-            <p className="mb-4">Gayrimenkul alım süreçlerinde tarafsız incelemelerle kapsamlı bilgi sunuyoruz.</p>
-            <p>Bağımsız analizlerle karar sürecinizi destekliyoruz.</p>
+            <p className="mb-4">{t("hero_desc1")}</p>
+            <p>{t("hero_desc2")}</p>
           </motion.div>
 
           {/* CTA Button */}
@@ -82,9 +113,9 @@ export default function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.8, duration: 0.6 }}
           >
-            <Link href="/paketler">
+            <Link href={getLocalizedPath("/paketler", locale)}>
               <Button size="lg" className="text-lg px-10">
-                Paketleri İnceleyin
+                {t("hero_cta")}
               </Button>
             </Link>
           </motion.div>

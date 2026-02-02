@@ -3,12 +3,13 @@
 import Link from "next/link";
 import Logo from "@/components/ui/Logo";
 import { Mail, MapPin } from "lucide-react";
+import { getLocalizedPath } from "@/lib/i18n/routes";
 
 interface FooterProps {
   locale?: string;
 }
 
-const footerTranslations: any = {
+const footerTranslations: Record<string, Record<string, string>> = {
   tr: {
     description: "Yerinde Analiz, bağımsız ve tarafsız bilgi hizmeti sunan bir danışmanlık platformudur. Gayrimenkul kararlarınızda güvenilir yol arkadaşınız.",
     tagline: "Doğru bilgi → Bilinçli değerlendirme → İsabetli karar",
@@ -38,15 +39,14 @@ const footerTranslations: any = {
 };
 
 export default function Footer({ locale = "tr" }: FooterProps) {
-  const t = (key: string) => footerTranslations[locale]?.[key] || key;
-  const getLocalizedHref = (path: string) => `/${locale}${path === "/" ? "" : path}`;
+  const t = (key: string) => footerTranslations[locale]?.[key] || footerTranslations.tr[key] || key;
 
   const quickLinks = [
-    { href: "/hakkimizda", label: t("about") },
-    { href: "/paketler", label: t("packages") },
-    { href: "/sss", label: t("faq") },
-    { href: "/iletisim", label: t("contact") },
-    { href: "/sozlesmeler", label: t("contracts") },
+    { internalPath: "/hakkimizda", label: t("about") },
+    { internalPath: "/paketler", label: t("packages") },
+    { internalPath: "/sss", label: t("faq") },
+    { internalPath: "/iletisim", label: t("contact") },
+    { internalPath: "/sozlesmeler", label: t("contracts") },
   ];
 
   return (
@@ -55,7 +55,7 @@ export default function Footer({ locale = "tr" }: FooterProps) {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Logo & Description */}
           <div className="lg:col-span-2">
-            <Link href={getLocalizedHref("/")}>
+            <Link href={getLocalizedPath("/", locale)}>
               <Logo size="lg" lightText className="mb-6" />
             </Link>
             <p className="text-gray-400 mb-6 max-w-md">
@@ -74,9 +74,9 @@ export default function Footer({ locale = "tr" }: FooterProps) {
             <h3 className="text-lg font-semibold mb-6">{t("quickLinks")}</h3>
             <ul className="space-y-3">
               {quickLinks.map((link) => (
-                <li key={link.href}>
+                <li key={link.internalPath}>
                   <Link
-                    href={getLocalizedHref(link.href)}
+                    href={getLocalizedPath(link.internalPath, locale)}
                     className="text-gray-400 hover:text-[#8CC63F] transition-colors"
                   >
                     {link.label}
@@ -114,10 +114,10 @@ export default function Footer({ locale = "tr" }: FooterProps) {
               © {new Date().getFullYear()} Yerinde Analiz - {t("rights")}
             </p>
             <div className="flex items-center gap-6 text-sm text-gray-500">
-              <Link href={getLocalizedHref("/gizlilik")} className="hover:text-[#8CC63F] transition-colors">
+              <Link href={getLocalizedPath("/gizlilik", locale)} className="hover:text-[#8CC63F] transition-colors">
                 {t("privacy")}
               </Link>
-              <Link href={getLocalizedHref("/kullanim-kosullari")} className="hover:text-[#8CC63F] transition-colors">
+              <Link href={getLocalizedPath("/kullanim-kosullari", locale)} className="hover:text-[#8CC63F] transition-colors">
                 {t("terms")}
               </Link>
             </div>
