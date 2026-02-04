@@ -51,12 +51,12 @@ export default function Modal({
           >
             <div
               className={cn(
-                "bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-hidden",
+                "bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto",
                 className
               )}
             >
               {title && (
-                <div className="flex items-center justify-between p-6 border-b border-gray-100">
+                <div className="sticky top-0 z-10 bg-white flex items-center justify-between p-6 border-b border-gray-100">
                   <h2 className="text-2xl font-bold text-[#2C3E50]">{title}</h2>
                   <button
                     onClick={onClose}
@@ -66,7 +66,7 @@ export default function Modal({
                   </button>
                 </div>
               )}
-              <div className="p-6 overflow-y-auto max-h-[calc(90vh-100px)]">
+              <div className="p-6">
                 {children}
               </div>
             </div>
