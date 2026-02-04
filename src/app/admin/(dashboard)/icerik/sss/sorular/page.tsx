@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Plus, Edit2, Trash2, GripVertical, Save, X, HelpCircle } from "lucide-react";
+import { Plus, Edit2, Trash2, GripVertical, Save, X, HelpCircle, Database } from "lucide-react";
 import Modal from "@/components/ui/Modal";
 import Button from "@/components/ui/Button";
 
@@ -119,10 +119,34 @@ export default function SSSorularPage() {
                     <h1 className="text-2xl font-bold text-[#2C3E50]">Sıkça Sorulan Sorular</h1>
                     <p className="text-gray-500">Soru ve cevapları buradan yönetebilirsiniz.</p>
                 </div>
-                <Button onClick={() => handleOpenModal()} className="flex items-center gap-2">
-                    <Plus className="w-4 h-4" />
-                    Yeni Soru Ekle
-                </Button>
+                <div className="flex gap-3">
+                    <Button
+                        variant="outline"
+                        onClick={async () => {
+                            if (!confirm("Mevcut statik verileri veritabanına aktarmak istediğinize emin misiniz?")) return;
+                            setIsLoading(true);
+                            try {
+                                const res = await fetch("/api/admin/faq/seed", { method: "POST" });
+                                const data = await res.json();
+                                alert(data.message || "Aktarım tamamlandı.");
+                                await fetchFaqs();
+                            } catch (e) {
+                                alert("Aktarım sırasında bir hata oluştu.");
+                            } finally {
+                                setIsLoading(false);
+                            }
+                        }}
+                        className="flex items-center gap-2"
+                        disabled={isLoading}
+                    >
+                        <Database className="w-4 h-4" />
+                        Statik Verileri Aktar
+                    </Button>
+                    <Button onClick={() => handleOpenModal()} className="flex items-center gap-2">
+                        <Plus className="w-4 h-4" />
+                        Yeni Soru Ekle
+                    </Button>
+                </div>
             </div>
 
             {isLoading ? (

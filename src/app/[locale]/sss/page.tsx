@@ -23,10 +23,16 @@ export default async function SSSPage({
 
   const t = (key: string, fallback: string) => translations[key] || fallback;
 
-  // DB'den soruları çek
-  const dbFaqs = await prisma.faq.findMany({
-    orderBy: { order: "asc" }
-  });
+  // DB'den soruları çek (Hata yönetimi ile)
+  let dbFaqs: any[] = [];
+  try {
+    dbFaqs = await prisma.faq.findMany({
+      orderBy: { order: "asc" }
+    });
+  } catch (error) {
+    console.error("FAQ Database Fetch Error:", error);
+    // Hata durumunda boş dizi kalarak staticFaqs'a düşmesini sağlarız
+  }
 
   // Eğer DB boşsa statik veriyi kullan, değilse DB'den geleni map'le
   const displayFaqs = dbFaqs.length > 0
