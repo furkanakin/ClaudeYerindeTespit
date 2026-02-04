@@ -134,27 +134,35 @@ export async function POST(request: NextRequest) {
 </html>
 `;
 
-    // Configure nodemailer (update with your SMTP settings)
-    const transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST || "smtp.gmail.com",
-      port: parseInt(process.env.SMTP_PORT || "587"),
-      secure: process.env.SMTP_SECURE === "true",
-      auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS,
-      },
-    });
+    // Email sending is optional - don't block form submission if it fails
+    let emailSent = false;
+    try {
+      // Configure nodemailer (update with your SMTP settings)
+      const transporter = nodemailer.createTransport({
+        host: process.env.SMTP_HOST || "smtp.gmail.com",
+        port: parseInt(process.env.SMTP_PORT || "587"),
+        secure: process.env.SMTP_SECURE === "true",
+        auth: {
+          user: process.env.SMTP_USER,
+          pass: process.env.SMTP_PASS,
+        },
+      });
 
-    // Send email
-    await transporter.sendMail({
-      from: process.env.SMTP_FROM || "noreply@yerindeanaliz.com",
-      to: "info@yerindeanaliz.com",
-      replyTo: email,
-      subject: `Yeni Talep: ${firstName} ${lastName} - ${packageNames[packageType] || packageType}`,
-      html: emailContent,
-    });
+      // Send email
+      await transporter.sendMail({
+        from: process.env.SMTP_FROM || "noreply@yerindeanaliz.com",
+        to: "info@yerindeanaliz.com",
+        replyTo: email,
+        subject: `Yeni Talep: ${firstName} ${lastName} - ${packageNames[packageType] || packageType}`,
+        html: emailContent,
+      });
+      emailSent = true;
+    } catch (emailError) {
+      // Log email error but don't fail the request
+      console.error("Email sending failed (submission was saved):", emailError);
+    }
 
-    return NextResponse.json({ success: true });
+    return NextResponse.json({ success: true, emailSent });
   } catch (error) {
     console.error("Contact form error:", error);
     return NextResponse.json(
