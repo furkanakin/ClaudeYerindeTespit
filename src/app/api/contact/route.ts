@@ -49,8 +49,10 @@ export async function POST(request: NextRequest) {
       },
     });
 
-    // Create email content
-    const emailContent = `
+    // Try to send email notification, but don't fail the request if email fails
+    try {
+      // Create email content
+      const emailContent = `
 <!DOCTYPE html>
 <html>
 <head>
@@ -94,33 +96,33 @@ export async function POST(request: NextRequest) {
         <div class="value">${propertyTypes[propertyType] || propertyType}</div>
       </div>
       ${purpose
-        ? `<div class="field">
+          ? `<div class="field">
         <div class="label">Satın Alma Amacı</div>
         <div class="value">${purpose}</div>
       </div>`
-        : ""
-      }
+          : ""
+        }
       ${parcelInfo
-        ? `<div class="field">
+          ? `<div class="field">
         <div class="label">Ada/Parsel Bilgileri</div>
         <div class="value">${parcelInfo}</div>
       </div>`
-        : ""
-      }
+          : ""
+        }
       ${listingUrl
-        ? `<div class="field">
+          ? `<div class="field">
         <div class="label">İlan Linki</div>
         <div class="value"><a href="${listingUrl}">${listingUrl}</a></div>
       </div>`
-        : ""
-      }
+          : ""
+        }
       ${notes
-        ? `<div class="field">
+          ? `<div class="field">
         <div class="label">Ek Notlar</div>
         <div class="value">${notes}</div>
       </div>`
-        : ""
-      }
+          : ""
+        }
       <div class="field">
         <div class="label">KVKK Onayı</div>
         <div class="value">${kvkkAccepted ? "Onaylandı ✓" : "Onaylanmadı"}</div>
@@ -134,9 +136,6 @@ export async function POST(request: NextRequest) {
 </html>
 `;
 
-    // Email sending is optional - don't block form submission if it fails
-    let emailSent = false;
-    try {
       // Configure nodemailer (update with your SMTP settings)
       const transporter = nodemailer.createTransport({
         host: process.env.SMTP_HOST || "smtp.gmail.com",
@@ -156,13 +155,13 @@ export async function POST(request: NextRequest) {
         subject: `Yeni Talep: ${firstName} ${lastName} - ${packageNames[packageType] || packageType}`,
         html: emailContent,
       });
-      emailSent = true;
     } catch (emailError) {
       // Log email error but don't fail the request
-      console.error("Email sending failed (submission was saved):", emailError);
+      // The contact submission is already saved to database
+      console.warn("Failed to send email notification:", emailError);
     }
 
-    return NextResponse.json({ success: true, emailSent });
+    return NextResponse.json({ success: true });
   } catch (error) {
     console.error("Contact form error:", error);
     return NextResponse.json(
