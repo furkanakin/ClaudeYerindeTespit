@@ -2,11 +2,12 @@
 
 import { useState, useEffect } from "react";
 import { Save, Loader2, CheckCircle } from "lucide-react";
+import RichTextEditor from "@/components/admin/RichTextEditor";
 
 interface ContentField {
     key: string;
     label: string;
-    type: "input" | "textarea";
+    type: "input" | "textarea" | "richtext";
 }
 
 interface ContentEditorProps {
@@ -140,7 +141,12 @@ export default function ContentEditor({
                                 <label className="block text-sm font-medium text-[#6B7280] mb-2">
                                     🇹🇷 Türkçe
                                 </label>
-                                {field.type === "textarea" ? (
+                                {field.type === "richtext" ? (
+                                    <RichTextEditor
+                                        value={content[field.key]?.tr || ""}
+                                        onChange={(value) => updateField(field.key, "tr", value)}
+                                    />
+                                ) : field.type === "textarea" ? (
                                     <textarea
                                         value={content[field.key]?.tr || ""}
                                         onChange={(e) => updateField(field.key, "tr", e.target.value)}
@@ -162,7 +168,12 @@ export default function ContentEditor({
                                 <label className="block text-sm font-medium text-[#6B7280] mb-2">
                                     🇬🇧 English
                                 </label>
-                                {field.type === "textarea" ? (
+                                {field.type === "richtext" ? (
+                                    <RichTextEditor
+                                        value={content[field.key]?.en || ""}
+                                        onChange={(value) => updateField(field.key, "en", value)}
+                                    />
+                                ) : field.type === "textarea" ? (
                                     <textarea
                                         value={content[field.key]?.en || ""}
                                         onChange={(e) => updateField(field.key, "en", e.target.value)}

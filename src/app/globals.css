@@ -128,3 +128,85 @@
   background: var(--color-primary);
   color: white;
 }
+
+/* TipTap Editor Prose Styles */
+.prose {
+  color: var(--color-text);
+  max-width: 65ch;
+}
+
+.prose p {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+.prose h1 {
+  font-size: 2em;
+  font-weight: 700;
+  margin-top: 0.67em;
+  margin-bottom: 0.67em;
+  color: var(--color-secondary);
+}
+
+.prose h2 {
+  font-size: 1.5em;
+  font-weight: 600;
+  margin-top: 0.83em;
+  margin-bottom: 0.83em;
+  color: var(--color-secondary);
+}
+
+.prose h3 {
+  font-size: 1.17em;
+  font-weight: 600;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  color: var(--color-secondary);
+}
+
+.prose strong {
+  font-weight: 600;
+  color: var(--color-secondary);
+}
+
+.prose em {
+  font-style: italic;
+}
+
+.prose ul,
+.prose ol {
+  margin-top: 1em;
+  margin-bottom: 1em;
+  padding-left: 1.5em;
+}
+
+.prose ul {
+  list-style-type: disc;
+}
+
+.prose ol {
+  list-style-type: decimal;
+}
+
+.prose li {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+.prose li>p {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+/* TipTap Editor Specific */
+.ProseMirror {
+  outline: none;
+}
+
+.ProseMirror p.is-editor-empty:first-child::before {
+  color: #adb5bd;
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
+}
