@@ -46,7 +46,15 @@ const menuItems = [
         children: [
             { title: "Anasayfa", href: "/admin/icerik/anasayfa", icon: Home },
             { title: "Hakkımızda", href: "/admin/icerik/hakkimizda", icon: Info },
-            { title: "SSS", href: "/admin/icerik/sss", icon: HelpCircle },
+            {
+                title: "SSS",
+                href: "#",
+                icon: HelpCircle,
+                children: [
+                    { title: "Sıkça Sorulan Sorular", href: "/admin/icerik/sss/sorular", icon: HelpCircle },
+                    { title: "Sayfa Ayarları", href: "/admin/icerik/sss", icon: FileText },
+                ]
+            },
             { title: "İletişim", href: "/admin/icerik/iletisim", icon: Phone },
             { title: "Footer", href: "/admin/icerik/footer", icon: PanelBottom },
             { title: "Navbar", href: "/admin/icerik/navbar", icon: Globe },
@@ -91,17 +99,36 @@ export default function AdminSidebar() {
                                 </div>
                                 <div className="ml-4 space-y-1">
                                     {item.children.map((child) => (
-                                        <Link
-                                            key={child.href}
-                                            href={child.href}
-                                            className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors ${pathname === child.href
-                                                ? "bg-[#8CC63F] text-white"
-                                                : "text-white/70 hover:bg-white/10 hover:text-white"
-                                                }`}
-                                        >
-                                            <child.icon className="w-4 h-4" />
-                                            {child.title}
-                                        </Link>
+                                        <div key={child.href}>
+                                            <Link
+                                                href={child.href}
+                                                className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors ${pathname === child.href
+                                                    ? "bg-[#8CC63F] text-white"
+                                                    : "text-white/70 hover:bg-white/10 hover:text-white"
+                                                    }`}
+                                            >
+                                                <child.icon className="w-4 h-4" />
+                                                {child.title}
+                                            </Link>
+                                            {/* Nested children for one more level if needed */}
+                                            {child.children && (
+                                                <div className="ml-6 mt-1 space-y-1 border-l border-white/10 pl-2">
+                                                    {child.children.map((subChild) => (
+                                                        <Link
+                                                            key={subChild.href}
+                                                            href={subChild.href}
+                                                            className={`flex items-center gap-2 px-3 py-1.5 rounded-md text-xs transition-colors ${pathname === subChild.href
+                                                                ? "text-[#8CC63F] font-semibold"
+                                                                : "text-white/50 hover:text-white hover:bg-white/5"
+                                                                }`}
+                                                        >
+                                                            <subChild.icon className="w-3 h-3" />
+                                                            {subChild.title}
+                                                        </Link>
+                                                    ))}
+                                                </div>
+                                            )}
+                                        </div>
                                     ))}
                                 </div>
                             </div>
@@ -119,6 +146,7 @@ export default function AdminSidebar() {
                         )}
                     </div>
                 ))}
+
             </nav>
 
             {/* Logout */}

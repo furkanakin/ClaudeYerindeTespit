@@ -71,13 +71,13 @@ function AccordionItem({
 }
 
 interface AccordionProps {
-  items: { id: number; question: string; answer: string; questionEn?: string; answerEn?: string }[];
+  items: { id: string | number; question: string; answer: string; questionEn?: string; answerEn?: string }[];
   locale?: string;
   translations?: Record<string, string>;
 }
 
 export default function Accordion({ items, locale = "tr", translations = {} }: AccordionProps) {
-  const [openId, setOpenId] = useState<number | null>(null);
+  const [openId, setOpenId] = useState<string | number | null>(null);
 
   return (
     <div className="bg-white rounded-2xl shadow-lg p-6 md:p-8">
