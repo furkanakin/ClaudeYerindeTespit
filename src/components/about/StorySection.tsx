@@ -101,11 +101,13 @@ export default function StorySection({ locale = "tr", translations = {} }: Story
               {t("story_title", locale === "en" ? "Our Story" : "Hikayemiz")}
             </h2>
 
-            <div className="space-y-6 text-[#6B7280] leading-relaxed text-justify">
+            <div className="text-[#6B7280] leading-relaxed text-justify">
               {translations["story_content"] ? (
-                <div dangerouslySetInnerHTML={{ __html: translations["story_content"] }} />
+                <div className="prose max-w-none" dangerouslySetInnerHTML={{ __html: translations["story_content"] }} />
               ) : (
-                locale === "en" ? enContent : trContent
+                <div className="space-y-6">
+                  {locale === "en" ? enContent : trContent}
+                </div>
               )}
             </div>
           </motion.div>

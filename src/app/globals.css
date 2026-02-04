@@ -130,14 +130,24 @@
 }
 
 /* TipTap Editor Prose Styles */
+.prose p,
+.ProseMirror p {
+  margin-top: 1em;
+  margin-bottom: 1em;
+  min-height: 1.5em;
+}
+
+.prose p:empty::before,
+.ProseMirror p.is-editor-empty::before,
+.ProseMirror p:empty::before {
+  content: "\00a0";
+}
+
 .prose {
   color: var(--color-text);
   max-width: 65ch;
-}
-
-.prose p {
-  margin-top: 1em;
-  margin-bottom: 1em;
+  white-space: pre-wrap;
+  /* Preserve spaces and line breaks */
 }
 
 .prose h1 {
