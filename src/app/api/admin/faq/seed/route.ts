@@ -4,39 +4,41 @@ import { faqs as staticFaqs } from "@/lib/data/faq";
 
 export async function POST() {
     try {
-        // Clear existing FAQs if any (optional, but good for a fresh start)
-        // await prisma.faq.deleteMany({});
+        console.log("Starting FAQ migration...");
 
-        // Count existing FAQs to avoid duplicate seeding if already seeded
-        const count = await prisma.faq.count();
-        if (count > 0) {
-            return NextResponse.json({ message: "FAQs already exist in database. Skipping seed." });
-        }
+        // Clear existing FAQs to ensure a clean migration
+        const deleted = await (prisma as any).faq.deleteMany({});
+        console.log(`Deleted ${deleted.count} existing FAQs`);
 
         // Prepare and create FAQs from static file
-        const createdFaqs = await Promise.all(
-            staticFaqs.map((faq, index) =>
-                prisma.faq.create({
-                    data: {
-                        questionTr: faq.question,
-                        answerTr: faq.answer,
-                        questionEn: faq.questionEn || faq.question,
-                        answerEn: faq.answerEn || faq.answer,
-                        order: index,
-                    }
-                })
-            )
-        );
+        let createdCount = 0;
+
+        // Using for...of loop for more reliable sequential creation
+        for (let i = 0; i < staticFaqs.length; i++) {
+            const faq = staticFaqs[i];
+            await (prisma as any).faq.create({
+                data: {
+                    questionTr: faq.question || "",
+                    answerTr: faq.answer || "",
+                    questionEn: faq.questionEn || faq.question || "",
+                    answerEn: faq.answerEn || faq.answer || "",
+                    order: i,
+                }
+            });
+            createdCount++;
+        }
+
+        console.log(`Successfully migrated ${createdCount} FAQs`);
 
         return NextResponse.json({
             success: true,
-            count: createdFaqs.length,
-            message: "Static FAQs successfully migrated to database."
+            count: createdCount,
+            message: `${createdCount} adet soru başarıyla veritabanına aktarıldı.`
         });
     } catch (error: any) {
-        console.error("FAQ Seeding Error:", error);
+        console.error("FAQ Migration Error:", error);
         return NextResponse.json({
-            error: "Failed to seed FAQs",
+            error: "Aktarım başarısız oldu",
             details: error.message
         }, { status: 500 });
     }

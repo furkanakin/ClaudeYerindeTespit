@@ -4,13 +4,13 @@ import prisma from "@/lib/prisma";
 // GET all FAQs for admin
 export async function GET() {
     try {
-        const faqs = await prisma.faq.findMany({
+        const faqs = await (prisma as any).faq.findMany({
             orderBy: { order: "asc" },
         });
-        return NextResponse.json(faqs);
-    } catch (error) {
-        console.error("Failed to fetch FAQs:", error);
-        return NextResponse.json({ error: "Failed to fetch FAQs" }, { status: 500 });
+        return NextResponse.json(faqs || []);
+    } catch (error: any) {
+        console.error("Admin FAQ GET Error:", error);
+        return NextResponse.json({ error: "Veriler alınamadı", details: error.message }, { status: 500 });
     }
 }
 
@@ -20,7 +20,7 @@ export async function POST(request: Request) {
         const body = await request.json();
         const { questionTr, answerTr, questionEn, answerEn, order } = body;
 
-        const faq = await prisma.faq.create({
+        const faq = await (prisma as any).faq.create({
             data: {
                 questionTr,
                 answerTr,
@@ -31,8 +31,8 @@ export async function POST(request: Request) {
         });
 
         return NextResponse.json(faq);
-    } catch (error) {
-        console.error("Failed to create FAQ:", error);
-        return NextResponse.json({ error: "Failed to create FAQ" }, { status: 500 });
+    } catch (error: any) {
+        console.error("Admin FAQ POST Error:", error);
+        return NextResponse.json({ error: "Kayıt oluşturulamadı", details: error.message }, { status: 500 });
     }
 }

@@ -37,7 +37,7 @@ export default function SSSorularPage() {
     const fetchFaqs = async () => {
         setIsLoading(true);
         try {
-            const res = await fetch("/api/admin/faq");
+            const res = await fetch("/api/admin/faq", { cache: "no-store" });
             const data = await res.json();
             if (Array.isArray(data)) {
                 setFaqs(data);
@@ -126,12 +126,19 @@ export default function SSSorularPage() {
                             if (!confirm("Mevcut statik verileri veritabanına aktarmak istediğinize emin misiniz?")) return;
                             setIsLoading(true);
                             try {
-                                const res = await fetch("/api/admin/faq/seed", { method: "POST" });
+                                const res = await fetch("/api/admin/faq/seed", {
+                                    method: "POST",
+                                    cache: "no-store"
+                                });
                                 const data = await res.json();
-                                alert(data.message || "Aktarım tamamlandı.");
-                                await fetchFaqs();
+                                if (data.success) {
+                                    alert(`${data.count} adet soru başarıyla aktarıldı.`);
+                                    await fetchFaqs();
+                                } else {
+                                    alert(`Hata: ${data.error || "Aktarım başarısız."}`);
+                                }
                             } catch (e) {
-                                alert("Aktarım sırasında bir hata oluştu.");
+                                alert("Aktarım sırasında sistemsel bir hata oluştu.");
                             } finally {
                                 setIsLoading(false);
                             }

@@ -7,6 +7,8 @@ import prisma from "@/lib/prisma";
 import Link from "next/link";
 import Button from "@/components/ui/Button";
 
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: "Sıkça Sorulan Sorular | Yerinde Analiz",
   description:
@@ -26,7 +28,7 @@ export default async function SSSPage({
   // DB'den soruları çek (Hata yönetimi ile)
   let dbFaqs: any[] = [];
   try {
-    dbFaqs = await prisma.faq.findMany({
+    dbFaqs = await (prisma as any).faq.findMany({
       orderBy: { order: "asc" }
     });
   } catch (error) {
