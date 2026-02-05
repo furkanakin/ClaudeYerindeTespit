@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Plus, Edit2, Trash2, GripVertical, Save, X, HelpCircle, Database, RefreshCw } from "lucide-react";
+import { Plus, Edit2, Trash2, GripVertical, Save, X, HelpCircle, Database } from "lucide-react";
 import Modal from "@/components/ui/Modal";
 import Button from "@/components/ui/Button";
 
@@ -112,24 +112,7 @@ export default function SSSorularPage() {
         }
     };
 
-    const handleSync = async () => {
-        if (!confirm("Dikkat: Veritabanı şemasını sunucu ile senkronize etmek istediğinize emin misiniz? Bu işlem bağlantı hatalarını gidermek için kullanılır.")) return;
-        setIsLoading(true);
-        try {
-            const res = await fetch("/api/admin/db-sync");
-            const data = await res.json();
-            if (data.success) {
-                alert("Veritabanı başarıyla senkronize edildi. Şimdi verileri aktarmayı deneyebilirsiniz.");
-                fetchFaqs();
-            } else {
-                alert(`Hata: ${data.error || "Senkronizasyon başarısız."}\n\nDetay: ${data.stderr || ""}`);
-            }
-        } catch (e) {
-            alert("Sistemsel bir hata oluştu. Sunucuya ulaşılamıyor olabilir.");
-        } finally {
-            setIsLoading(false);
-        }
-    };
+
 
     return (
         <div className="p-6">
@@ -142,7 +125,7 @@ export default function SSSorularPage() {
                     <Button
                         variant="outline"
                         onClick={async () => {
-                            if (!confirm("Mevcut statik verileri veritabanına aktarmak istediğinize emin misiniz?")) return;
+                            if (!confirm("DİKKAT: Bu işlem 'Faq' tablosunu oluşturacak ve mevcut verileri silip statik verileri yükleyecektir. Emin misiniz?")) return;
                             setIsLoading(true);
                             try {
                                 const res = await fetch("/api/admin/faq/seed", {
@@ -151,32 +134,22 @@ export default function SSSorularPage() {
                                 });
                                 const data = await res.json();
                                 if (data.success) {
-                                    alert(`${data.count} adet soru başarıyla aktarıldı.`);
+                                    alert(data.message);
                                     await fetchFaqs();
                                 } else {
-                                    alert(`Hata: ${data.error || "Aktarım başarısız."}`);
+                                    alert(`Hata: ${data.error || "İşlem başarısız."}\n\nDetay: ${data.details || ""}`);
                                 }
                             } catch (e) {
-                                alert("Aktarım sırasında sistemsel bir hata oluştu.");
+                                alert("İşlem sırasında bir hata oluştu.");
                             } finally {
                                 setIsLoading(false);
                             }
                         }}
-                        className="flex items-center gap-2"
+                        className="flex items-center gap-2 text-blue-600 border-blue-200 hover:bg-blue-50"
                         disabled={isLoading}
                     >
                         <Database className="w-4 h-4" />
-                        Statik Verileri Aktar
-                    </Button>
-                    <Button
-                        variant="outline"
-                        onClick={handleSync}
-                        className="flex items-center gap-2 text-amber-600 border-amber-200 hover:bg-amber-50"
-                        disabled={isLoading}
-                        title="Eğer listeleme veya aktarma hatası (500) alıyorsanız bu butonu kullanın."
-                    >
-                        <RefreshCw className={`w-4 h-4 ${isLoading ? 'animate-spin' : ''}`} />
-                        Veritabanını Onar
+                        Sıfırdan Kur ve Yükle
                     </Button>
                     <Button onClick={() => handleOpenModal()} className="flex items-center gap-2">
                         <Plus className="w-4 h-4" />
