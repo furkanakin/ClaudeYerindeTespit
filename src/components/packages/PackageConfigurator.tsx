@@ -43,17 +43,17 @@ export default function PackageConfigurator({
         }
     };
 
-    // Locale-based UI text
+    // Locale-based UI text - now uses translations from DB (via admin panel)
     const isEn = locale === "en";
-    const packageConfiguratorText = isEn ? "Package Configurator" : "Paket Yapılandırıcı";
-    const deliveryTimeLabel = isEn ? "Delivery Time" : "Teslim Süresi";
-    const forWhomText = isEn ? "Who is it for?" : "Kimler için?";
-    const basePriceText = isEn ? "Base Price" : "Baz Fiyat";
-    const extraServicesText = isEn ? "Extra Services" : "Ek Hizmetler";
-    const totalEstimatedText = isEn ? "Total Estimated Amount" : "Toplam Tahmini Tutar";
-    const getQuoteText = isEn ? "Get Quote" : "Teklif Alın";
-    const noAddonsText = isEn ? "No additional services available for this package." : "Bu paket için ek hizmet bulunmamaktadır.";
-    const basedOnScopeText = isEn ? "Based on Scope" : "Kapsama Göre";
+    const packageConfiguratorText = translations.packageConfiguratorText || (isEn ? "Package Configurator" : "Paket Yapılandırıcı");
+    const deliveryTimeLabel = translations.deliveryTimeLabel || (isEn ? "Delivery Time" : "Teslim Süresi");
+    const forWhomText = translations.forWhomText || (isEn ? "Who is it for?" : "Kimler için?");
+    const basePriceText = translations.basePriceText || (isEn ? "Base Price" : "Baz Fiyat");
+    const extraServicesText = translations.extraServicesText || (isEn ? "Extra Services" : "Ek Hizmetler");
+    const totalEstimatedText = translations.totalEstimatedText || (isEn ? "Total Estimated Amount" : "Toplam Tahmini Tutar");
+    const getQuoteText = translations.getQuoteText || (isEn ? "Get Quote" : "Teklif Alın");
+    const noAddonsText = translations.noAddonsText || (isEn ? "No additional services available for this package." : "Bu paket için ek hizmet bulunmamaktadır.");
+    const basedOnScopeText = translations.basedOnScopeText || (isEn ? "Based on Scope" : "Kapsama Göre");
 
     const formatPrice = (price: number) => {
         if (price === 0) return getQuoteText;
@@ -235,7 +235,25 @@ export default function PackageConfigurator({
                                 </span>
                             </div>
 
-                            <Link href={`/${locale}/iletisim`} onClick={onClose} className="w-full">
+                            <Link
+                                href={`/${locale}/iletisim`}
+                                onClick={() => {
+                                    // Save selections to localStorage for ContactForm
+                                    const selectedAddons = packageData.addOns
+                                        ?.filter(addon => selectedOptions.includes(addon.id))
+                                        .map(addon => addon.name) || [];
+
+                                    const configData = {
+                                        packageId: packageData.id,
+                                        packageTitle: pkgTitle,
+                                        selectedAddons: selectedAddons,
+                                        totalPrice: totalPrice,
+                                    };
+                                    localStorage.setItem('packageConfig', JSON.stringify(configData));
+                                    onClose();
+                                }}
+                                className="w-full"
+                            >
                                 <button className={styles.confirmBtn}>
                                     {getQuoteText} <ArrowRight size={20} />
                                 </button>

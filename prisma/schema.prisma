@@ -26,20 +26,21 @@ model Session {
 }
 
 model ContactSubmission {
-  id           String   @id @default(cuid())
-  firstName    String
-  lastName     String
-  phone        String
-  email        String
-  package      String
-  propertyType String
-  purpose      String?
-  parcelInfo   String?
-  listingUrl   String?
-  notes        String?
-  kvkkAccepted Boolean  @default(false)
-  isRead       Boolean  @default(false)
-  createdAt    DateTime @default(now())
+  id              String   @id @default(cuid())
+  firstName       String
+  lastName        String
+  phone           String
+  email           String
+  package         String
+  propertyType    String
+  purpose         String?
+  parcelInfo      String?
+  listingUrl      String?
+  notes           String?
+  selectedOptions String?  // JSON string of selected package add-ons
+  kvkkAccepted    Boolean  @default(false)
+  isRead          Boolean  @default(false)
+  createdAt       DateTime @default(now())
 }
 
 model PageContent {

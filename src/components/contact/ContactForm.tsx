@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -96,6 +96,25 @@ export default function ContactForm() {
   const [submitStatus, setSubmitStatus] = useState<"success" | "error" | null>(
     null
   );
+  const [packageConfig, setPackageConfig] = useState<{
+    packageId?: string;
+    packageTitle?: string;
+    selectedAddons?: string[];
+    totalPrice?: number;
+  } | null>(null);
+
+  // Read package config from localStorage (set by PackageConfigurator)
+  useEffect(() => {
+    const stored = localStorage.getItem('packageConfig');
+    if (stored) {
+      try {
+        const config = JSON.parse(stored);
+        setPackageConfig(config);
+      } catch (e) {
+        console.error('Failed to parse packageConfig:', e);
+      }
+    }
+  }, []);
 
   const {
     register,
@@ -114,15 +133,31 @@ export default function ContactForm() {
     setSubmitStatus(null);
 
     try {
+      // Include selected package options from localStorage
+      const submitData = {
+        ...data,
+        selectedOptions: packageConfig?.selectedAddons?.length
+          ? JSON.stringify({
+            packageId: packageConfig.packageId,
+            packageTitle: packageConfig.packageTitle,
+            addons: packageConfig.selectedAddons,
+            estimatedTotal: packageConfig.totalPrice,
+          })
+          : null,
+      };
+
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+        body: JSON.stringify(submitData),
       });
 
       if (response.ok) {
         setSubmitStatus("success");
         reset();
+        // Clear localStorage after successful submission
+        localStorage.removeItem('packageConfig');
+        setPackageConfig(null);
       } else {
         setSubmitStatus("error");
       }

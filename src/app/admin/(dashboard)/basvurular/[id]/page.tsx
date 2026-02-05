@@ -177,6 +177,45 @@ export default async function BasvuruDetayPage({
                                     </p>
                                 </div>
                             )}
+
+                            {submission.selectedOptions && (() => {
+                                try {
+                                    const options = JSON.parse(submission.selectedOptions);
+                                    return (
+                                        <div>
+                                            <p className="text-sm text-[#6B7280] mb-2 flex items-center gap-2">
+                                                <Package className="w-4 h-4" />
+                                                Seçilen Ek Hizmetler
+                                            </p>
+                                            <div className="bg-[#F9FAFB] p-4 rounded-lg space-y-2">
+                                                {options.packageTitle && (
+                                                    <p className="text-[#2C3E50] font-medium">
+                                                        Paket: {options.packageTitle}
+                                                    </p>
+                                                )}
+                                                {options.addons && options.addons.length > 0 && (
+                                                    <ul className="list-disc list-inside text-[#2C3E50] space-y-1">
+                                                        {options.addons.map((addon: string, idx: number) => (
+                                                            <li key={idx}>{addon}</li>
+                                                        ))}
+                                                    </ul>
+                                                )}
+                                                {options.estimatedTotal !== undefined && options.estimatedTotal > 0 && (
+                                                    <p className="text-[#8CC63F] font-semibold mt-2">
+                                                        Tahmini Toplam: {new Intl.NumberFormat("tr-TR", {
+                                                            style: "currency",
+                                                            currency: "TRY",
+                                                            maximumFractionDigits: 0,
+                                                        }).format(options.estimatedTotal)} + KDV
+                                                    </p>
+                                                )}
+                                            </div>
+                                        </div>
+                                    );
+                                } catch {
+                                    return null;
+                                }
+                            })()}
                         </div>
                     </div>
                 </div>

@@ -38,6 +38,7 @@ const menuItems = [
             { title: "Ön Analiz", href: "/admin/icerik/paketler/on-analiz", icon: FileSearch },
             { title: "Yerinde Analiz", href: "/admin/icerik/paketler/yerinde-analiz", icon: MapPin },
             { title: "Premium Danışmanlık", href: "/admin/icerik/paketler/premium", icon: Crown },
+            { title: "Modal Metinleri", href: "/admin/icerik/paketler/modal", icon: FileText },
         ],
     },
     {

@@ -9,10 +9,14 @@ export default async function PaketlerPage({
 }) {
   const { locale } = await params;
   const translations = await getTranslations("paketler", locale);
+  const modalTranslations = await getTranslations("paket-modal", locale);
+
+  // Merge translations so PackageConfigurator can access modal keys
+  const allTranslations = { ...translations, ...modalTranslations };
 
   return (
-    <LanguageProvider locale={locale} translations={translations}>
-      <PackagesClient locale={locale} translations={translations} />
+    <LanguageProvider locale={locale} translations={allTranslations}>
+      <PackagesClient locale={locale} translations={allTranslations} />
     </LanguageProvider>
   );
 }

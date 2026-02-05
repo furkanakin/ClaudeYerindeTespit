@@ -6,6 +6,7 @@ const navbarFields = [
     { key: "packages", label: "Paketler Linki", type: "input" as const },
     { key: "faq", label: "SSS Linki", type: "input" as const },
     { key: "contact", label: "İletişim Linki", type: "input" as const },
+    { key: "tagline", label: "Logo Yanındaki Yazı (Slogan)", type: "input" as const },
 ];
 
 export default function NavbarIcerikPage() {

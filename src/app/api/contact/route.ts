@@ -29,6 +29,7 @@ export async function POST(request: NextRequest) {
       parcelInfo,
       listingUrl,
       notes,
+      selectedOptions,
       kvkkAccepted,
     } = data;
 
@@ -45,6 +46,7 @@ export async function POST(request: NextRequest) {
         parcelInfo: parcelInfo || null,
         listingUrl: listingUrl || null,
         notes: notes || null,
+        selectedOptions: selectedOptions || null,
         kvkkAccepted: kvkkAccepted || true,
       },
     });
