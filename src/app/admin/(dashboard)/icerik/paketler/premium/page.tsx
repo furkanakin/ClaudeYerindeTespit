@@ -29,16 +29,22 @@ const premiumFields = [
     { key: "pkg3_addons_title", label: "Ek Hizmetler Başlığı", type: "input" as const },
     { key: "pkg3_addon1_name", label: "Ek Hizmet 1 - Ad (Mimari Proje)", type: "input" as const },
     { key: "pkg3_addon1_desc", label: "Ek Hizmet 1 - Açıklama", type: "input" as const },
+    { key: "pkg3_addon1_price", label: "Ek Hizmet 1 - Fiyat", type: "input" as const },
     { key: "pkg3_addon2_name", label: "Ek Hizmet 2 - Ad (Uygulama Kontrol)", type: "input" as const },
     { key: "pkg3_addon2_desc", label: "Ek Hizmet 2 - Açıklama", type: "textarea" as const },
+    { key: "pkg3_addon2_price", label: "Ek Hizmet 2 - Fiyat", type: "input" as const },
     { key: "pkg3_addon3_name", label: "Ek Hizmet 3 - Ad (3D Modelleme)", type: "input" as const },
     { key: "pkg3_addon3_desc", label: "Ek Hizmet 3 - Açıklama", type: "input" as const },
+    { key: "pkg3_addon3_price", label: "Ek Hizmet 3 - Fiyat", type: "input" as const },
     { key: "pkg3_addon4_name", label: "Ek Hizmet 4 - Ad (İmar Danışmanlık)", type: "input" as const },
     { key: "pkg3_addon4_desc", label: "Ek Hizmet 4 - Açıklama", type: "input" as const },
+    { key: "pkg3_addon4_price", label: "Ek Hizmet 4 - Fiyat", type: "input" as const },
     { key: "pkg3_addon5_name", label: "Ek Hizmet 5 - Ad (Tadilat Yönetimi)", type: "input" as const },
     { key: "pkg3_addon5_desc", label: "Ek Hizmet 5 - Açıklama", type: "textarea" as const },
+    { key: "pkg3_addon5_price", label: "Ek Hizmet 5 - Fiyat", type: "input" as const },
     { key: "pkg3_addon6_name", label: "Ek Hizmet 6 - Ad (Çoklu Karşılaştırma)", type: "input" as const },
     { key: "pkg3_addon6_desc", label: "Ek Hizmet 6 - Açıklama", type: "input" as const },
+    { key: "pkg3_addon6_price", label: "Ek Hizmet 6 - Fiyat", type: "input" as const },
 ];
 
 export default function PremiumIcerikPage() {

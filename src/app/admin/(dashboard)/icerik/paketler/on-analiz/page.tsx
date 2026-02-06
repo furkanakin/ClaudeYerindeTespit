@@ -28,6 +28,7 @@ const onAnalizFields = [
     { key: "pkg1_addons_title", label: "Ek Hizmetler Başlığı", type: "input" as const },
     { key: "pkg1_addon1_name", label: "Ek Hizmet 1 - Ad", type: "input" as const },
     { key: "pkg1_addon1_desc", label: "Ek Hizmet 1 - Açıklama", type: "textarea" as const },
+    { key: "pkg1_addon1_price", label: "Ek Hizmet 1 - Fiyat", type: "input" as const },
     { key: "pkg1_addon2_name", label: "Ek Hizmet 2 - Ad", type: "input" as const },
     { key: "pkg1_addon2_desc", label: "Ek Hizmet 2 - Açıklama", type: "input" as const },
     { key: "pkg1_addon2_price", label: "Ek Hizmet 2 - Fiyat", type: "input" as const },

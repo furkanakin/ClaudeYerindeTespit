@@ -54,14 +54,17 @@ export default function PackageConfigurator({
     const getQuoteText = translations.getQuoteText || (isEn ? "Get Quote" : "Teklif Alın");
     const noAddonsText = translations.noAddonsText || (isEn ? "No additional services available for this package." : "Bu paket için ek hizmet bulunmamaktadır.");
     const basedOnScopeText = translations.basedOnScopeText || (isEn ? "Based on Scope" : "Kapsama Göre");
+    const taxLabel = translations.taxLabel || (isEn ? "VAT" : "KDV");
 
     const formatPrice = (price: number) => {
         if (price === 0) return getQuoteText;
-        return new Intl.NumberFormat("tr-TR", {
+        const formatted = new Intl.NumberFormat(isEn ? "en-US" : "tr-TR", {
             style: "currency",
             currency: "TRY",
             maximumFractionDigits: 0,
-        }).format(price) + " + KDV";
+        }).format(price);
+
+        return `${formatted} + ${taxLabel}`;
     };
 
     // Parse modal description with bold markers
@@ -92,6 +95,7 @@ export default function PackageConfigurator({
     const pkgDelivery = t(`${pkgKey}_delivery`, packageData?.deliveryTime || "");
     const pkgBasePriceNote = t(`${pkgKey}_base_price_note`, packageData?.basePriceNote || "");
     const pkgAddonsTitle = t(`${pkgKey}_addons_title`, packageData?.addOnsTitle || (isEn ? "Extra Services and Features" : "Ek Hizmetler ve Özellikler"));
+    const pkgPrice = t(`${pkgKey}_price`, packageData?.price || "");
 
 
     if (!isOpen || !packageData) return null;
@@ -229,9 +233,7 @@ export default function PackageConfigurator({
                             <div className={`${styles.summaryRow} ${styles.total}`}>
                                 <span>{totalEstimatedText}</span>
                                 <span className={styles.totalPrice}>
-                                    {packageData.basePrice > 0 ? formatPrice(totalPrice) : packageData.price}
-                                    {/* Note: packageData.price is string, might need translation if it contains text? It's usually "4.500 TL" or "Determined by scope" */}
-                                    {/* We can cover pkg3_price via pkgKey check logic if needed, but let's leave as is for now if it comes from static data mostly numbers */}
+                                    {packageData.basePrice > 0 ? formatPrice(totalPrice) : pkgPrice}
                                 </span>
                             </div>
 

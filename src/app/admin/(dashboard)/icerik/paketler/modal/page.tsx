@@ -10,6 +10,7 @@ const paketModalFields = [
     { key: "getQuoteText", label: "Teklif Al Butonu Metni", type: "input" as const },
     { key: "basedOnScopeText", label: "Kapsama Göre Metni", type: "input" as const },
     { key: "noAddonsText", label: "Ek Hizmet Yok Mesajı", type: "input" as const },
+    { key: "taxLabel", label: "Vergi Etiketi (KDV/VAT)", type: "input" as const },
 ];
 
 export default function PaketModalIcerikPage() {

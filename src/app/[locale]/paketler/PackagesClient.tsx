@@ -17,21 +17,21 @@ export default function PackagesClient({ locale, translations }: PackagesClientP
 
     const t = (key: string, fallback: string) => translations[key] || fallback;
 
-    // Header texts based on locale
-    const headerTitle = locale === "en" ? "Our Packages" : "Paketlerimiz";
-    const headerSubtitle = locale === "en"
+    // Header and Note texts with database translation support
+    const headerTitle = t("page_title", locale === "en" ? "Our Packages" : "Paketlerimiz");
+    const headerSubtitle = t("page_subtitle", locale === "en"
         ? "Choose the package that suits your needs and benefit from our professional consulting service"
-        : "İhtiyacınıza uygun paketi seçin, profesyonel danışmanlık hizmetimizden yararlanın";
+        : "İhtiyacınıza uygun paketi seçin, profesyonel danışmanlık hizmetimizden yararlanın");
 
-    const noteText = locale === "en"
+    const noteText = t("note_text", locale === "en"
         ? "Valid within Muğla province borders. Prices for regions outside Muğla are determined separately."
-        : "Muğla il sınırları içinde geçerlidir. Muğla dışındaki bölgeler için fiyatlar ayrıca belirlenir.";
+        : "Muğla il sınırları içinde geçerlidir. Muğla dışındaki bölgeler için fiyatlar ayrıca belirlenir.");
 
-    const detailText = locale === "en"
+    const detailText = t("note_detail", locale === "en"
         ? "For detailed information and special requests"
-        : "Detaylı bilgi ve özel talepleriniz için";
+        : "Detaylı bilgi ve özel talepleriniz için");
 
-    const contactText = locale === "en" ? "contact us" : "iletişime geçin";
+    const contactText = t("note_contact", locale === "en" ? "contact us" : "iletişime geçin");
 
     return (
         <div className="pt-20">
@@ -39,10 +39,10 @@ export default function PackagesClient({ locale, translations }: PackagesClientP
             <section className="py-16 bg-gradient-to-r from-[#8CC63F] to-[#7ab233]">
                 <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
                     <h1 className="text-4xl md:text-5xl font-bold mb-4">
-                        {t("page_title", headerTitle)}
+                        {headerTitle}
                     </h1>
                     <p className="text-xl text-white/80 max-w-3xl mx-auto text-center">
-                        {t("page_subtitle", headerSubtitle)}
+                        {headerSubtitle}
                     </p>
                 </div>
             </section>
