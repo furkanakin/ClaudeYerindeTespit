@@ -2,34 +2,74 @@ import { NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import bcrypt from 'bcryptjs'
 
+const defaultLegalPages = [
+    { slug: "kullanim-kosullari", titleTr: "Kullanım Koşulları", titleEn: "Terms of Use" },
+    { slug: "cerez-aydinlatma", titleTr: "Çerez Aydınlatma Metni", titleEn: "Cookie Policy" },
+    { slug: "aydinlatma", titleTr: "Kişisel Verilerin İşlenmesi Hakkında Aydınlatma Metni", titleEn: "Privacy Notice" },
+    { slug: "ilgili-kisi-basvuru", titleTr: "İlgili Kişi Başvuru Formu", titleEn: "Data Subject Request Form" },
+    { slug: "iletisim-aydinlatma", titleTr: "İletişim Formu Aydınlatma Metni", titleEn: "Contact Form Privacy Notice" },
+    { slug: "ticari-ileti", titleTr: "Elektronik Ticari İleti Aydınlatma ve Açık Rıza Metni", titleEn: "Commercial Electronic Message Consent" },
+]
+
 export async function GET() {
     try {
-        // Test database connection first
         await prisma.$connect()
 
+        const results: string[] = []
+
+        // 1. Admin user
         const existingUser = await prisma.user.findUnique({
             where: { username: 'yerindeanaliz' }
         })
 
         if (existingUser) {
-            return NextResponse.json({ message: 'Admin user already exists', success: true })
+            results.push('Admin user already exists')
+        } else {
+            const hashedPassword = await bcrypt.hash('analizyerindeqwer1928', 10)
+            await prisma.user.create({
+                data: {
+                    username: 'yerindeanaliz',
+                    password: hashedPassword
+                }
+            })
+            results.push('Admin user created')
         }
 
-        const hashedPassword = await bcrypt.hash('analizyerindeqwer1928', 10)
-        await prisma.user.create({
-            data: {
-                username: 'yerindeanaliz',
-                password: hashedPassword
+        // 2. Default legal pages
+        let legalCreated = 0
+        for (const page of defaultLegalPages) {
+            try {
+                const existing = await prisma.legalPage.findUnique({
+                    where: { slug: page.slug }
+                })
+                if (!existing) {
+                    await prisma.legalPage.create({
+                        data: {
+                            slug: page.slug,
+                            titleTr: page.titleTr,
+                            titleEn: page.titleEn,
+                            contentTr: '',
+                            contentEn: '',
+                            isActive: true,
+                        }
+                    })
+                    legalCreated++
+                }
+            } catch {
+                // Skip if table doesn't exist yet
             }
-        })
+        }
+        results.push(`Legal pages: ${legalCreated} created`)
 
-        return NextResponse.json({ message: 'Admin user created successfully', success: true })
+        return NextResponse.json({
+            message: results.join(' | '),
+            success: true
+        })
     } catch (error: unknown) {
         console.error('Seed error:', error)
 
         const errorMessage = error instanceof Error ? error.message : 'Unknown error'
 
-        // Check if it's a table not found error
         if (errorMessage.includes('does not exist') || errorMessage.includes('P2021')) {
             return NextResponse.json(
                 {
@@ -40,7 +80,6 @@ export async function GET() {
             )
         }
 
-        // Check if it's a connection error
         if (errorMessage.includes('connect') || errorMessage.includes('P1001')) {
             return NextResponse.json(
                 {
@@ -52,7 +91,7 @@ export async function GET() {
         }
 
         return NextResponse.json(
-            { error: 'Failed to create admin user', details: errorMessage },
+            { error: 'Failed to seed database', details: errorMessage },
             { status: 500 }
         )
     }
