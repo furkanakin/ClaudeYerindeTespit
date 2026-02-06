@@ -18,6 +18,7 @@ import {
     MapPin,
     Crown,
     Scroll,
+    Database,
 } from "lucide-react";
 
 const menuItems = [
@@ -66,6 +67,11 @@ const menuItems = [
             { title: "Navbar", href: "/admin/icerik/navbar", icon: Globe },
             { title: "Sözleşmeler", href: "/admin/icerik/sozlesmeler", icon: Scroll },
         ],
+    },
+    {
+        title: "Veritabanı",
+        href: "/admin/veritabani",
+        icon: Database,
     },
 ];
 
