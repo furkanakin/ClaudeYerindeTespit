@@ -24,10 +24,8 @@ const formTranslations: any = {
     listingUrl: "Varsa İlanın Linki",
     notes: "Talebinizle ilgili iletmek istedikleriniz",
     kvkkPrefix: "",
-    kvkkText: "KVKK Aydınlatma Metni",
-    and: " ve ",
-    privacyText: "Gizlilik Politikası",
-    kvkkSuffix: "'nı okudum ve kabul ediyorum.",
+    kvkkLink: "İletişim Formu Aydınlatma Metni",
+    kvkkSuffix: "'ni okudum ve kabul ediyorum.",
     submit: "Talep Oluştur",
     submitting: "Gönderiliyor...",
     success: "Talebiniz başarıyla iletildi. En kısa sürede sizinle iletişime geçeceğiz.",
@@ -53,9 +51,7 @@ const formTranslations: any = {
     listingUrl: "Listing URL (if any)",
     notes: "Additional notes regarding your request",
     kvkkPrefix: "I have read and accept the ",
-    kvkkText: "KVKK Clarification Text",
-    and: " and ",
-    privacyText: "Privacy Policy",
+    kvkkLink: "Contact Form Privacy Notice",
     kvkkSuffix: ".",
     submit: "Create Request",
     submitting: "Sending...",
@@ -340,13 +336,8 @@ export default function ContactForm() {
             className="w-5 h-5 mt-0.5 rounded border-gray-300 text-[#8CC63F] focus:ring-[#8CC63F] cursor-pointer"
           />
           <label htmlFor="kvkkAccepted" className="text-sm text-[#6B7280] cursor-pointer">
-            {t("kvkkPrefix")}
-            <Link href={getLocalizedHref("/kvkk")} target="_blank" className="text-[#8CC63F] hover:underline font-medium">
-              {t("kvkkText")}
-            </Link>
-            {t("and")}
-            <Link href={getLocalizedHref("/gizlilik")} target="_blank" className="text-[#8CC63F] hover:underline font-medium">
-              {t("privacyText")}
+            <Link href={getLocalizedHref("/iletisim-aydinlatma")} target="_blank" className="text-[#8CC63F] hover:underline font-medium">
+              {t("kvkkLink")}
             </Link>
             {t("kvkkSuffix")} <span className="text-red-500">*</span>
           </label>

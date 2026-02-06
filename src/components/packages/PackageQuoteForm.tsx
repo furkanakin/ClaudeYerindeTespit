@@ -34,10 +34,8 @@ const formTranslations: Record<string, Record<string, string>> = {
         propertyType: "Gayrimenkul Türü",
         notes: "Eklemek istedikleriniz",
         kvkkPrefix: "",
-        kvkkText: "KVKK Aydınlatma Metni",
-        and: " ve ",
-        privacyText: "Gizlilik Politikası",
-        kvkkSuffix: "'nı okudum ve kabul ediyorum.",
+        kvkkLink: "İletişim Formu Aydınlatma Metni",
+        kvkkSuffix: "'ni okudum ve kabul ediyorum.",
         submit: "Teklif Talep Et",
         submitting: "Gönderiliyor...",
         success: "Talebiniz başarıyla iletildi. En kısa sürede sizinle iletişime geçeceğiz.",
@@ -61,9 +59,7 @@ const formTranslations: Record<string, Record<string, string>> = {
         propertyType: "Property Type",
         notes: "Additional notes",
         kvkkPrefix: "I have read and accept the ",
-        kvkkText: "KVKK Clarification Text",
-        and: " and ",
-        privacyText: "Privacy Policy",
+        kvkkLink: "Contact Form Privacy Notice",
         kvkkSuffix: ".",
         submit: "Request Quote",
         submitting: "Sending...",
@@ -485,9 +481,8 @@ export default function PackageQuoteForm({
                                 }}
                             />
                             <label htmlFor="kvkkAccepted" style={{ fontSize: '0.85rem', color: '#6B7280', cursor: 'pointer', lineHeight: '1.5' }}>
-                                {t("kvkkPrefix")}
                                 <Link href={getLocalizedHref("/iletisim-aydinlatma")} target="_blank" style={{ color: '#8CC63F', fontWeight: '500', textDecoration: 'none' }}>
-                                    {t("kvkkText")}
+                                    {t("kvkkLink")}
                                 </Link>
                                 {t("kvkkSuffix")} <span style={{ color: '#EF4444' }}>*</span>
                             </label>
