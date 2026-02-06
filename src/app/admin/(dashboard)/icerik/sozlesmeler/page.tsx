@@ -184,8 +184,8 @@ export default function SozlesmelerPage() {
                                 <div className="flex items-center gap-2">
                                     <span
                                         className={`px-2 py-1 text-xs rounded-full ${page.isActive
-                                                ? "bg-green-100 text-green-700"
-                                                : "bg-gray-100 text-gray-600"
+                                            ? "bg-green-100 text-green-700"
+                                            : "bg-gray-100 text-gray-600"
                                             }`}
                                     >
                                         {page.isActive ? "Aktif" : "Pasif"}
@@ -236,8 +236,8 @@ export default function SozlesmelerPage() {
                                         <button
                                             onClick={() => setActiveTab("tr")}
                                             className={`px-4 py-2 rounded-lg font-medium transition-colors ${activeTab === "tr"
-                                                    ? "bg-[#8CC63F] text-white"
-                                                    : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                                                ? "bg-[#8CC63F] text-white"
+                                                : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                                                 }`}
                                         >
                                             🇹🇷 Türkçe
@@ -245,8 +245,8 @@ export default function SozlesmelerPage() {
                                         <button
                                             onClick={() => setActiveTab("en")}
                                             className={`px-4 py-2 rounded-lg font-medium transition-colors ${activeTab === "en"
-                                                    ? "bg-[#8CC63F] text-white"
-                                                    : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                                                ? "bg-[#8CC63F] text-white"
+                                                : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                                                 }`}
                                         >
                                             🇬🇧 English
@@ -257,6 +257,7 @@ export default function SozlesmelerPage() {
                                     <div className="mb-4">
                                         {activeTab === "tr" ? (
                                             <RichTextEditor
+                                                key={`${page.slug}-tr`}
                                                 value={page.contentTr}
                                                 onChange={(value) =>
                                                     handleContentChange(page.slug, "contentTr", value)
@@ -264,6 +265,7 @@ export default function SozlesmelerPage() {
                                             />
                                         ) : (
                                             <RichTextEditor
+                                                key={`${page.slug}-en`}
                                                 value={page.contentEn}
                                                 onChange={(value) =>
                                                     handleContentChange(page.slug, "contentEn", value)

@@ -16,6 +16,11 @@ export const routeMapping: { [locale: string]: LocaleRoutes } = {
         '/kvkk': '/kvkk',
         '/kullanim-kosullari': '/kullanim-kosullari',
         '/sozlesmeler': '/sozlesmeler',
+        '/cerez-aydinlatma': '/cerez-aydinlatma',
+        '/aydinlatma': '/aydinlatma',
+        '/ilgili-kisi-basvuru': '/ilgili-kisi-basvuru',
+        '/iletisim-aydinlatma': '/iletisim-aydinlatma',
+        '/ticari-ileti': '/ticari-ileti',
     },
     en: {
         '/': '/',
@@ -27,6 +32,11 @@ export const routeMapping: { [locale: string]: LocaleRoutes } = {
         '/gdpr': '/kvkk',
         '/terms': '/kullanim-kosullari',
         '/agreements': '/sozlesmeler',
+        '/cookie-policy': '/cerez-aydinlatma',
+        '/privacy-notice': '/aydinlatma',
+        '/data-subject-request': '/ilgili-kisi-basvuru',
+        '/contact-privacy': '/iletisim-aydinlatma',
+        '/commercial-consent': '/ticari-ileti',
     }
 };
 
@@ -42,6 +52,11 @@ export const reverseRouteMapping: { [locale: string]: { [internalPath: string]: 
         '/kvkk': '/kvkk',
         '/kullanim-kosullari': '/kullanim-kosullari',
         '/sozlesmeler': '/sozlesmeler',
+        '/cerez-aydinlatma': '/cerez-aydinlatma',
+        '/aydinlatma': '/aydinlatma',
+        '/ilgili-kisi-basvuru': '/ilgili-kisi-basvuru',
+        '/iletisim-aydinlatma': '/iletisim-aydinlatma',
+        '/ticari-ileti': '/ticari-ileti',
     },
     en: {
         '/': '/',
@@ -53,6 +68,11 @@ export const reverseRouteMapping: { [locale: string]: { [internalPath: string]: 
         '/kvkk': '/gdpr',
         '/kullanim-kosullari': '/terms',
         '/sozlesmeler': '/agreements',
+        '/cerez-aydinlatma': '/cookie-policy',
+        '/aydinlatma': '/privacy-notice',
+        '/ilgili-kisi-basvuru': '/data-subject-request',
+        '/iletisim-aydinlatma': '/contact-privacy',
+        '/ticari-ileti': '/commercial-consent',
     }
 };
 

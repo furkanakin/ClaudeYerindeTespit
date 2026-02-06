@@ -46,7 +46,6 @@ export default function Footer({ locale = "tr" }: FooterProps) {
     { internalPath: "/paketler", label: t("packages") },
     { internalPath: "/sss", label: t("faq") },
     { internalPath: "/iletisim", label: t("contact") },
-    { internalPath: "/sozlesmeler", label: t("contracts") },
   ];
 
   return (
