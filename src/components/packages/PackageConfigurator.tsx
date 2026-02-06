@@ -96,6 +96,8 @@ export default function PackageConfigurator({
     const pkgBasePriceNote = t(`${pkgKey}_base_price_note`, packageData?.basePriceNote || "");
     const pkgAddonsTitle = t(`${pkgKey}_addons_title`, packageData?.addOnsTitle || (isEn ? "Extra Services and Features" : "Ek Hizmetler ve Özellikler"));
     const pkgPrice = t(`${pkgKey}_price`, packageData?.price || "");
+    const pkgForWhomTitle = t(`${pkgKey}_for_whom_title`, forWhomText);
+    const pkgIncludesTitle = t(`${pkgKey}_includes_title`, extraServicesText);
 
 
     if (!isOpen || !packageData) return null;
@@ -129,7 +131,7 @@ export default function PackageConfigurator({
                         )}
 
                         {/* Modal Footer Note (smaller text) */}
-                        {packageData.modalFooterNote && (
+                        {t(`${pkgKey}_footer_note`, packageData.modalFooterNote || "") && (
                             <p className="text-xs text-[#9CA3AF] mt-3 leading-relaxed">
                                 {pkgFooterNote}
                             </p>
@@ -158,7 +160,7 @@ export default function PackageConfigurator({
                             {/* "Kimler için?" section */}
                             {packageData.kimlerIcin && packageData.kimlerIcin.length > 0 && (
                                 <div className="mb-6">
-                                    <h3 className="text-lg font-semibold text-[#8CC63F] mb-3">{forWhomText}</h3>
+                                    <h3 className="text-lg font-semibold text-[#8CC63F] mb-3">{pkgForWhomTitle}</h3>
                                     <ul className="space-y-2">
                                         {packageData.kimlerIcin.map((item, index) => {
                                             const itemKey = `${pkgKey}_kimler_${index + 1}`;
@@ -177,11 +179,17 @@ export default function PackageConfigurator({
                             {hasAddOns ? (
                                 packageData.addOns?.map((option, index) => {
                                     // Try to find translation for name, desc, priceLabel
-                                    // Note: Addons in static data don't strictly align by index for lookup if keys vary, 
-                                    // but assuming index + 1 alignment with seed data
                                     const addonName = t(`${pkgKey}_addon${index + 1}_name`, option.name);
                                     const addonDesc = t(`${pkgKey}_addon${index + 1}_desc`, option.description || "");
-                                    const addonPrice = t(`${pkgKey}_addon${index + 1}_price`, option.priceLabel);
+
+                                    // Price translation logic:
+                                    // 1. Check for explicit translation in DB
+                                    // 2. If price is 0, use global "Get Quote" text
+                                    // 3. Fallback to hardcoded option.priceLabel
+                                    let addonPrice = t(`${pkgKey}_addon${index + 1}_price`, "");
+                                    if (!addonPrice) {
+                                        addonPrice = option.price === 0 ? getQuoteText : option.priceLabel;
+                                    }
 
                                     return (
                                         <div

@@ -30,8 +30,8 @@ export default function PackageCard({ package_, onSelect, locale = "tr", transla
   const description = t(`${pkgKey}_desc`, package_.description);
 
   // Locale-based UI text
-  const whatIncludesTitle = t("ui_what_includes", locale === "en" ? "What's Included?" : "Neler İçerir?");
-  const forWhomTitle = t("ui_for_whom", locale === "en" ? "Who is it for?" : "Kimler için?");
+  const whatIncludesTitle = t(`${pkgKey}_includes_title`, t("ui_what_includes", locale === "en" ? "What's Included?" : "Neler İçerir?"));
+  const forWhomTitle = t(`${pkgKey}_for_whom_title`, t("ui_for_whom", locale === "en" ? "Who is it for?" : "Kimler için?"));
   const ctaText = t("ui_view_package", locale === "en" ? "View Package" : "Paketi İnceleyin");
   const moreFeatures = t("ui_more_features", locale === "en" ? "more features" : "özellik daha");
   const popularBadge = t("ui_popular_badge", locale === "en" ? "Most Preferred" : "En Çok Tercih Edilen");

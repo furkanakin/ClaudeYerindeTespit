@@ -12,6 +12,7 @@ const yerindeAnalizFields = [
     { key: "pkg2_footer_note", label: "Modal Alt Notu", type: "textarea" as const },
 
     // What Includes
+    { key: "pkg2_includes_title", label: "Neler Dahil Başlığı", type: "input" as const },
     { key: "pkg2_includes_1_title", label: "Dahil 1 - Başlık", type: "input" as const },
     { key: "pkg2_includes_2_title", label: "Dahil 2 - Başlık (Saha Ziyareti)", type: "input" as const },
     { key: "pkg2_includes_2_detail1", label: "Saha - Detay 1", type: "textarea" as const },
@@ -23,6 +24,7 @@ const yerindeAnalizFields = [
     { key: "pkg2_includes_4_title", label: "Dahil 4 - Başlık", type: "input" as const },
 
     // For Whom
+    { key: "pkg2_for_whom_title", label: "Kimler İçin Başlığı", type: "input" as const },
     { key: "pkg2_kimler_1", label: "Kimler İçin - 1", type: "textarea" as const },
     { key: "pkg2_kimler_2", label: "Kimler İçin - 2", type: "textarea" as const },
     { key: "pkg2_kimler_3", label: "Kimler İçin - 3", type: "textarea" as const },
@@ -38,7 +40,7 @@ const yerindeAnalizFields = [
     { key: "pkg2_addons_title", label: "Ek Hizmetler Başlığı", type: "input" as const },
     { key: "pkg2_addon1_name", label: "Ek Hizmet 1 - Ad (Drone Temel)", type: "input" as const },
     { key: "pkg2_addon1_desc", label: "Ek Hizmet 1 - Açıklama", type: "input" as const },
-    { key: "pkg2_addon1_price", label: "Ek Hizmet 1 - Fiyat", type: "input" as const },
+    { key: "pkg2_addon1_price", label: "Ek Hizmet 1 - Fiyat (Sadece rakam ise formatlanır, metin ise olduğu gibi yazılır)", type: "input" as const },
     { key: "pkg2_addon2_name", label: "Ek Hizmet 2 - Ad (Drone Kapsamlı)", type: "input" as const },
     { key: "pkg2_addon2_desc", label: "Ek Hizmet 2 - Açıklama", type: "input" as const },
     { key: "pkg2_addon2_price", label: "Ek Hizmet 2 - Fiyat", type: "input" as const },

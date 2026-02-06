@@ -8,8 +8,11 @@ const premiumFields = [
     { key: "pkg3_modal_desc", label: "Modal Açıklaması (** ile bold)", type: "textarea" as const },
     { key: "pkg3_delivery", label: "Teslim Süresi", type: "input" as const },
     { key: "pkg3_price", label: "Fiyat", type: "input" as const },
+    { key: "pkg3_base_price_note", label: "Baz Fiyat Notu", type: "input" as const },
+    { key: "pkg3_footer_note", label: "Modal Alt Notu", type: "textarea" as const },
 
     // What Includes
+    { key: "pkg3_includes_title", label: "Neler Dahil Başlığı", type: "input" as const },
     { key: "pkg3_includes_1_title", label: "Dahil 1 - Kişiye Özel Danışmanlık", type: "textarea" as const },
     { key: "pkg3_includes_2_title", label: "Dahil 2 - Derinleştirilmiş İncelemeler", type: "textarea" as const },
     { key: "pkg3_includes_3_title", label: "Dahil 3 - Planlama ve İmar", type: "textarea" as const },
@@ -17,6 +20,7 @@ const premiumFields = [
     { key: "pkg3_includes_5_title", label: "Dahil 5 - Mimari Tasarım", type: "textarea" as const },
 
     // For Whom
+    { key: "pkg3_for_whom_title", label: "Kimler İçin Başlığı", type: "input" as const },
     { key: "pkg3_kimler_1", label: "Kimler İçin - 1", type: "textarea" as const },
     { key: "pkg3_kimler_2", label: "Kimler İçin - 2", type: "textarea" as const },
     { key: "pkg3_kimler_3", label: "Kimler İçin - 3", type: "textarea" as const },
@@ -29,7 +33,7 @@ const premiumFields = [
     { key: "pkg3_addons_title", label: "Ek Hizmetler Başlığı", type: "input" as const },
     { key: "pkg3_addon1_name", label: "Ek Hizmet 1 - Ad (Mimari Proje)", type: "input" as const },
     { key: "pkg3_addon1_desc", label: "Ek Hizmet 1 - Açıklama", type: "input" as const },
-    { key: "pkg3_addon1_price", label: "Ek Hizmet 1 - Fiyat", type: "input" as const },
+    { key: "pkg3_addon1_price", label: "Ek Hizmet 1 - Fiyat (Sadece rakam ise formatlanır, metin ise olduğu gibi yazılır)", type: "input" as const },
     { key: "pkg3_addon2_name", label: "Ek Hizmet 2 - Ad (Uygulama Kontrol)", type: "input" as const },
     { key: "pkg3_addon2_desc", label: "Ek Hizmet 2 - Açıklama", type: "textarea" as const },
     { key: "pkg3_addon2_price", label: "Ek Hizmet 2 - Fiyat", type: "input" as const },
