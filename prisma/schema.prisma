@@ -65,3 +65,15 @@ model Faq {
   updatedAt  DateTime @updatedAt
 }
 
+model LegalPage {
+  id        String   @id @default(cuid())
+  slug      String   @unique // kullanim-kosullari, cerez-aydinlatma, etc.
+  titleTr   String
+  titleEn   String
+  contentTr String   @db.Text
+  contentEn String   @db.Text
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+

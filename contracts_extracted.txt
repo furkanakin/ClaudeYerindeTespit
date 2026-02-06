@@ -1,0 +1,109 @@
+Metin Adı
+
+===CELL_SEPARATOR===
+
+Uygulama
+
+===CELL_SEPARATOR===
+
+Metin
+
+===CELL_SEPARATOR===
+
+Yerinde Analiz Web Sitesi Kullanım Koşulları 
+
+===CELL_SEPARATOR===
+
+Footer’da yer verilmesi gerekmektedir.
+
+İleriki aşamalarda siteye üyelik özelliği eklendiğinde mevcut kullanım koşullarının bu doğrultuda güncelleneceğine karar verilmiştir. 
+
+
+===CELL_SEPARATOR===
+
+Çerez Aydınlatma Metni + Çerez Aydınlatma Uygulama Rehberi
+
+===CELL_SEPARATOR===
+
+Web sitesine (mobil web veya desktop) giriş yapıldığında alt barda çıkacak bir pop-up ile kişi Çerez Aydınlatma Metni’ne yönlendirilmeli ve kişinin çerez tercihlerini yönetebilmesi için imkan tanınmalıdır.
+
+Çerez Aydınlatma Metni’ne Footer’da yer verilmesi gerekmektedir. 
+
+Kurul’un yayınladığı rehber kapsamında iyi uygulama örneklerine ayrıca yönlendirme olması amacıyla Çerez Aydınlatma Uygulama Rehberi’nde daha detaylı bir şekilde ayrıca yer verilmiştir. 
+
+
+===CELL_SEPARATOR===
+
+Web Site Aydınlatma Metni
+
+===CELL_SEPARATOR===
+
+Footer’da yer verilmesi gerekmektedir. 
+
+Whatsapp aracılığıyla iletişime geçilmesi halinde; Whatsapp imgesine tıklayan potansiyel müşterinin yönlendirildiği Chat’te hyperlink ile:
+
+“Kişisel verilerinizin işlenmesine ilişkin detaylı bilgilere web sitemizde yer alan Aydınlatma Metni’nden ulaşabilirsiniz: [link]” ifadelerine yer verilerek Footer’da yer alan işbu Aydınlatma Metninin eklenmesi gerekmektedir. 
+
+E-posta aracılığıyla iletişime geçilmesi halinde; ilk gelen talep mailine yapılacak olan “Bizimle iletişime geçtiğiniz için teşekkür ederiniz. Talebiniz alınmıştır” içerikli otomatik dönüş mailinde:
+ 
+“Kişisel verilerinizin işlenmesine ilişkin detaylı bilgilere web sitemizde yer alan Aydınlatma Metni’nden ulaşabilirsiniz: [link]” ifadelerine yer verilerek Footer’da yer alan işbu Aydınlatma Metninin eklenmesi gerekmektedir. 
+
+İleriki aşamalarda siteye üyelik özelliği eklendiğinde işbu Aydınlatma Metni bu doğrultuda güncellenecektir.
+
+===CELL_SEPARATOR===
+
+İlgili Kişi Başvuru Formu ve İlgili Kişilerin Taleplerine İlişkin Yapılacaklar Listesi
+
+
+===CELL_SEPARATOR===
+
+İlgili Kişi Başvuru Formuna Footer’da yer verilmesi gerekmektedir. 
+
+Herhangi bir ilgili kişi başvurusunun tarafınıza ulaşması halinde izlenecek adımları içeren uygulama rehberi için İlgili Kişilerin Taleplerine İlişkin Yapılacaklar Listesi’nin takip edilmesi önerilmektedir. 
+
+
+===CELL_SEPARATOR===
+
+Ön Bilgilendirme Formu + Mesafeli Satış Sözleşmesi 
+
+
+===CELL_SEPARATOR===
+
+E-posta aracılığıyla yürütülen teklif ve satış sürecinde; teklifin sunulduğu mail ekinde, müşteri siparişi onaylamadan ve ödeme yapılmadan önce sırasıyla Ön Bilgilendirme Formu ve Mesafeli Satış Sözleşmesi ve müşteriye sunulmalıdır. Örnek mail formatı aşağıda sunulmuştur:
+
+“Talebiniz doğrultusunda hazırlanan hizmet teklifimize ilişkin detaylar ekte yer almaktadır.
+Hizmetin sunulmasından önce, 6502 sayılı Tüketicinin Korunması Hakkında Kanun uyarınca tarafınıza sunulması gereken Mesafeli Satış Ön Bilgilendirme Formu ve Mesafeli Satış Sözleşmesi ayrıca ekte dikkatinize sunulmuştur. 
+Belgeleri incelemenizin ardından, aşağıdaki beyanları açık şekilde e-posta yoluyla iletmenizi rica ederiz.
+“Ön Bilgilendirme Formunu ve Mesafeli Satış Sözleşmesini okudum, onaylıyorum.”
+
+
+===CELL_SEPARATOR===
+
+İletişim Formu Aydınlatma Metni
+
+===CELL_SEPARATOR===
+
+Aşağıda görseli yer alan İletişim Formunda Talep Oluştur’dan önce check box ile aydınlatma metni hyperlink ile eklenmeli ve “Kişisel verilerimin işlenmesine ilişkin Kişisel Verilerin İşlenmesi Hakkında Aydınlatma Metni’ni okudum.” ifadesi onaylatılmalı, onaylanmadan talep oluşturma aşamasına geçilmemelidir. 
+
+
+
+===CELL_SEPARATOR===
+
+Elektronik Ticari İleti Aydınlatma Metni ve Açık Rıza Metni
+
+
+===CELL_SEPARATOR===
+
+İletişim Formu: İlgili metinlerin İletişim Formu üzerinden talep oluşturulmadan önce, İletişim Formu Aydınlatma Metni’den sonra hyperlink ile 2 AYRI CHECKBOX OLARAK:
+
+“Kişisel verilerimin işlenmesine ilişkin Kişisel Verilerin İşlenmesi Hakkında Aydınlatma Metni’ni okudum.”
+ 
+“Tarafıma kampanya, tanıtım ve pazarlama içerikli ticari elektronik iletiler gönderilmesi amacıyla kişisel verilerimin işlenmesine ve bu kapsamda tarafımla SMS, e-posta ve arama yoluyla iletişime geçilmesine açık rıza veriyorum.” ifadelerine yer verilerek ayrı checkbox ile onaylatılması gerekmektedir.  
+
+Yalnızca E-posta veya WhatsApp aracılığıyla iletişime geçen potansiyel müşteriler için Aydınlatma Metni sunulmadan ve Açık Rıza alınmadan ticari elektronik ileti gönderilmemelidir. Bu kapsamda ilk gelen talep mailine/WhatsApp mesajına yapılacak olan “Bizimle iletişime geçtiğiniz için teşekkür ederiniz. Talebiniz alınmıştır” içerikli otomatik dönüş mailinde/mesajında:
+Ekte yer alan Elektronik Ticari İleti Gönderimine İlişkin Aydınlatma Metni’ni incelemenizi rica ederiz. İncelemenizin ardından, onaylarınızı aşağıdaki şekilde e-posta yoluyla iletmenizi rica ederiz:
+“Tarafıma kampanya, tanıtım ve pazarlama içerikli ticari elektronik iletiler gönderilmesi amacıyla kişisel verilerimin işlenmesine ve bu kapsamda tarafımla SMS, e-posta ve arama yoluyla iletişime geçilmesine açık rıza veriyorum.”
+
+Ticari Elektronik İleti Gönderimine İlişkin Aydınlatma metninin yer aldığı checkbox’ın işaretlenmesi zorunlu kılınabilir ancak Açık Rıza Metni onayı zorunlu kılınamaz, onaylanmadan da iletişim formu aracılığıyla müşteriler talep oluşturulabilmelidir. Onaylamayan müşterilere ticari elektronik ileti GÖNDERİLMEMELİDİR. 
+
+

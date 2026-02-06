@@ -468,7 +468,7 @@ export default function PackageQuoteForm({
                         padding: '16px',
                         background: 'rgba(140, 198, 63, 0.05)',
                         borderRadius: '12px',
-                        marginBottom: '20px',
+                        marginBottom: '12px',
                         border: '1px solid rgba(140, 198, 63, 0.15)'
                     }}>
                         <div style={{ display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
@@ -486,12 +486,8 @@ export default function PackageQuoteForm({
                             />
                             <label htmlFor="kvkkAccepted" style={{ fontSize: '0.85rem', color: '#6B7280', cursor: 'pointer', lineHeight: '1.5' }}>
                                 {t("kvkkPrefix")}
-                                <Link href={getLocalizedHref("/kvkk")} target="_blank" style={{ color: '#8CC63F', fontWeight: '500', textDecoration: 'none' }}>
+                                <Link href={getLocalizedHref("/iletisim-aydinlatma")} target="_blank" style={{ color: '#8CC63F', fontWeight: '500', textDecoration: 'none' }}>
                                     {t("kvkkText")}
-                                </Link>
-                                {t("and")}
-                                <Link href={getLocalizedHref("/gizlilik")} target="_blank" style={{ color: '#8CC63F', fontWeight: '500', textDecoration: 'none' }}>
-                                    {t("privacyText")}
                                 </Link>
                                 {t("kvkkSuffix")} <span style={{ color: '#EF4444' }}>*</span>
                             </label>
@@ -499,6 +495,38 @@ export default function PackageQuoteForm({
                         {errors.kvkkAccepted && (
                             <p style={{ color: '#EF4444', fontSize: '0.75rem', marginTop: '8px', marginLeft: '32px' }}>{errors.kvkkAccepted.message}</p>
                         )}
+                    </div>
+
+                    {/* Ticari E-İleti Consent (Optional) */}
+                    <div style={{
+                        padding: '16px',
+                        background: '#F9FAFB',
+                        borderRadius: '12px',
+                        marginBottom: '20px',
+                        border: '1px solid #E5E7EB'
+                    }}>
+                        <div style={{ display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
+                            <input
+                                type="checkbox"
+                                id="commercialConsent"
+                                style={{
+                                    width: '20px',
+                                    height: '20px',
+                                    marginTop: '2px',
+                                    accentColor: '#8CC63F',
+                                    cursor: 'pointer'
+                                }}
+                            />
+                            <label htmlFor="commercialConsent" style={{ fontSize: '0.85rem', color: '#6B7280', cursor: 'pointer', lineHeight: '1.5' }}>
+                                {locale === "en"
+                                    ? "I consent to receiving promotional, advertising and marketing electronic messages and being contacted via SMS, e-mail and phone for this purpose."
+                                    : "Tarafıma kampanya, tanıtım ve pazarlama içerikli ticari elektronik iletiler gönderilmesi amacıyla kişisel verilerimin işlenmesine ve bu kapsamda tarafımla SMS, e-posta ve arama yoluyla iletişime geçilmesine açık rıza veriyorum."}
+                                {" "}
+                                <Link href={getLocalizedHref("/ticari-ileti")} target="_blank" style={{ color: '#8CC63F', fontWeight: '500', textDecoration: 'none' }}>
+                                    {locale === "en" ? "(Details)" : "(Detaylar)"}
+                                </Link>
+                            </label>
+                        </div>
                     </div>
 
                     {/* Error Message */}

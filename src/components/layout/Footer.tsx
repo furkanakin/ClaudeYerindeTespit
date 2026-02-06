@@ -113,12 +113,18 @@ export default function Footer({ locale = "tr" }: FooterProps) {
             <p className="text-gray-500 text-sm">
               © {new Date().getFullYear()} Yerinde Analiz - {t("rights")}
             </p>
-            <div className="flex items-center gap-6 text-sm text-gray-500">
-              <Link href={getLocalizedPath("/gizlilik", locale)} className="hover:text-[#8CC63F] transition-colors">
-                {t("privacy")}
+            <div className="flex items-center gap-6 text-sm text-gray-500 flex-wrap">
+              <Link href={getLocalizedPath("/aydinlatma", locale)} className="hover:text-[#8CC63F] transition-colors">
+                {locale === "en" ? "Privacy Notice" : "KVKK Aydınlatma"}
+              </Link>
+              <Link href={getLocalizedPath("/cerez-aydinlatma", locale)} className="hover:text-[#8CC63F] transition-colors">
+                {locale === "en" ? "Cookie Policy" : "Çerez Politikası"}
               </Link>
               <Link href={getLocalizedPath("/kullanim-kosullari", locale)} className="hover:text-[#8CC63F] transition-colors">
                 {t("terms")}
+              </Link>
+              <Link href={getLocalizedPath("/ilgili-kisi-basvuru", locale)} className="hover:text-[#8CC63F] transition-colors">
+                {locale === "en" ? "Data Subject" : "İlgili Kişi Başvuru"}
               </Link>
             </div>
           </div>

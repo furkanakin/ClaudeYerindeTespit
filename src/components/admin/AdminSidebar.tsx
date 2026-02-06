@@ -17,6 +17,7 @@ import {
     FileSearch,
     MapPin,
     Crown,
+    Scroll,
 } from "lucide-react";
 
 const menuItems = [
@@ -63,6 +64,7 @@ const menuItems = [
             { title: "İletişim", href: "/admin/icerik/iletisim", icon: Phone },
             { title: "Footer", href: "/admin/icerik/footer", icon: PanelBottom },
             { title: "Navbar", href: "/admin/icerik/navbar", icon: Globe },
+            { title: "Sözleşmeler", href: "/admin/icerik/sozlesmeler", icon: Scroll },
         ],
     },
 ];
