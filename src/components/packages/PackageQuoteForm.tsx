@@ -5,10 +5,10 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { motion } from "framer-motion";
-import { Send, Loader2, CheckCircle, AlertCircle, ArrowLeft, Package } from "lucide-react";
-import Button from "@/components/ui/Button";
+import { Send, Loader2, CheckCircle, AlertCircle, ArrowLeft, Package, Check } from "lucide-react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import styles from "./PackageConfigurator.module.css";
 
 interface PackageQuoteFormProps {
     packageId: string;
@@ -47,7 +47,7 @@ const formTranslations: Record<string, Record<string, string>> = {
         arazi: "Arazi",
         konut: "Konut",
         diger: "Diğer",
-        back: "Geri",
+        back: "Geri Dön",
     },
     en: {
         formTitle: "Quote Request",
@@ -74,7 +74,7 @@ const formTranslations: Record<string, Record<string, string>> = {
         arazi: "Land",
         konut: "Housing",
         diger: "Other",
-        back: "Back",
+        back: "Go Back",
     }
 };
 
@@ -154,207 +154,394 @@ export default function PackageQuoteForm({
         }
     };
 
-    const inputClassName =
-        "w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-[#8CC63F] focus:ring-2 focus:ring-[#8CC63F]/20 outline-none transition-all text-sm";
-    const labelClassName = "block text-sm font-medium text-[#2C3E50] mb-1";
-    const errorClassName = "text-red-500 text-xs mt-1";
-
     const getLocalizedHref = (path: string) => `/${locale}${path}`;
 
     if (submitStatus === "success") {
         return (
-            <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                className="text-center py-12"
-            >
-                <CheckCircle className="w-16 h-16 text-[#8CC63F] mx-auto mb-4" />
-                <h3 className="text-xl font-semibold text-[#2C3E50] mb-2">
-                    {locale === "en" ? "Request Sent!" : "Talebiniz İletildi!"}
-                </h3>
-                <p className="text-[#6B7280]">{t("success")}</p>
-            </motion.div>
+            <div className={styles.optionsList} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '400px', textAlign: 'center' }}>
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                >
+                    <div style={{
+                        width: '80px',
+                        height: '80px',
+                        borderRadius: '50%',
+                        background: 'linear-gradient(135deg, #8CC63F 0%, #6B9F2E 100%)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        margin: '0 auto 24px',
+                        boxShadow: '0 10px 40px rgba(140, 198, 63, 0.3)'
+                    }}>
+                        <Check size={40} color="white" strokeWidth={3} />
+                    </div>
+                    <h3 style={{ fontSize: '1.5rem', fontWeight: '700', color: '#2C3E50', marginBottom: '12px' }}>
+                        {locale === "en" ? "Request Sent!" : "Talebiniz İletildi!"}
+                    </h3>
+                    <p style={{ color: '#6B7280', maxWidth: '320px', lineHeight: '1.6' }}>{t("success")}</p>
+                </motion.div>
+            </div>
         );
     }
 
     return (
-        <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.3 }}
-        >
-            {/* Back Button */}
-            <button
-                onClick={onBack}
-                className="flex items-center gap-2 text-[#6B7280] hover:text-[#2C3E50] mb-4 text-sm transition-colors"
-            >
-                <ArrowLeft size={16} />
-                {t("back")}
-            </button>
+        <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+            {/* Left Column - Form */}
+            <div className={styles.optionsList} style={{ flex: '1', borderRight: 'none' }}>
+                {/* Back Button */}
+                <button
+                    onClick={onBack}
+                    style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '8px',
+                        background: 'none',
+                        border: 'none',
+                        color: '#6B7280',
+                        fontSize: '0.9rem',
+                        cursor: 'pointer',
+                        padding: '0',
+                        marginBottom: '20px',
+                        transition: 'color 0.2s'
+                    }}
+                    onMouseOver={(e) => e.currentTarget.style.color = '#8CC63F'}
+                    onMouseOut={(e) => e.currentTarget.style.color = '#6B7280'}
+                >
+                    <ArrowLeft size={18} />
+                    {t("back")}
+                </button>
 
-            {/* Package Summary */}
-            <div className="bg-[#F9FAFB] rounded-lg p-4 mb-6">
-                <div className="flex items-center gap-2 mb-2">
-                    <Package size={18} className="text-[#8CC63F]" />
-                    <span className="font-semibold text-[#2C3E50]">{t("packageInfo")}</span>
-                </div>
-                <p className="text-[#8CC63F] font-medium">{packageTitle}</p>
+                {/* Package Summary Card */}
+                <div style={{
+                    background: 'linear-gradient(135deg, rgba(140, 198, 63, 0.08) 0%, rgba(140, 198, 63, 0.03) 100%)',
+                    borderRadius: '16px',
+                    padding: '20px',
+                    marginBottom: '24px',
+                    border: '1px solid rgba(140, 198, 63, 0.2)'
+                }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}>
+                        <div style={{
+                            width: '40px',
+                            height: '40px',
+                            borderRadius: '10px',
+                            background: 'linear-gradient(135deg, #8CC63F 0%, #6B9F2E 100%)',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center'
+                        }}>
+                            <Package size={20} color="white" />
+                        </div>
+                        <div>
+                            <span style={{ fontSize: '0.75rem', color: '#6B7280', textTransform: 'uppercase', letterSpacing: '0.5px' }}>{t("packageInfo")}</span>
+                            <p style={{ fontWeight: '600', color: '#2C3E50', margin: '2px 0 0' }}>{packageTitle}</p>
+                        </div>
+                    </div>
 
-                {selectedAddons.length > 0 && (
-                    <div className="mt-3 pt-3 border-t border-gray-200">
-                        <span className="text-xs text-[#6B7280]">{t("selectedServices")}:</span>
-                        <ul className="mt-1 space-y-1">
-                            {selectedAddons.map((addon, index) => (
-                                <li key={index} className="text-sm text-[#2C3E50] flex items-center gap-1">
-                                    <span className="text-[#8CC63F]">•</span> {addon}
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-                )}
-            </div>
-
-            {/* Form */}
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-                {/* Name Fields */}
-                <div className="grid grid-cols-2 gap-4">
-                    <div>
-                        <label className={labelClassName}>
-                            {t("firstName")} <span className="text-red-500">*</span>
-                        </label>
-                        <input
-                            type="text"
-                            {...register("firstName")}
-                            className={cn(inputClassName, errors.firstName && "border-red-500")}
-                        />
-                        {errors.firstName && (
-                            <p className={errorClassName}>{errors.firstName.message}</p>
-                        )}
-                    </div>
-                    <div>
-                        <label className={labelClassName}>
-                            {t("lastName")} <span className="text-red-500">*</span>
-                        </label>
-                        <input
-                            type="text"
-                            {...register("lastName")}
-                            className={cn(inputClassName, errors.lastName && "border-red-500")}
-                        />
-                        {errors.lastName && (
-                            <p className={errorClassName}>{errors.lastName.message}</p>
-                        )}
-                    </div>
-                </div>
-
-                {/* Contact Fields */}
-                <div className="grid grid-cols-2 gap-4">
-                    <div>
-                        <label className={labelClassName}>
-                            {t("phone")} <span className="text-red-500">*</span>
-                        </label>
-                        <input
-                            type="tel"
-                            {...register("phone")}
-                            className={cn(inputClassName, errors.phone && "border-red-500")}
-                            placeholder="05XX XXX XX XX"
-                        />
-                        {errors.phone && (
-                            <p className={errorClassName}>{errors.phone.message}</p>
-                        )}
-                    </div>
-                    <div>
-                        <label className={labelClassName}>
-                            {t("email")} <span className="text-red-500">*</span>
-                        </label>
-                        <input
-                            type="email"
-                            {...register("email")}
-                            className={cn(inputClassName, errors.email && "border-red-500")}
-                        />
-                        {errors.email && (
-                            <p className={errorClassName}>{errors.email.message}</p>
-                        )}
-                    </div>
+                    {selectedAddons.length > 0 && (
+                        <div style={{ borderTop: '1px dashed rgba(140, 198, 63, 0.3)', paddingTop: '12px', marginTop: '12px' }}>
+                            <span style={{ fontSize: '0.75rem', color: '#6B7280' }}>{t("selectedServices")}:</span>
+                            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginTop: '8px' }}>
+                                {selectedAddons.map((addon, index) => (
+                                    <span key={index} style={{
+                                        display: 'inline-flex',
+                                        alignItems: 'center',
+                                        gap: '4px',
+                                        padding: '4px 10px',
+                                        background: 'white',
+                                        borderRadius: '20px',
+                                        fontSize: '0.8rem',
+                                        color: '#2C3E50',
+                                        border: '1px solid rgba(140, 198, 63, 0.3)'
+                                    }}>
+                                        <Check size={12} color="#8CC63F" />
+                                        {addon}
+                                    </span>
+                                ))}
+                            </div>
+                        </div>
+                    )}
                 </div>
 
-                {/* Property Type */}
-                <div>
-                    <label className={labelClassName}>
-                        {t("propertyType")} <span className="text-red-500">*</span>
-                    </label>
-                    <select
-                        {...register("propertyType")}
-                        className={cn(inputClassName, errors.propertyType && "border-red-500")}
+                {/* Form */}
+                <form onSubmit={handleSubmit(onSubmit)}>
+                    {/* Name Fields */}
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '16px' }}>
+                        <div>
+                            <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: '500', color: '#2C3E50', marginBottom: '6px' }}>
+                                {t("firstName")} <span style={{ color: '#EF4444' }}>*</span>
+                            </label>
+                            <input
+                                type="text"
+                                {...register("firstName")}
+                                style={{
+                                    width: '100%',
+                                    padding: '12px 16px',
+                                    borderRadius: '10px',
+                                    border: errors.firstName ? '2px solid #EF4444' : '2px solid #E5E7EB',
+                                    fontSize: '0.95rem',
+                                    outline: 'none',
+                                    transition: 'border-color 0.2s, box-shadow 0.2s',
+                                    boxSizing: 'border-box'
+                                }}
+                                onFocus={(e) => {
+                                    e.target.style.borderColor = '#8CC63F';
+                                    e.target.style.boxShadow = '0 0 0 3px rgba(140, 198, 63, 0.15)';
+                                }}
+                                onBlur={(e) => {
+                                    e.target.style.borderColor = errors.firstName ? '#EF4444' : '#E5E7EB';
+                                    e.target.style.boxShadow = 'none';
+                                }}
+                            />
+                            {errors.firstName && (
+                                <p style={{ color: '#EF4444', fontSize: '0.75rem', marginTop: '4px' }}>{errors.firstName.message}</p>
+                            )}
+                        </div>
+                        <div>
+                            <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: '500', color: '#2C3E50', marginBottom: '6px' }}>
+                                {t("lastName")} <span style={{ color: '#EF4444' }}>*</span>
+                            </label>
+                            <input
+                                type="text"
+                                {...register("lastName")}
+                                style={{
+                                    width: '100%',
+                                    padding: '12px 16px',
+                                    borderRadius: '10px',
+                                    border: errors.lastName ? '2px solid #EF4444' : '2px solid #E5E7EB',
+                                    fontSize: '0.95rem',
+                                    outline: 'none',
+                                    transition: 'border-color 0.2s, box-shadow 0.2s',
+                                    boxSizing: 'border-box'
+                                }}
+                                onFocus={(e) => {
+                                    e.target.style.borderColor = '#8CC63F';
+                                    e.target.style.boxShadow = '0 0 0 3px rgba(140, 198, 63, 0.15)';
+                                }}
+                                onBlur={(e) => {
+                                    e.target.style.borderColor = errors.lastName ? '#EF4444' : '#E5E7EB';
+                                    e.target.style.boxShadow = 'none';
+                                }}
+                            />
+                            {errors.lastName && (
+                                <p style={{ color: '#EF4444', fontSize: '0.75rem', marginTop: '4px' }}>{errors.lastName.message}</p>
+                            )}
+                        </div>
+                    </div>
+
+                    {/* Contact Fields */}
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '16px' }}>
+                        <div>
+                            <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: '500', color: '#2C3E50', marginBottom: '6px' }}>
+                                {t("phone")} <span style={{ color: '#EF4444' }}>*</span>
+                            </label>
+                            <input
+                                type="tel"
+                                {...register("phone")}
+                                placeholder="05XX XXX XX XX"
+                                style={{
+                                    width: '100%',
+                                    padding: '12px 16px',
+                                    borderRadius: '10px',
+                                    border: errors.phone ? '2px solid #EF4444' : '2px solid #E5E7EB',
+                                    fontSize: '0.95rem',
+                                    outline: 'none',
+                                    transition: 'border-color 0.2s, box-shadow 0.2s',
+                                    boxSizing: 'border-box'
+                                }}
+                                onFocus={(e) => {
+                                    e.target.style.borderColor = '#8CC63F';
+                                    e.target.style.boxShadow = '0 0 0 3px rgba(140, 198, 63, 0.15)';
+                                }}
+                                onBlur={(e) => {
+                                    e.target.style.borderColor = errors.phone ? '#EF4444' : '#E5E7EB';
+                                    e.target.style.boxShadow = 'none';
+                                }}
+                            />
+                            {errors.phone && (
+                                <p style={{ color: '#EF4444', fontSize: '0.75rem', marginTop: '4px' }}>{errors.phone.message}</p>
+                            )}
+                        </div>
+                        <div>
+                            <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: '500', color: '#2C3E50', marginBottom: '6px' }}>
+                                {t("email")} <span style={{ color: '#EF4444' }}>*</span>
+                            </label>
+                            <input
+                                type="email"
+                                {...register("email")}
+                                style={{
+                                    width: '100%',
+                                    padding: '12px 16px',
+                                    borderRadius: '10px',
+                                    border: errors.email ? '2px solid #EF4444' : '2px solid #E5E7EB',
+                                    fontSize: '0.95rem',
+                                    outline: 'none',
+                                    transition: 'border-color 0.2s, box-shadow 0.2s',
+                                    boxSizing: 'border-box'
+                                }}
+                                onFocus={(e) => {
+                                    e.target.style.borderColor = '#8CC63F';
+                                    e.target.style.boxShadow = '0 0 0 3px rgba(140, 198, 63, 0.15)';
+                                }}
+                                onBlur={(e) => {
+                                    e.target.style.borderColor = errors.email ? '#EF4444' : '#E5E7EB';
+                                    e.target.style.boxShadow = 'none';
+                                }}
+                            />
+                            {errors.email && (
+                                <p style={{ color: '#EF4444', fontSize: '0.75rem', marginTop: '4px' }}>{errors.email.message}</p>
+                            )}
+                        </div>
+                    </div>
+
+                    {/* Property Type */}
+                    <div style={{ marginBottom: '16px' }}>
+                        <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: '500', color: '#2C3E50', marginBottom: '6px' }}>
+                            {t("propertyType")} <span style={{ color: '#EF4444' }}>*</span>
+                        </label>
+                        <select
+                            {...register("propertyType")}
+                            style={{
+                                width: '100%',
+                                padding: '12px 16px',
+                                borderRadius: '10px',
+                                border: errors.propertyType ? '2px solid #EF4444' : '2px solid #E5E7EB',
+                                fontSize: '0.95rem',
+                                outline: 'none',
+                                transition: 'border-color 0.2s, box-shadow 0.2s',
+                                boxSizing: 'border-box',
+                                background: 'white',
+                                cursor: 'pointer'
+                            }}
+                            onFocus={(e) => {
+                                e.target.style.borderColor = '#8CC63F';
+                                e.target.style.boxShadow = '0 0 0 3px rgba(140, 198, 63, 0.15)';
+                            }}
+                            onBlur={(e) => {
+                                e.target.style.borderColor = errors.propertyType ? '#EF4444' : '#E5E7EB';
+                                e.target.style.boxShadow = 'none';
+                            }}
+                        >
+                            <option value="">{t("select")}</option>
+                            <option value="arazi">{t("arazi")}</option>
+                            <option value="konut">{t("konut")}</option>
+                            <option value="diger">{t("diger")}</option>
+                        </select>
+                        {errors.propertyType && (
+                            <p style={{ color: '#EF4444', fontSize: '0.75rem', marginTop: '4px' }}>{errors.propertyType.message}</p>
+                        )}
+                    </div>
+
+                    {/* Notes */}
+                    <div style={{ marginBottom: '16px' }}>
+                        <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: '500', color: '#2C3E50', marginBottom: '6px' }}>
+                            {t("notes")}
+                        </label>
+                        <textarea
+                            {...register("notes")}
+                            rows={3}
+                            style={{
+                                width: '100%',
+                                padding: '12px 16px',
+                                borderRadius: '10px',
+                                border: '2px solid #E5E7EB',
+                                fontSize: '0.95rem',
+                                outline: 'none',
+                                transition: 'border-color 0.2s, box-shadow 0.2s',
+                                boxSizing: 'border-box',
+                                resize: 'vertical',
+                                minHeight: '80px'
+                            }}
+                            onFocus={(e) => {
+                                e.target.style.borderColor = '#8CC63F';
+                                e.target.style.boxShadow = '0 0 0 3px rgba(140, 198, 63, 0.15)';
+                            }}
+                            onBlur={(e) => {
+                                e.target.style.borderColor = '#E5E7EB';
+                                e.target.style.boxShadow = 'none';
+                            }}
+                        />
+                    </div>
+
+                    {/* KVKK Consent */}
+                    <div style={{
+                        padding: '16px',
+                        background: 'rgba(140, 198, 63, 0.05)',
+                        borderRadius: '12px',
+                        marginBottom: '20px',
+                        border: '1px solid rgba(140, 198, 63, 0.15)'
+                    }}>
+                        <div style={{ display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
+                            <input
+                                type="checkbox"
+                                {...register("kvkkAccepted")}
+                                id="kvkkAccepted"
+                                style={{
+                                    width: '20px',
+                                    height: '20px',
+                                    marginTop: '2px',
+                                    accentColor: '#8CC63F',
+                                    cursor: 'pointer'
+                                }}
+                            />
+                            <label htmlFor="kvkkAccepted" style={{ fontSize: '0.85rem', color: '#6B7280', cursor: 'pointer', lineHeight: '1.5' }}>
+                                {t("kvkkPrefix")}
+                                <Link href={getLocalizedHref("/kvkk")} target="_blank" style={{ color: '#8CC63F', fontWeight: '500', textDecoration: 'none' }}>
+                                    {t("kvkkText")}
+                                </Link>
+                                {t("and")}
+                                <Link href={getLocalizedHref("/gizlilik")} target="_blank" style={{ color: '#8CC63F', fontWeight: '500', textDecoration: 'none' }}>
+                                    {t("privacyText")}
+                                </Link>
+                                {t("kvkkSuffix")} <span style={{ color: '#EF4444' }}>*</span>
+                            </label>
+                        </div>
+                        {errors.kvkkAccepted && (
+                            <p style={{ color: '#EF4444', fontSize: '0.75rem', marginTop: '8px', marginLeft: '32px' }}>{errors.kvkkAccepted.message}</p>
+                        )}
+                    </div>
+
+                    {/* Error Message */}
+                    {submitStatus === "error" && (
+                        <div style={{
+                            padding: '14px 16px',
+                            background: '#FEF2F2',
+                            border: '1px solid #FECACA',
+                            borderRadius: '12px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '12px',
+                            marginBottom: '20px'
+                        }}>
+                            <AlertCircle size={20} color="#EF4444" />
+                            <p style={{ color: '#DC2626', fontSize: '0.9rem', margin: 0 }}>{t("error")}</p>
+                        </div>
+                    )}
+
+                    {/* Submit Button */}
+                    <button
+                        type="submit"
+                        disabled={isSubmitting}
+                        className={styles.confirmBtn}
+                        style={{
+                            opacity: isSubmitting ? 0.7 : 1,
+                            cursor: isSubmitting ? 'wait' : 'pointer'
+                        }}
                     >
-                        <option value="">{t("select")}</option>
-                        <option value="arazi">{t("arazi")}</option>
-                        <option value="konut">{t("konut")}</option>
-                        <option value="diger">{t("diger")}</option>
-                    </select>
-                    {errors.propertyType && (
-                        <p className={errorClassName}>{errors.propertyType.message}</p>
-                    )}
-                </div>
-
-                {/* Notes */}
-                <div>
-                    <label className={labelClassName}>{t("notes")}</label>
-                    <textarea
-                        {...register("notes")}
-                        rows={3}
-                        className={inputClassName}
-                    />
-                </div>
-
-                {/* KVKK Consent */}
-                <div className="p-3 bg-gray-50 rounded-lg">
-                    <div className="flex items-start gap-2">
-                        <input
-                            type="checkbox"
-                            {...register("kvkkAccepted")}
-                            id="kvkkAccepted"
-                            className="w-4 h-4 mt-0.5 rounded border-gray-300 text-[#8CC63F] focus:ring-[#8CC63F] cursor-pointer"
-                        />
-                        <label htmlFor="kvkkAccepted" className="text-xs text-[#6B7280] cursor-pointer">
-                            {t("kvkkPrefix")}
-                            <Link href={getLocalizedHref("/kvkk")} target="_blank" className="text-[#8CC63F] hover:underline font-medium">
-                                {t("kvkkText")}
-                            </Link>
-                            {t("and")}
-                            <Link href={getLocalizedHref("/gizlilik")} target="_blank" className="text-[#8CC63F] hover:underline font-medium">
-                                {t("privacyText")}
-                            </Link>
-                            {t("kvkkSuffix")} <span className="text-red-500">*</span>
-                        </label>
-                    </div>
-                    {errors.kvkkAccepted && (
-                        <p className={cn(errorClassName, "mt-1")}>{errors.kvkkAccepted.message}</p>
-                    )}
-                </div>
-
-                {/* Error Message */}
-                {submitStatus === "error" && (
-                    <div className="p-3 bg-red-50 border border-red-200 rounded-lg flex items-center gap-2">
-                        <AlertCircle className="w-4 h-4 text-red-500" />
-                        <p className="text-red-700 text-sm">{t("error")}</p>
-                    </div>
-                )}
-
-                {/* Submit Button */}
-                <Button type="submit" size="lg" className="w-full" disabled={isSubmitting}>
-                    {isSubmitting ? (
-                        <>
-                            <Loader2 className="w-5 h-5 animate-spin mr-2" />
-                            {t("submitting")}
-                        </>
-                    ) : (
-                        <>
-                            <Send className="w-5 h-5 mr-2" />
-                            {t("submit")}
-                        </>
-                    )}
-                </Button>
-            </form>
-        </motion.div>
+                        {isSubmitting ? (
+                            <>
+                                <Loader2 size={20} className="animate-spin" />
+                                {t("submitting")}
+                            </>
+                        ) : (
+                            <>
+                                <Send size={20} />
+                                {t("submit")}
+                            </>
+                        )}
+                    </button>
+                </form>
+            </div>
+        </div>
     );
 }
