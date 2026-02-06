@@ -172,24 +172,6 @@ export default function PackageConfigurator({
                         ) : (
                             <>
                                 <div className={styles.optionsList}>
-                                    {/* "Kimler için?" section */}
-                                    {packageData.kimlerIcin && packageData.kimlerIcin.length > 0 && (
-                                        <div className="mb-6">
-                                            <h3 className="text-lg font-semibold text-[#8CC63F] mb-3">{pkgForWhomTitle}</h3>
-                                            <ul className="space-y-2">
-                                                {packageData.kimlerIcin.map((item, index) => {
-                                                    const itemKey = `${pkgKey}_kimler_${index + 1}`;
-                                                    return (
-                                                        <li key={index} className="flex items-start gap-2 text-sm text-[#6B7280]">
-                                                            <span className="text-[#8CC63F] mt-0.5">•</span>
-                                                            <span dangerouslySetInnerHTML={{ __html: t(itemKey, item) }} />
-                                                        </li>
-                                                    );
-                                                })}
-                                            </ul>
-                                        </div>
-                                    )}
-
                                     <h3 className={styles.sectionTitle}>{pkgAddonsTitle}</h3>
                                     {hasAddOns ? (
                                         packageData.addOns?.map((option, index) => {
