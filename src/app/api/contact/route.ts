@@ -31,11 +31,13 @@ export async function POST(request: NextRequest) {
       notes,
       selectedOptions,
       kvkkAccepted,
+      source,
     } = data;
 
     // Save to database
     await prisma.contactSubmission.create({
       data: {
+        source: source || "contact",
         firstName,
         lastName,
         phone,

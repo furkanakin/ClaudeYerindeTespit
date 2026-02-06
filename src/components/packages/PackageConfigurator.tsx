@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { X, Check, ArrowRight } from "lucide-react";
 import { Package, PackageAddOn } from "@/lib/data/packages";
 import styles from "./PackageConfigurator.module.css";
-import Link from "next/link";
+import PackageQuoteForm from "./PackageQuoteForm";
 
 interface PackageConfiguratorProps {
     isOpen: boolean;
@@ -24,12 +24,14 @@ export default function PackageConfigurator({
 }: PackageConfiguratorProps) {
     const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
     const [totalPrice, setTotalPrice] = useState(0);
+    const [showQuoteForm, setShowQuoteForm] = useState(false);
 
     // Reset state when package opens/changes
     useEffect(() => {
         if (packageData) {
             setSelectedOptions([]);
             setTotalPrice(packageData.basePrice);
+            setShowQuoteForm(false);
         }
     }, [packageData, isOpen]);
 
@@ -156,119 +158,117 @@ export default function PackageConfigurator({
                     </div>
 
                     <div className={styles.content}>
-                        <div className={styles.optionsList}>
-                            {/* "Kimler için?" section */}
-                            {packageData.kimlerIcin && packageData.kimlerIcin.length > 0 && (
-                                <div className="mb-6">
-                                    <h3 className="text-lg font-semibold text-[#8CC63F] mb-3">{pkgForWhomTitle}</h3>
-                                    <ul className="space-y-2">
-                                        {packageData.kimlerIcin.map((item, index) => {
-                                            const itemKey = `${pkgKey}_kimler_${index + 1}`;
-                                            return (
-                                                <li key={index} className="flex items-start gap-2 text-sm text-[#6B7280]">
-                                                    <span className="text-[#8CC63F] mt-0.5">•</span>
-                                                    <span dangerouslySetInnerHTML={{ __html: t(itemKey, item) }} />
-                                                </li>
-                                            );
-                                        })}
-                                    </ul>
-                                </div>
-                            )}
-
-                            <h3 className={styles.sectionTitle}>{pkgAddonsTitle}</h3>
-                            {hasAddOns ? (
-                                packageData.addOns?.map((option, index) => {
-                                    // Try to find translation for name, desc, priceLabel
-                                    const addonName = t(`${pkgKey}_addon${index + 1}_name`, option.name);
-                                    const addonDesc = t(`${pkgKey}_addon${index + 1}_desc`, option.description || "");
-
-                                    // Price translation logic:
-                                    // 1. Check for explicit translation in DB
-                                    // 2. If price is 0, use global "Get Quote" text
-                                    // 3. Fallback to hardcoded option.priceLabel
-                                    let addonPrice = t(`${pkgKey}_addon${index + 1}_price`, "");
-                                    if (!addonPrice) {
-                                        addonPrice = option.price === 0 ? getQuoteText : option.priceLabel;
-                                    }
-
-                                    return (
-                                        <div
-                                            key={option.id}
-                                            className={`${styles.optionItem} ${selectedOptions.includes(option.id) ? styles.selected : ""
-                                                }`}
-                                            onClick={() => toggleOption(option)}
-                                        >
-                                            <div className={styles.checkbox}>
-                                                {selectedOptions.includes(option.id) && (
-                                                    <Check size={16} color="white" />
-                                                )}
-                                            </div>
-                                            <div className={styles.optionInfo}>
-                                                <span className={styles.optionName}>{addonName}</span>
-                                                <span className={styles.optionDesc}>
-                                                    {addonDesc}
-                                                </span>
-                                            </div>
-                                            <span className={styles.optionPrice}>
-                                                {addonPrice}
-                                            </span>
+                        {showQuoteForm ? (
+                            <PackageQuoteForm
+                                packageId={packageData.id}
+                                packageTitle={pkgTitle}
+                                selectedAddons={packageData.addOns?.filter(addon => selectedOptions.includes(addon.id)).map(addon => addon.name) || []}
+                                totalPrice={totalPrice}
+                                locale={locale}
+                                translations={translations}
+                                onBack={() => setShowQuoteForm(false)}
+                                onSuccess={onClose}
+                            />
+                        ) : (
+                            <>
+                                <div className={styles.optionsList}>
+                                    {/* "Kimler için?" section */}
+                                    {packageData.kimlerIcin && packageData.kimlerIcin.length > 0 && (
+                                        <div className="mb-6">
+                                            <h3 className="text-lg font-semibold text-[#8CC63F] mb-3">{pkgForWhomTitle}</h3>
+                                            <ul className="space-y-2">
+                                                {packageData.kimlerIcin.map((item, index) => {
+                                                    const itemKey = `${pkgKey}_kimler_${index + 1}`;
+                                                    return (
+                                                        <li key={index} className="flex items-start gap-2 text-sm text-[#6B7280]">
+                                                            <span className="text-[#8CC63F] mt-0.5">•</span>
+                                                            <span dangerouslySetInnerHTML={{ __html: t(itemKey, item) }} />
+                                                        </li>
+                                                    );
+                                                })}
+                                            </ul>
                                         </div>
-                                    );
-                                })
-                            ) : (
-                                <p className="text-gray-500 italic">{noAddonsText}</p>
-                            )}
-                        </div>
+                                    )}
 
-                        <div className={styles.summary}>
-                            <div className={styles.summaryRow}>
-                                <div className="flex flex-col">
-                                    <span>{basePriceText}</span>
-                                    {packageData.basePriceNote && (
-                                        <span className="text-xs text-[#9CA3AF]">{pkgBasePriceNote}</span>
+                                    <h3 className={styles.sectionTitle}>{pkgAddonsTitle}</h3>
+                                    {hasAddOns ? (
+                                        packageData.addOns?.map((option, index) => {
+                                            // Try to find translation for name, desc, priceLabel
+                                            const addonName = t(`${pkgKey}_addon${index + 1}_name`, option.name);
+                                            const addonDesc = t(`${pkgKey}_addon${index + 1}_desc`, option.description || "");
+
+                                            // Price translation logic:
+                                            // 1. Check for explicit translation in DB
+                                            // 2. If price is 0, use global "Get Quote" text
+                                            // 3. Fallback to hardcoded option.priceLabel
+                                            let addonPrice = t(`${pkgKey}_addon${index + 1}_price`, "");
+                                            if (!addonPrice) {
+                                                addonPrice = option.price === 0 ? getQuoteText : option.priceLabel;
+                                            }
+
+                                            return (
+                                                <div
+                                                    key={option.id}
+                                                    className={`${styles.optionItem} ${selectedOptions.includes(option.id) ? styles.selected : ""
+                                                        }`}
+                                                    onClick={() => toggleOption(option)}
+                                                >
+                                                    <div className={styles.checkbox}>
+                                                        {selectedOptions.includes(option.id) && (
+                                                            <Check size={16} color="white" />
+                                                        )}
+                                                    </div>
+                                                    <div className={styles.optionInfo}>
+                                                        <span className={styles.optionName}>{addonName}</span>
+                                                        <span className={styles.optionDesc}>
+                                                            {addonDesc}
+                                                        </span>
+                                                    </div>
+                                                    <span className={styles.optionPrice}>
+                                                        {addonPrice}
+                                                    </span>
+                                                </div>
+                                            );
+                                        })
+                                    ) : (
+                                        <p className="text-gray-500 italic">{noAddonsText}</p>
                                     )}
                                 </div>
-                                <span className={styles.priceValue}>{packageData.basePrice > 0 ? formatPrice(packageData.basePrice) : basedOnScopeText}</span>
-                            </div>
-                            <div className={styles.summaryRow}>
-                                <span>{extraServicesText} ({selectedOptions.length})</span>
-                                <span className={styles.priceValue}>
-                                    {packageData.basePrice > 0
-                                        ? `+${formatPrice(totalPrice - packageData.basePrice)}`
-                                        : "0 ₺"}
-                                </span>
-                            </div>
-                            <div className={`${styles.summaryRow} ${styles.total}`}>
-                                <span>{totalEstimatedText}</span>
-                                <span className={styles.totalPrice}>
-                                    {packageData.basePrice > 0 ? formatPrice(totalPrice) : pkgPrice}
-                                </span>
-                            </div>
 
-                            <Link
-                                href={`/${locale}/iletisim`}
-                                onClick={() => {
-                                    // Save selections to localStorage for ContactForm
-                                    const selectedAddons = packageData.addOns
-                                        ?.filter(addon => selectedOptions.includes(addon.id))
-                                        .map(addon => addon.name) || [];
+                                <div className={styles.summary}>
+                                    <div className={styles.summaryRow}>
+                                        <div className="flex flex-col">
+                                            <span>{basePriceText}</span>
+                                            {packageData.basePriceNote && (
+                                                <span className="text-xs text-[#9CA3AF]">{pkgBasePriceNote}</span>
+                                            )}
+                                        </div>
+                                        <span className={styles.priceValue}>{packageData.basePrice > 0 ? formatPrice(packageData.basePrice) : basedOnScopeText}</span>
+                                    </div>
+                                    <div className={styles.summaryRow}>
+                                        <span>{extraServicesText} ({selectedOptions.length})</span>
+                                        <span className={styles.priceValue}>
+                                            {packageData.basePrice > 0
+                                                ? `+${formatPrice(totalPrice - packageData.basePrice)}`
+                                                : "0 ₺"}
+                                        </span>
+                                    </div>
+                                    <div className={`${styles.summaryRow} ${styles.total}`}>
+                                        <span>{totalEstimatedText}</span>
+                                        <span className={styles.totalPrice}>
+                                            {packageData.basePrice > 0 ? formatPrice(totalPrice) : pkgPrice}
+                                        </span>
+                                    </div>
 
-                                    const configData = {
-                                        packageId: packageData.id,
-                                        packageTitle: pkgTitle,
-                                        selectedAddons: selectedAddons,
-                                        totalPrice: totalPrice,
-                                    };
-                                    localStorage.setItem('packageConfig', JSON.stringify(configData));
-                                    onClose();
-                                }}
-                                className="w-full"
-                            >
-                                <button className={styles.confirmBtn}>
-                                    {getQuoteText} <ArrowRight size={20} />
-                                </button>
-                            </Link>
-                        </div>
+                                    <button
+                                        onClick={() => setShowQuoteForm(true)}
+                                        className={styles.confirmBtn}
+                                    >
+                                        {getQuoteText} <ArrowRight size={20} />
+                                    </button>
+                                </div>
+                            </>
+                        )}
                     </div>
                 </motion.div>
             </div>

@@ -27,8 +27,12 @@ const menuItems = [
     },
     {
         title: "Başvurular",
-        href: "/admin/basvurular",
         icon: Mail,
+        children: [
+            { title: "Tüm Başvurular", href: "/admin/basvurular", icon: Mail },
+            { title: "Paket Talepleri", href: "/admin/basvurular/paketler", icon: Package },
+            { title: "İletişim Formu", href: "/admin/basvurular/iletisim", icon: Phone },
+        ],
     },
     {
         title: "Paketler",

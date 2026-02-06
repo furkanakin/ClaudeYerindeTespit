@@ -27,6 +27,7 @@ model Session {
 
 model ContactSubmission {
   id              String   @id @default(cuid())
+  source          String   @default("contact") // "contact" veya "package"
   firstName       String
   lastName        String
   phone           String
