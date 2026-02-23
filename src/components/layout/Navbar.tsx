@@ -28,7 +28,7 @@ const menuTranslations: Record<string, Record<string, string>> = {
   }
 };
 
-export default function Navbar({ locale = "tr" }: { locale?: string }) {
+export default function Navbar({ locale = "tr", translations = {} }: { locale?: string, translations?: Record<string, string> }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const pathname = usePathname();
@@ -42,7 +42,7 @@ export default function Navbar({ locale = "tr" }: { locale?: string }) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const t = (key: string) => menuTranslations[locale]?.[key] || key;
+  const t = (key: string) => translations[key] || menuTranslations[locale]?.[key] || key;
 
   // Check if current page is homepage
   const isHomePage = pathname === `/${locale}` || pathname === `/${locale}/` || pathname === "/";

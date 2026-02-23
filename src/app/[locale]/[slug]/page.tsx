@@ -3,6 +3,7 @@ import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import { getTranslations } from "@/lib/translations";
 
 interface LegalPageProps {
     params: Promise<{ locale: string; slug: string }>;
@@ -55,9 +56,12 @@ export default async function LegalPage({ params }: LegalPageProps) {
     const title = isEn ? page.titleEn : page.titleTr;
     const content = isEn ? page.contentEn : page.contentTr;
 
+    const navbarTranslations = await getTranslations("navbar", locale);
+    const footerTranslations = await getTranslations("footer", locale);
+
     return (
         <>
-            <Navbar locale={locale} />
+            <Navbar locale={locale} translations={navbarTranslations} />
             <main className="min-h-screen bg-gradient-to-b from-[#F8FAF5] to-white pt-24 pb-16">
                 <div className="container mx-auto px-4 max-w-4xl">
                     <h1 className="text-3xl md:text-4xl font-bold text-[#2C3E50] mb-8">
@@ -69,7 +73,7 @@ export default async function LegalPage({ params }: LegalPageProps) {
                     />
                 </div>
             </main>
-            <Footer locale={locale} />
+            <Footer locale={locale} translations={footerTranslations} />
         </>
     );
 }

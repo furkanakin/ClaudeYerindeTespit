@@ -7,6 +7,7 @@ import { getLocalizedPath } from "@/lib/i18n/routes";
 
 interface FooterProps {
   locale?: string;
+  translations?: Record<string, string>;
 }
 
 const footerTranslations: Record<string, Record<string, string>> = {
@@ -38,8 +39,8 @@ const footerTranslations: Record<string, Record<string, string>> = {
   }
 };
 
-export default function Footer({ locale = "tr" }: FooterProps) {
-  const t = (key: string) => footerTranslations[locale]?.[key] || footerTranslations.tr[key] || key;
+export default function Footer({ locale = "tr", translations = {} }: FooterProps) {
+  const t = (key: string) => translations[key] || footerTranslations[locale]?.[key] || footerTranslations.tr[key] || key;
 
   const quickLinks = [
     { internalPath: "/hakkimizda", label: t("about") },
