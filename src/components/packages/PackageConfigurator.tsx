@@ -53,7 +53,8 @@ export default function PackageConfigurator({
     const basePriceText = translations.basePriceText || (isEn ? "Base Price" : "Baz Fiyat");
     const extraServicesText = translations.extraServicesText || (isEn ? "Extra Services" : "Ek Hizmetler");
     const totalEstimatedText = translations.totalEstimatedText || (isEn ? "Total Estimated Amount" : "Toplam Tahmini Tutar");
-    const getQuoteText = translations.getQuoteText || (isEn ? "Get Quote" : "Teklif Alın");
+    // Merge getQuoteText and ui_get_quote so either one changed in Admin Panel will reflect here
+    const getQuoteText = translations.ui_get_quote || translations.getQuoteText || (isEn ? "Get Quote" : "Teklif Alın");
     const noAddonsText = translations.noAddonsText || (isEn ? "No additional services available for this package." : "Bu paket için ek hizmet bulunmamaktadır.");
     const basedOnScopeText = translations.basedOnScopeText || (isEn ? "Based on Scope" : "Kapsama Göre");
     const taxLabel = translations.taxLabel || (isEn ? "VAT" : "KDV");
